@@ -1,0 +1,4665 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-77c3b874f32e71b14cded5a120f42f5c7288fa52e0a37f2d5919fbd8bcfca63c.css" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-be6fb2d13c0f5a7f90f50a2d176aa40de82344329a86e85e0a1a80409a88340c.css" media="all" rel="stylesheet" />
+  
+  
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/site-87fc1b705115bb5758018dffb7c1ed35b316b40ef094c4d5bd0478efe83d7af7.css" media="all" rel="stylesheet" />
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>[stdlib] Remove _StringCore from UTF8View.Index by natecook1000 · Pull Request #3452 · apple/swift · GitHub</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars1.githubusercontent.com/u/7053374?v=4&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="[stdlib] Remove _StringCore from UTF8View.Index by natecook1000 · Pull Request #3452 · apple/swift" property="og:title" /><meta content="https://github.com/apple/swift/pull/3452" property="og:url" /><meta content="What&#39;s in this pull request?
+This removes the _core property from UTF8View.Index instances. I don&#39;t think this will reduce as many unnecessary copies as the same change on UnicodeScalarView.Index s..." property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  
+  <meta name="pjax-timeout" content="1000">
+  
+  <meta name="request-id" content="5E06:195E2:3902E82:657A123:5980F037" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_pulls" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="5E06:195E2:3902E82:657A123:5980F037" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/pull_requests/show/files" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged Out">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="MjdkYTI2OTBiN2NiYzExNzdmNmNmNTJkNzMwYzhkZTBkYmM1ZGMzN2FiZGFlOWFmYjJlMjZiZjQ2NmNkNTE3OXx7InJlbW90ZV9hZGRyZXNzIjoiMzIuOTcuMTEwLjYxIiwicmVxdWVzdF9pZCI6IjVFMDY6MTk1RTI6MzkwMkU4Mjo2NTdBMTIzOjU5ODBGMDM3IiwidGltZXN0YW1wIjoxNTAxNjIyMzI5LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+
+
+  <meta name="html-safe-nonce" content="5497334e1f59d27ae2224525c65dd3d1ec6e8a04">
+
+  <meta http-equiv="x-pjax-version" content="21402ecd44637867a6c92c4eebf4ee92">
+  
+
+      <link data-pjax-transient rel="alternate" type="text/x-diff" href="/apple/swift/pull/3452.diff">
+  <link data-pjax-transient rel="alternate" type="text/x-patch" href="/apple/swift/pull/3452.patch">
+
+  <meta name="diff-view" content="split" data-pjax-transient>
+  <link href="https://github.com/apple/swift/commits/b0e20e1eda3496cea07b56c586f0ac90608ef549.atom" rel="alternate" title="Recent Commits to swift:b0e20e1eda3496cea07b56c586f0ac90608ef549" type="application/atom+xml">
+
+  <meta name="description" content="swift - The Swift Programming Language">
+  <meta name="go-import" content="github.com/apple/swift git https://github.com/apple/swift.git">
+
+  <meta content="10639145" name="octolytics-dimension-user_id" /><meta content="apple" name="octolytics-dimension-user_login" /><meta content="44838949" name="octolytics-dimension-repository_id" /><meta content="apple/swift" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="44838949" name="octolytics-dimension-repository_network_root_id" /><meta content="apple/swift" name="octolytics-dimension-repository_network_root_nwo" /><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+
+  </head>
+
+  <body class="logged-out env-production full-width">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="px-2 py-4 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-out position-relative f4 py-3" role="banner">
+  <div class="container-lg px-3 clearfix">
+    <div class="d-flex flex-justify-between">
+      <div class="d-flex">
+        <a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+          <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+
+        <div class="header-sitemenu clearfix">
+            <nav>
+              <ul class="d-flex list-style-none">
+                  <li class="ml-2">
+                    <a href="/features" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:features" data-selected-links="/features /features">
+                      Features
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/business" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:business" data-selected-links="/business /business/security /business/customers /business">
+                      Business
+</a>                  </li>
+
+                  <li class="ml-4">
+                    <a href="/explore" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship /showcases /explore">
+                      Explore
+</a>                  </li>
+
+                  <li class="ml-4">
+                        <a href="/marketplace" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:marketplace" data-selected-links=" /marketplace">
+                          Marketplace
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/pricing" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:pricing" data-selected-links="/pricing /pricing/developer /pricing/team /pricing/business-hosted /pricing/business-enterprise /pricing">
+                      Pricing
+</a>                  </li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+
+      <div class="d-flex">
+          <div class="mt-1 mr-3">
+            <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/apple/swift/search" class="js-site-search-form" data-scoped-search-url="/apple/swift/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/apple/swift/pull/3452/files" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+          </div>
+
+        <span class="d-inline-block">
+            <div class="header-navlink px-0 py-2 m-0">
+              <a class="text-bold text-white no-underline" href="/login?return_to=%2Fapple%2Fswift%2Fpull%2F3452%2Ffiles%3Fdiff%3Dsplit" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+                <span class="text-gray">or</span>
+                <a class="text-bold text-white no-underline" href="/join?source=header-repo" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+      
+
+
+
+
+  
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+    Watch
+  </a>
+  <a class="social-count" href="/apple/swift/watchers"
+     aria-label="2556 users are watching this repository">
+    2,556
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/apple/swift/stargazers"
+      aria-label="39661 users starred this repository">
+      39,661
+    </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+        Fork
+      </a>
+
+    <a href="/apple/swift/network" class="social-count"
+       aria-label="6020 users forked this repository">
+      6,020
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/apple" class="url fn" rel="author">apple</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/apple/swift" data-pjax="#js-repo-pjax-container">swift</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /apple/swift" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift/pulls" class="js-selected-navigation-item selected reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /apple/swift/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">166</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+
+
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="/apple/swift/pulse" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="/apple/swift/graphs" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div class="issues-listing js-review-state-classes " data-pjax>
+    <div id="files_bucket" class="files-bucket files-next-bucket clearfix pull-request-tab-content is-visible">
+      
+
+
+        
+  <div
+    id="partial-discussion-header"
+    class="gh-header js-details-container Details js-socket-channel js-updatable-content pull request"
+    data-channel="pull_request:77011968"
+    data-url="/apple/swift/pull/3452/show_partial?partial=pull_requests%2Ftitle">
+
+  <div class="gh-header-show gh-header-no-access">
+      <div class="gh-header-actions">
+
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        [stdlib] Remove _StringCore from UTF8View.Index
+      </span>
+      <span class="gh-header-number">#3452</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--purple">
+          <svg aria-hidden="true" class="octicon octicon-git-merge" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 0 0 2 .99C.89.99 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 0 0 1-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+          Merged
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+          <a href="/gribozavr" class="author pull-header-username css-truncate css-truncate-target expandable">
+    gribozavr
+  </a>
+  merged 3 commits into
+
+
+
+  <span class="commit-ref css-truncate user-select-contain expandable " title="apple/swift:master"><span class="css-truncate-target user">apple</span>:<span class="css-truncate-target">master</span></span>
+
+from
+
+<span class="commit-ref css-truncate user-select-contain expandable head-ref" title="natecook1000/swift:nc-utf8index-nocore"><span class="css-truncate-target user">natecook1000</span>:<span class="css-truncate-target">nc-utf8index-nocore</span></span>
+
+
+  <relative-time datetime="2016-07-13T16:11:29Z">Jul 13, 2016</relative-time>
+
+    </div>
+  </div>
+</div>
+
+        
+<div class="tabnav tabnav-pr">
+
+  <nav class="tabnav-tabs">
+      <link rel="pjax-prefetch" href="/apple/swift/pull/3452">
+    <a href="/apple/swift/pull/3452" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-comment-discussion" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/></svg>
+      Conversation
+
+      <span id="conversation_tab_counter" class="Counter">
+        29
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/3452/commits" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-git-commit" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"/></svg>
+      Commits
+
+      <span id="commits_tab_counter" class="Counter">
+        3
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/3452/files" class="tabnav-tab selected js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-diff" height="16" version="1.1" viewBox="0 0 13 16" width="13"><path fill-rule="evenodd" d="M6 7h2v1H6v2H5V8H3V7h2V5h1v2zm-3 6h5v-1H3v1zM7.5 2L11 5.5V15c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h6.5zM10 6L7 3H1v12h9V6zM8.5 0H3v1h5l4 4v8h1V4.5L8.5 0z"/></svg>
+      Files changed
+
+        <span id="files_tab_counter" class="Counter">
+            4
+        </span>
+    </a>
+  </nav>
+</div>
+
+
+        <div class="pr-toolbar js-sticky js-sticky-offset-scroll">
+          <div class="diffbar details-collapse js-details-container Details">
+            
+
+<div class="diffbar-item">
+  <div class="diffbar-range-menu select-menu js-menu-container js-select-menu js-diffbar-commits-menu"
+    data-range-url="/apple/swift/pull/3452/files/$range">
+    <div class="js-select-button">
+      <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="c">
+        Changes from
+          <strong>all commits</strong>
+      </button>
+    </div>
+
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">Commits</span>
+        </div>
+        <div class="select-menu-list js-navigation-container js-active-navigation-container" role="menu">
+          <a href="/apple/swift/pull/3452/files" class="select-menu-item js-navigation-item js-navigation-open" role="menuitem">
+            <div class="select-menu-item-text">
+              <div class="text-emphasized css-truncate css-truncate-target">
+                Show all changes
+              </div>
+              <span class="description">
+                3 commits
+              </span>
+            </div>
+          </a>
+
+
+          <div class="select-menu-divider">
+            Select commit
+              <span class="note text-normal mt-0 float-right">Hold shift + click to select a range</span>
+          </div>
+
+          <div class="js-diffbar-commits-list">
+              <a href="/apple/swift/pull/3452/commits/c9278a1b50f1dcbb5befba92c603914a6b073d86"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="c9278a1" >
+                <div class="select-menu-item-text">
+                  <code class="float-right">c9278a1</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Remove _StringCore from UTF8View.Index
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2016-07-08T15:59:47Z">Jul 8, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/3452/commits/e5ab7506aec929228faa6ae2b50a6b8b3723a0eb"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="e5ab750" data-parent-commit="c9278a1">
+                <div class="select-menu-item-text">
+                  <code class="float-right">e5ab750</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Fix UTF8View.Index less-than operator
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2016-07-09T02:59:59Z">Jul 9, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/3452/commits/b0e20e1eda3496cea07b56c586f0ac90608ef549"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="b0e20e1" data-parent-commit="e5ab750">
+                <div class="select-menu-item-text">
+                  <code class="float-right">b0e20e1</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Add string view index comparability test
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2016-07-09T03:00:30Z">Jul 9, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+<include-fragment src="/apple/swift/pull/3452/show_toc?base_sha=cd59716c783d69e7f8462062cad0f2a40f33e727&amp;ds=true&amp;sha1=cd59716c783d69e7f8462062cad0f2a40f33e727&amp;sha2=b0e20e1eda3496cea07b56c586f0ac90608ef549"></include-fragment>
+
+<div class="diffbar-item toc-select select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/apple/swift/pull/3452/show_toc?base_sha=cd59716c783d69e7f8462062cad0f2a40f33e727&amp;sha1=cd59716c783d69e7f8462062cad0f2a40f33e727&amp;sha2=b0e20e1eda3496cea07b56c586f0ac90608ef549">
+  <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="t" data-ga-click="Pull Requests, open table of contents, type:semantic">
+      <strong>Jump to…</strong>
+  </button>
+  <div class="select-menu-modal-holder">
+    <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">
+              Jump to file or symbol
+          </span>
+        </div>
+        <div class="js-select-menu-deferred-content">
+          <div class="select-menu-blankslate select-menu-error">
+            Failed to load files and symbols. <button type="button" class="btn-link js-toc-retry">Retry</button>
+          </div>
+        </div>
+        <div class="select-menu-loading-overlay anim-pulse">
+          <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+              <span class="diffbar-item diffstat">
+  <span class="text-green">
+    +65
+  </span>
+  <span class="text-red">
+    −32
+  </span>
+  <span class="tooltipped tooltipped-s" aria-label="97 lines changed">
+    <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span>
+  </span>
+</span>
+
+
+            <div class="float-right pr-review-tools">
+              <div class="diffbar-item">
+  <div class="BtnGroup">
+      <a class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s" href="https://github.com/apple/swift/pull/3452/files?diff=unified" aria-label="View diff in unified mode">Unified</a>
+      <button type="button" class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s bg-gray-light text-gray-light" href="https://github.com/apple/swift/pull/3452/files?diff=split" aria-label="Viewing diff in split mode" disabled>Split</button>
+  </div>
+</div>
+
+
+            </div>
+
+                  <div class="js-socket-channel js-updatable-content js-pull-refresh-on-pjax" data-channel="pull_request:77011968" data-url="/apple/swift/pull/3452/show_partial_comparison?base_commit_oid=cd59716c783d69e7f8462062cad0f2a40f33e727&amp;end_commit_oid=b0e20e1eda3496cea07b56c586f0ac90608ef549&amp;partial=pull_requests%2Fstale_comparison&amp;start_commit_oid=cd59716c783d69e7f8462062cad0f2a40f33e727"></div>
+
+
+            <div class="modal-backdrop js-touch-events"></div>
+          </div>
+        </div>
+        <div class="pr-toolbar-shadow"></div>
+
+
+
+          <div id="files" class="diff-view ">
+
+  <div class="js-diff-progressive-container">
+    
+<a name="diff-572d963cd6190dc75d6398efb3a02ea6"></a>
+<div id="diff-0"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/public/core/StringUTF16.swift" data-short-path="572d963" data-anchor="diff-572d963cd6190dc75d6398efb3a02ea6">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b0e20e1eda3496cea07b56c586f0ac90608ef549/stdlib/public/core/StringUTF16.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b0e20e1 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="1 addition &amp; 1 deletion">2 <span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-572d963cd6190dc75d6398efb3a02ea6" class="link-gray-dark"
+         title="stdlib/public/core/StringUTF16.swift">stdlib/public/core/StringUTF16.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-572d963cd6190dc75d6398efb3a02ea6"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/ff043d00c2cc1c3db2936a951820fd0bf981e730?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=407&amp;next_line_num_right=407&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF16.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-406" data-right-range="1-406">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -407,7 +407,7 @@ extension String.UTF16View.Index {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L407"
+        data-line-number="407"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-s"><span class="pl-pds">&quot;</span>Invalid String.UTF8Index for this UTF-16 view<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R407"
+        data-line-number="407"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-s"><span class="pl-pds">&quot;</span>Invalid String.UTF8Index for this UTF-16 view<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L408"
+        data-line-number="408"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R408"
+        data-line-number="408"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L409"
+        data-line-number="409"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">//</span> Detect positions that have no corresponding index.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R409"
+        data-line-number="409"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">//</span> Detect positions that have no corresponding index.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L410"
+        data-line-number="410"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>    <span class="pl-k">if</span> <span class="pl-k">!</span>utf8Index.<span class="pl-smi">_isOnUnicodeScalarBoundary</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R410"
+        data-line-number="410"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>    <span class="pl-k">if</span> <span class="pl-k">!</span>utf8Index.<span class="pl-c1">_isOnUnicodeScalarBoundary</span><span class="x x-first">(</span><span class="pl-c1 x">in</span><span class="x x-last">: core)</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L411"
+        data-line-number="411"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">return</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R411"
+        data-line-number="411"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">return</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L412"
+        data-line-number="412"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R412"
+        data-line-number="412"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6L413"
+        data-line-number="413"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     _offset <span class="pl-k">=</span> utf8Index.<span class="pl-smi">_coreIndex</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-572d963cd6190dc75d6398efb3a02ea6R413"
+        data-line-number="413"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     _offset <span class="pl-k">=</span> utf8Index.<span class="pl-smi">_coreIndex</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-572d963cd6190dc75d6398efb3a02ea6"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/ff043d00c2cc1c3db2936a951820fd0bf981e730?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF16.swift&amp;prev_line_num_left=413&amp;prev_line_num_right=413"
+          data-left-range="414-639" data-right-range="414-639">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-aca18c7dd0d3d6efaffcf405a5ab61e4"></a>
+<div id="diff-1"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/public/core/StringUTF8.swift" data-short-path="aca18c7" data-anchor="diff-aca18c7dd0d3d6efaffcf405a5ab61e4">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b0e20e1eda3496cea07b56c586f0ac90608ef549/stdlib/public/core/StringUTF8.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b0e20e1 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="55 additions &amp; 30 deletions">85 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4" class="link-gray-dark"
+         title="stdlib/public/core/StringUTF8.swift">stdlib/public/core/StringUTF8.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;left_hunk_size=10&amp;mode=100644&amp;next_line_num_left=174&amp;next_line_num_right=174&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=10"
+            data-left-range="1-173" data-right-range="1-173">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -174,10 +174,10 @@ extension String {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L174"
+        data-line-number="174"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R174"
+        data-line-number="174"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L175"
+        data-line-number="175"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">init</span>(<span class="pl-en">_</span> <span class="pl-smi">_core</span>: _StringCore) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R175"
+        data-line-number="175"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">init</span>(<span class="pl-en">_</span> <span class="pl-smi">_core</span>: _StringCore) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L176"
+        data-line-number="176"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c1">self</span>.<span class="pl-smi">_core</span> <span class="pl-k">=</span> _core</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R176"
+        data-line-number="176"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c1">self</span>.<span class="pl-smi">_core</span> <span class="pl-k">=</span> _core</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L177"
+        data-line-number="177"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c1">self</span>.<span class="pl-smi">_endIndex</span> <span class="pl-k">=</span> <span class="pl-c1">Index</span>(<span class="x x-first x-last">_core,</span> _core.<span class="pl-c1">endIndex</span>, <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R177"
+        data-line-number="177"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c1">self</span>.<span class="pl-smi">_endIndex</span> <span class="pl-k">=</span> <span class="pl-c1">Index</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> _core.<span class="pl-c1">endIndex</span>, <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L178"
+        data-line-number="178"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(_core.<span class="pl-c1">count</span> <span class="pl-k">!=</span> <span class="pl-c1">0</span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R178"
+        data-line-number="178"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(_core.<span class="pl-c1">count</span> <span class="pl-k">!=</span> <span class="pl-c1">0</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L179"
+        data-line-number="179"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> (<span class="pl-c1">_</span>, buffer) <span class="pl-k">=</span> _core.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: <span class="pl-c1">0</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R179"
+        data-line-number="179"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> (<span class="pl-c1">_</span>, buffer) <span class="pl-k">=</span> _core.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: <span class="pl-c1">0</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L180"
+        data-line-number="180"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-c1">self</span>.<span class="pl-smi">_startIndex</span> <span class="pl-k">=</span> <span class="pl-c1">Index</span>(<span class="x x-first x-last">_core,</span> <span class="pl-c1">0</span>, buffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R180"
+        data-line-number="180"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c1">self</span>.<span class="pl-smi">_startIndex</span> <span class="pl-k">=</span> <span class="pl-c1">Index</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> <span class="pl-c1">0</span>, buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L181"
+        data-line-number="181"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       } <span class="pl-k">else</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R181"
+        data-line-number="181"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       } <span class="pl-k">else</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L182"
+        data-line-number="182"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_startIndex</span> <span class="pl-k">=</span> <span class="pl-c1">self</span>.<span class="pl-smi">_endIndex</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R182"
+        data-line-number="182"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_startIndex</span> <span class="pl-k">=</span> <span class="pl-c1">self</span>.<span class="pl-smi">_endIndex</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L183"
+        data-line-number="183"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R183"
+        data-line-number="183"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="13">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;left_hunk_size=27&amp;mode=100644&amp;next_line_num_left=208&amp;next_line_num_right=208&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=183&amp;prev_line_num_right=183&amp;right_hunk_size=42"
+            data-left-range="184-207" data-right-range="184-207">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -208,27 +208,42 @@ extension String {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L208"
+        data-line-number="208"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    <span class="pl-k">public</span> <span class="pl-k">struct</span> <span class="pl-en">Index</span> : <span class="pl-e"><span class="pl-c1">Comparable</span> </span>{</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R208"
+        data-line-number="208"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    <span class="pl-k">public</span> <span class="pl-k">struct</span> <span class="pl-en">Index</span> : <span class="pl-e"><span class="pl-c1">Comparable</span> </span>{</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L209"
+        data-line-number="209"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">internal</span> <span class="pl-k">typealias</span> <span class="pl-en">Buffer</span> <span class="pl-k">=</span> _StringCore._UTF8Chunk</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R209"
+        data-line-number="209"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">internal</span> <span class="pl-k">typealias</span> <span class="pl-en">Buffer</span> <span class="pl-k">=</span> _StringCore._UTF8Chunk</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L210"
+        data-line-number="210"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R210"
+        data-line-number="210"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L211"
+        data-line-number="211"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-k">init</span>(<span class="pl-en">_</span> <span class="pl-smi">_core</span>: _StringCore, <span class="pl-en">_</span> <span class="pl-smi">_coreIndex</span>: <span class="pl-c1">Int</span>,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R211"
+        data-line-number="211"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-k">init</span>(<span class="pl-smi"><span class="pl-en">_coreIndex</span></span>: <span class="pl-c1">Int</span>, <span class="pl-en">_</span> <span class="pl-smi">_buffer</span>: <span class="pl-c1">Buffer</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L212"
+        data-line-number="212"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-           <span class="pl-en">_</span> <span class="pl-smi">_buffer</span>: <span class="pl-c1">Buffer</span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L213"
+        data-line-number="213"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-c1">self</span>.<span class="pl-smi">_core</span> <span class="pl-k">=</span> _core</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L214"
+        data-line-number="214"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_coreIndex</span> <span class="pl-k">=</span> _coreIndex</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R212"
+        data-line-number="212"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_coreIndex</span> <span class="pl-k">=</span> _coreIndex</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L215"
+        data-line-number="215"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_buffer</span> <span class="pl-k">=</span> _buffer</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R213"
+        data-line-number="213"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c1">self</span>.<span class="pl-smi">_buffer</span> <span class="pl-k">=</span> _buffer</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L216"
+        data-line-number="216"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-c1">_sanityCheck</span>(_coreIndex <span class="pl-k">&gt;=</span> <span class="pl-c1">0</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L217"
+        data-line-number="217"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-c1">_sanityCheck</span>(_coreIndex <span class="pl-k">&lt;=</span> _core.<span class="pl-c1">count</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L218"
+        data-line-number="218"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R214"
+        data-line-number="214"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L219"
+        data-line-number="219"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R215"
+        data-line-number="215"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L220"
+        data-line-number="220"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> True iff the index is at the end of its view or if the next</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R216"
+        data-line-number="216"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> True iff the index is at the end of its view or if the next</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L221"
+        data-line-number="221"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> byte begins a new UnicodeScalar.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R217"
+        data-line-number="217"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> byte begins a new UnicodeScalar.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L222"
+        data-line-number="222"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k x x-first x-last">var</span> _isOnUnicodeScalarBoundary<span class="pl-k x x-first x-last">:</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R218"
+        data-line-number="218"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k x x-first x-last">func</span> <span class="pl-en">_isOnUnicodeScalarBoundary</span><span class="x x-first">(</span><span class="pl-en x">in</span><span class="x"> </span><span class="pl-smi x">core</span><span class="x">: _StringCore) </span><span class="pl-k x x-last">-&gt;</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L223"
+        data-line-number="223"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> buffer <span class="pl-k">=</span> <span class="pl-c1">UInt32</span>(<span class="pl-c1">truncatingBitPattern</span>: _buffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R219"
+        data-line-number="219"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> buffer <span class="pl-k">=</span> <span class="pl-c1">UInt32</span>(<span class="pl-c1">truncatingBitPattern</span>: _buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L224"
+        data-line-number="224"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> (codePoint, <span class="pl-c1">_</span>) <span class="pl-k">=</span> <span class="pl-c1">UTF8</span>.<span class="pl-c1">_decodeOne</span>(buffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R220"
+        data-line-number="220"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> (codePoint, <span class="pl-c1">_</span>) <span class="pl-k">=</span> <span class="pl-c1">UTF8</span>.<span class="pl-c1">_decodeOne</span>(buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L225"
+        data-line-number="225"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">return</span> codePoint <span class="pl-k">!=</span> <span class="pl-c1">nil</span> <span class="pl-k">||</span> <span class="x x-first x-last">_isAtEnd</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R221"
+        data-line-number="221"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> codePoint <span class="pl-k">!=</span> <span class="pl-c1">nil</span> <span class="pl-k">||</span> <span class="pl-c1 x x-first">_isEndIndex</span><span class="x">(</span><span class="pl-c1 x">of</span><span class="x x-last">: core)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L226"
+        data-line-number="226"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R222"
+        data-line-number="222"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L227"
+        data-line-number="227"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R223"
+        data-line-number="223"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L228"
+        data-line-number="228"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> True iff the index is at the end of its view</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R224"
+        data-line-number="224"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> True iff the index is at the end of its view</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L229"
+        data-line-number="229"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k x x-first">var</span><span class="x"> _isAtEnd</span><span class="pl-k x x-last">:</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R225"
+        data-line-number="225"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k x x-first">func</span><span class="x"> </span><span class="pl-en x">_isEndIndex</span><span class="x">(</span><span class="pl-en x">of</span><span class="x"> </span><span class="pl-smi x">core</span><span class="x">: _StringCore) </span><span class="pl-k x x-last">-&gt;</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L230"
+        data-line-number="230"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> _buffer <span class="pl-k">==</span> <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R226"
+        data-line-number="226"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> _buffer <span class="pl-k">==</span> <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L231"
+        data-line-number="231"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-          <span class="pl-k">&amp;&amp;</span> _coreIndex <span class="pl-k">==</span> _core.<span class="pl-c1">endIndex</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R227"
+        data-line-number="227"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          <span class="pl-k">&amp;&amp;</span> _coreIndex <span class="pl-k">==</span> core.<span class="pl-c1">endIndex</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R228"
+        data-line-number="228"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R229"
+        data-line-number="229"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R230"
+        data-line-number="230"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c"><span class="pl-c">///</span> The number of UTF-8 code units remaining in the buffer before the</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R231"
+        data-line-number="231"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> next unicode scalar value is reached. This simulates calling</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R232"
+        data-line-number="232"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> `index(after: i)` until `i._coreIndex` is incremented, but doesn&#39;t</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R233"
+        data-line-number="233"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> need a `_core` reference.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R234"
+        data-line-number="234"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">var</span> _utf8ContinuationBytesUntilNextUnicodeScalar<span class="pl-k">:</span> <span class="pl-c1">Int</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R235"
+        data-line-number="235"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">var</span> buffer <span class="pl-k">=</span> _buffer</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R236"
+        data-line-number="236"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">var</span> count <span class="pl-k">=</span> <span class="pl-c1">0</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R237"
+        data-line-number="237"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R238"
+        data-line-number="238"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">while</span> <span class="pl-c1">true</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R239"
+        data-line-number="239"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          <span class="pl-k">let</span> currentUnit <span class="pl-k">=</span> <span class="pl-c1">UTF8</span>.<span class="pl-c1">CodeUnit</span>(<span class="pl-c1">truncatingBitPattern</span>: buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R240"
+        data-line-number="240"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          <span class="pl-k">if</span> currentUnit <span class="pl-k">&amp;</span> <span class="pl-c1">0b1100_0000</span> <span class="pl-k">!=</span> <span class="pl-c1">0b1000_0000</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R241"
+        data-line-number="241"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">break</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R242"
+        data-line-number="242"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R243"
+        data-line-number="243"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          count <span class="pl-k">+=</span> <span class="pl-c1">1</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R244"
+        data-line-number="244"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          buffer <span class="pl-k">=</span> <span class="pl-c1">Index</span>.<span class="pl-c1">_nextBuffer</span>(<span class="pl-c1">after</span>: buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R245"
+        data-line-number="245"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R246"
+        data-line-number="246"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> count</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L232"
+        data-line-number="232"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R247"
+        data-line-number="247"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L233"
+        data-line-number="233"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R248"
+        data-line-number="248"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L234"
+        data-line-number="234"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> The value of the buffer when it is empty</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R249"
+        data-line-number="249"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> The value of the buffer when it is empty</span></span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="65">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;left_hunk_size=20&amp;mode=100644&amp;next_line_num_left=240&amp;next_line_num_right=255&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=234&amp;prev_line_num_right=249&amp;right_hunk_size=19"
+            data-left-range="235-239" data-right-range="250-254">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -240,20 +255,19 @@ extension String {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L240"
+        data-line-number="240"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">var</span> _bufferHiByte<span class="pl-k">:</span> <span class="pl-c1">Buffer</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R255"
+        data-line-number="255"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">var</span> _bufferHiByte<span class="pl-k">:</span> <span class="pl-c1">Buffer</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L241"
+        data-line-number="241"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> <span class="pl-c1">0xFF</span> <span class="pl-k">&lt;&lt;</span> <span class="pl-c1">numericCast</span>((<span class="pl-c1">sizeof</span>(<span class="pl-c1">Buffer</span>.<span class="pl-k">self</span>) <span class="pl-k">&amp;-</span> <span class="pl-c1">1</span>) <span class="pl-k">&amp;*</span> <span class="pl-c1">8</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R256"
+        data-line-number="256"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> <span class="pl-c1">0xFF</span> <span class="pl-k">&lt;&lt;</span> <span class="pl-c1">numericCast</span>((<span class="pl-c1">sizeof</span>(<span class="pl-c1">Buffer</span>.<span class="pl-k">self</span>) <span class="pl-k">&amp;-</span> <span class="pl-c1">1</span>) <span class="pl-k">&amp;*</span> <span class="pl-c1">8</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L242"
+        data-line-number="242"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R257"
+        data-line-number="257"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L243"
+        data-line-number="243"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R258"
+        data-line-number="258"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="x x-first x-last">      </span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L244"
+        data-line-number="244"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> Consume a byte of the given buffer: shift out the low byte</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R259"
+        data-line-number="259"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> Consume a byte of the given buffer: shift out the low byte</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L245"
+        data-line-number="245"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> and put FF in the high byte</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R260"
+        data-line-number="260"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> and put FF in the high byte</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L246"
+        data-line-number="246"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">func</span> <span class="pl-en">_nextBuffer</span>(<span class="pl-en">after</span> <span class="pl-smi">thisBuffer</span>: <span class="pl-c1">Buffer</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Buffer</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R261"
+        data-line-number="261"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">func</span> <span class="pl-en">_nextBuffer</span>(<span class="pl-en">after</span> <span class="pl-smi">thisBuffer</span>: <span class="pl-c1">Buffer</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Buffer</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L247"
+        data-line-number="247"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> (thisBuffer <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">8</span>) <span class="pl-k">|</span> _bufferHiByte</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R262"
+        data-line-number="262"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> (thisBuffer <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">8</span>) <span class="pl-k">|</span> _bufferHiByte</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L248"
+        data-line-number="248"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R263"
+        data-line-number="263"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L249"
+        data-line-number="249"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R264"
+        data-line-number="264"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L250"
+        data-line-number="250"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c"><span class="pl-c">///</span> The underlying buffer we&#39;re presenting as UTF-8</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L251"
+        data-line-number="251"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">let</span> _core<span class="pl-k">:</span> _StringCore</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L252"
+        data-line-number="252"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> The position of `self`, rounded up to the nearest unicode</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R265"
+        data-line-number="265"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">///</span> The position of `self`, rounded up to the nearest unicode</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L253"
+        data-line-number="253"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> scalar boundary, in the underlying UTF-16.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R266"
+        data-line-number="266"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> scalar boundary, in the underlying UTF-16.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L254"
+        data-line-number="254"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">let</span> _coreIndex<span class="pl-k">:</span> <span class="pl-c1">Int</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R267"
+        data-line-number="267"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">let</span> _coreIndex<span class="pl-k">:</span> <span class="pl-c1">Int</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L255"
+        data-line-number="255"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c"><span class="pl-c">///</span> If `self` is at the end of its `_core`, has the value `_endBuffer`.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R268"
+        data-line-number="268"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c"><span class="pl-c">///</span> If `self` is at the end of its `_core`, has the value `_emptyBuffer`.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L256"
+        data-line-number="256"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> Otherwise, the low byte contains the value of</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R269"
+        data-line-number="269"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> Otherwise, the low byte contains the value of the UTF-8 code unit</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R270"
+        data-line-number="270"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">///</span> at this position.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L257"
+        data-line-number="257"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">let</span> _buffer<span class="pl-k">:</span> <span class="pl-c1">Buffer</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R271"
+        data-line-number="271"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">internal</span> <span class="pl-k">let</span> _buffer<span class="pl-k">:</span> <span class="pl-c1">Buffer</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L258"
+        data-line-number="258"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R272"
+        data-line-number="272"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L259"
+        data-line-number="259"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R273"
+        data-line-number="273"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="90">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;left_hunk_size=31&amp;mode=100644&amp;next_line_num_left=282&amp;next_line_num_right=296&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=259&amp;prev_line_num_right=273&amp;right_hunk_size=40"
+            data-left-range="260-281" data-right-range="274-295">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -282,31 +296,40 @@ extension String {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L282"
+        data-line-number="282"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> FIXME: swift-3-indexing-model: range check i?</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R296"
+        data-line-number="296"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> FIXME: swift-3-indexing-model: range check i?</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L283"
+        data-line-number="283"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> currentUnit <span class="pl-k">=</span> <span class="pl-c1">UTF8</span>.<span class="pl-c1">CodeUnit</span>(<span class="pl-c1">truncatingBitPattern</span>: i.<span class="pl-smi">_buffer</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R297"
+        data-line-number="297"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> currentUnit <span class="pl-k">=</span> <span class="pl-c1">UTF8</span>.<span class="pl-c1">CodeUnit</span>(<span class="pl-c1">truncatingBitPattern</span>: i.<span class="pl-smi">_buffer</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L284"
+        data-line-number="284"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> hiNibble <span class="pl-k">=</span> currentUnit <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">4</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R298"
+        data-line-number="298"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> hiNibble <span class="pl-k">=</span> currentUnit <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">4</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L285"
+        data-line-number="285"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c"><span class="pl-c">//</span> Map the high nibble of the current code unit into the</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R299"
+        data-line-number="299"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L286"
+        data-line-number="286"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> amount by which to increment the UTF-16 index.  Only when</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R300"
+        data-line-number="300"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c"><span class="pl-c">//</span> Amounts to increment the UTF-16 index based on the high nibble of a</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L287"
+        data-line-number="287"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> the high nibble is 1111 do we have a surrogate pair.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R301"
+        data-line-number="301"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> UTF-8 code unit. If the high nibble is:</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R302"
+        data-line-number="302"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R303"
+        data-line-number="303"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> - 0b0000-0b0111: U+0000...U+007F: increment the UTF-16 pointer by 1</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R304"
+        data-line-number="304"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> - 0b1000-0b1011: UTF-8 continuation byte, do not increment </span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R305"
+        data-line-number="305"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span>                  the UTF-16 pointer</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R306"
+        data-line-number="306"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> - 0b1100-0b1110: U+0080...U+FFFF: increment the UTF-16 pointer by 1</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R307"
+        data-line-number="307"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> - 0b1111:        U+10000...U+1FFFFF: increment the UTF-16 pointer by 2</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L288"
+        data-line-number="288"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> u16Increments <span class="pl-k">=</span> <span class="pl-c1">Int</span>(<span class="pl-c1">bitPattern</span>:</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R308"
+        data-line-number="308"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> u16Increments <span class="pl-k">=</span> <span class="pl-c1">Int</span>(<span class="pl-c1">bitPattern</span>:</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L289"
+        data-line-number="289"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> 1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R309"
+        data-line-number="309"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> 1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L290"
+        data-line-number="290"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>         <span class="pl-c1">0b10___01___01___01___00___00___00___00___01___01___01___01___01___01___01___01</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R310"
+        data-line-number="310"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>         <span class="pl-c1">0b10___01___01___01___00___00___00___00___01___01___01___01___01___01___01___01</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R311"
+        data-line-number="311"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R312"
+        data-line-number="312"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c"><span class="pl-c">//</span> Map the high nibble of the current code unit into the</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R313"
+        data-line-number="313"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-c"><span class="pl-c">//</span> amount by which to increment the UTF-16 index.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L291"
+        data-line-number="291"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> increment <span class="pl-k">=</span> (u16Increments <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">numericCast</span>(hiNibble <span class="pl-k">&lt;&lt;</span> <span class="pl-c1">1</span>)) <span class="pl-k">&amp;</span> <span class="pl-c1">0x3</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R314"
+        data-line-number="314"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">let</span> increment <span class="pl-k">=</span> (u16Increments <span class="pl-k">&gt;&gt;</span> <span class="pl-c1">numericCast</span>(hiNibble <span class="pl-k">&lt;&lt;</span> <span class="pl-c1">1</span>)) <span class="pl-k">&amp;</span> <span class="pl-c1">0x3</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L292"
+        data-line-number="292"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> nextCoreIndex <span class="pl-k">=</span> i.<span class="pl-smi">_coreIndex</span> <span class="pl-k">&amp;+</span> increment</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R315"
+        data-line-number="315"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> nextCoreIndex <span class="pl-k">=</span> i.<span class="pl-smi">_coreIndex</span> <span class="pl-k">&amp;+</span> increment</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L293"
+        data-line-number="293"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> nextBuffer <span class="pl-k">=</span> <span class="pl-c1">Index</span>.<span class="pl-c1">_nextBuffer</span>(<span class="pl-c1">after</span>: i.<span class="pl-smi">_buffer</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R316"
+        data-line-number="316"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> nextBuffer <span class="pl-k">=</span> <span class="pl-c1">Index</span>.<span class="pl-c1">_nextBuffer</span>(<span class="pl-c1">after</span>: i.<span class="pl-smi">_buffer</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L294"
+        data-line-number="294"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R317"
+        data-line-number="317"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L295"
+        data-line-number="295"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c"><span class="pl-c">//</span> <span class="x x-first x-last">if</span> the nextBuffer is nonempty, we have all we need</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R318"
+        data-line-number="318"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c"><span class="pl-c">//</span> <span class="x x-first x-last">If</span> the nextBuffer is nonempty, we have all we need</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L296"
+        data-line-number="296"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(nextBuffer <span class="pl-k">!=</span> <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R319"
+        data-line-number="319"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>      <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(nextBuffer <span class="pl-k">!=</span> <span class="pl-c1">Index</span>.<span class="pl-smi">_emptyBuffer</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L297"
+        data-line-number="297"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="x x-first">i.</span><span class="pl-smi x">_core</span><span class="x x-last">,</span> nextCoreIndex, nextBuffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R320"
+        data-line-number="320"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> nextCoreIndex, nextBuffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L298"
+        data-line-number="298"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R321"
+        data-line-number="321"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L299"
+        data-line-number="299"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> If the underlying UTF16 isn&#39;t exhausted, fill a new buffer</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R322"
+        data-line-number="322"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-c"><span class="pl-c">//</span> If the underlying UTF16 isn&#39;t exhausted, fill a new buffer</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L300"
+        data-line-number="300"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>      <span class="pl-k">else</span> <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(nextCoreIndex <span class="pl-k">&lt;</span> <span class="x x-first x-last">i.</span><span class="pl-smi">_core</span>.<span class="pl-c1">endIndex</span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R323"
+        data-line-number="323"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>      <span class="pl-k">else</span> <span class="pl-k">if</span> <span class="pl-c1">_fastPath</span>(nextCoreIndex <span class="pl-k">&lt;</span> _core.<span class="pl-c1">endIndex</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L301"
+        data-line-number="301"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">let</span> (<span class="pl-c1">_</span>, freshBuffer) <span class="pl-k">=</span> <span class="x x-first x-last">i.</span><span class="pl-smi">_core</span>.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: nextCoreIndex)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R324"
+        data-line-number="324"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> (<span class="pl-c1">_</span>, freshBuffer) <span class="pl-k">=</span> _core.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: nextCoreIndex)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L302"
+        data-line-number="302"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="x x-first x-last">_core,</span> nextCoreIndex, freshBuffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R325"
+        data-line-number="325"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> nextCoreIndex, freshBuffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L303"
+        data-line-number="303"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R326"
+        data-line-number="326"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L304"
+        data-line-number="304"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">else</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R327"
+        data-line-number="327"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">else</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L305"
+        data-line-number="305"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> Produce the endIndex</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R328"
+        data-line-number="328"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> Produce the endIndex</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L306"
+        data-line-number="306"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c1">_precondition</span>(</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R329"
+        data-line-number="329"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c1">_precondition</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L307"
+        data-line-number="307"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-          nextCoreIndex <span class="pl-k">==</span> <span class="x x-first x-last">i.</span><span class="pl-smi">_core</span>.<span class="pl-c1">endIndex</span>,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R330"
+        data-line-number="330"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+          nextCoreIndex <span class="pl-k">==</span> _core.<span class="pl-c1">endIndex</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L308"
+        data-line-number="308"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">           <span class="pl-s"><span class="pl-pds">&quot;</span>Can&#39;t increment past endIndex of String.UTF8View<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R331"
+        data-line-number="331"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">           <span class="pl-s"><span class="pl-pds">&quot;</span>Can&#39;t increment past endIndex of String.UTF8View<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L309"
+        data-line-number="309"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="x x-first x-last">_core,</span> nextCoreIndex, nextBuffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R332"
+        data-line-number="332"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> <span class="pl-c1">Index</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> nextCoreIndex, nextBuffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L310"
+        data-line-number="310"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R333"
+        data-line-number="333"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L311"
+        data-line-number="311"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R334"
+        data-line-number="334"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L312"
+        data-line-number="312"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R335"
+        data-line-number="335"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="141">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;left_hunk_size=17&amp;mode=100644&amp;next_line_num_left=468&amp;next_line_num_right=491&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=312&amp;prev_line_num_right=335&amp;right_hunk_size=19"
+            data-left-range="313-467" data-right-range="336-490">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -468,17 +491,19 @@ public func &lt; (</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L468"
+        data-line-number="468"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-smi"><span class="pl-en">lhs</span></span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF8View</span>.<span class="pl-c1">Index</span>,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R491"
+        data-line-number="491"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-smi"><span class="pl-en">lhs</span></span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF8View</span>.<span class="pl-c1">Index</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L469"
+        data-line-number="469"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-smi"><span class="pl-en">rhs</span></span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF8View</span>.<span class="pl-c1">Index</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R492"
+        data-line-number="492"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-smi"><span class="pl-en">rhs</span></span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF8View</span>.<span class="pl-c1">Index</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L470"
+        data-line-number="470"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> ) <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R493"
+        data-line-number="493"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> ) <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L471"
+        data-line-number="471"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  <span class="pl-c"><span class="pl-c">//</span> FIXME: swift-3-indexing-model: tests.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R494"
+        data-line-number="494"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">if</span> lhs.<span class="pl-smi">_coreIndex</span> <span class="pl-k">==</span> rhs.<span class="pl-smi">_coreIndex</span> <span class="pl-k">&amp;&amp;</span> lhs.<span class="pl-smi">_buffer</span> <span class="pl-k">!=</span> rhs.<span class="pl-smi">_buffer</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L472"
+        data-line-number="472"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>  <span class="pl-c"><span class="pl-c">//</span> FIXME: swift-3-indexing-model: this implementation is wrong, it is just a</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R495"
+        data-line-number="495"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c"><span class="pl-c">//</span> The index with more continuation bytes remaining before the next</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L473"
+        data-line-number="473"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>  <span class="pl-c"><span class="pl-c">//</span> temporary HACK.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R496"
+        data-line-number="496"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>    <span class="pl-k">return</span> lhs.<span class="pl-smi">_utf8ContinuationBytesUntilNextUnicodeScalar</span> <span class="pl-k">&gt;</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R497"
+        data-line-number="497"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      rhs.<span class="pl-smi">_utf8ContinuationBytesUntilNextUnicodeScalar</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R498"
+        data-line-number="498"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L474"
+        data-line-number="474"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">return</span> lhs.<span class="pl-smi">_coreIndex</span> <span class="pl-k">&lt;</span> rhs.<span class="pl-smi">_coreIndex</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R499"
+        data-line-number="499"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">return</span> lhs.<span class="pl-smi">_coreIndex</span> <span class="pl-k">&lt;</span> rhs.<span class="pl-smi">_coreIndex</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L475"
+        data-line-number="475"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R500"
+        data-line-number="500"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L476"
+        data-line-number="476"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R501"
+        data-line-number="501"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L477"
+        data-line-number="477"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> Index conversions</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R502"
+        data-line-number="502"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> Index conversions</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L478"
+        data-line-number="478"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span><span class="pl-k">extension</span> <span class="pl-en"><span class="pl-c1">String</span></span>.UTF8View.Index {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R503"
+        data-line-number="503"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span><span class="pl-k">extension</span> <span class="pl-en"><span class="pl-c1">String</span></span>.UTF8View.Index {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L479"
+        data-line-number="479"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">internal</span> <span class="pl-k">init</span>(<span class="pl-en">_</span> <span class="pl-smi">core</span>: _StringCore, <span class="pl-smi"><span class="pl-en">_utf16Offset</span></span>: <span class="pl-c1">Int</span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R504"
+        data-line-number="504"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">internal</span> <span class="pl-k">init</span>(<span class="pl-en">_</span> <span class="pl-smi">core</span>: _StringCore, <span class="pl-smi"><span class="pl-en">_utf16Offset</span></span>: <span class="pl-c1">Int</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L480"
+        data-line-number="480"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> (<span class="pl-c1">_</span>, buffer) <span class="pl-k">=</span> core.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: _utf16Offset)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R505"
+        data-line-number="505"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">let</span> (<span class="pl-c1">_</span>, buffer) <span class="pl-k">=</span> core.<span class="pl-c1">_encodeSomeUTF8</span>(<span class="pl-c1">from</span>: _utf16Offset)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L481"
+        data-line-number="481"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-      <span class="pl-c1">self</span>.<span class="pl-k">init</span>(<span class="x x-first x-last">core,</span> _utf16Offset, buffer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R506"
+        data-line-number="506"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-c1">self</span>.<span class="pl-k">init</span>(<span class="pl-c1 x x-first">_coreIndex</span><span class="x x-last">:</span> _utf16Offset, buffer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L482"
+        data-line-number="482"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R507"
+        data-line-number="507"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L483"
+        data-line-number="483"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R508"
+        data-line-number="508"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4L484"
+        data-line-number="484"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-c"><span class="pl-c">///</span> Creates an index in the given UTF-8 view that corresponds exactly to the</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-aca18c7dd0d3d6efaffcf405a5ab61e4R509"
+        data-line-number="509"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-c"><span class="pl-c">///</span> Creates an index in the given UTF-8 view that corresponds exactly to the</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-aca18c7dd0d3d6efaffcf405a5ab61e4"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/d43b15b502affabf4e3ced036554cef7e798c8cd?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fpublic%2Fcore%2FStringUTF8.swift&amp;prev_line_num_left=484&amp;prev_line_num_right=509"
+          data-left-range="485-710" data-right-range="510-710">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-d4c31844038772fd6f99dd12a1f552d8"></a>
+<div id="diff-2"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/public/core/StringUnicodeScalarView.swift" data-short-path="d4c3184" data-anchor="diff-d4c31844038772fd6f99dd12a1f552d8">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b0e20e1eda3496cea07b56c586f0ac90608ef549/stdlib/public/core/StringUnicodeScalarView.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b0e20e1 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="1 addition &amp; 1 deletion">2 <span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-d4c31844038772fd6f99dd12a1f552d8" class="link-gray-dark"
+         title="stdlib/public/core/StringUnicodeScalarView.swift">stdlib/public/core/StringUnicodeScalarView.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-d4c31844038772fd6f99dd12a1f552d8"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/b3c1ca010c03d9c969120de591bbddcd33d111d6?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=471&amp;next_line_num_right=471&amp;path=stdlib%2Fpublic%2Fcore%2FStringUnicodeScalarView.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-470" data-right-range="1-470">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -471,7 +471,7 @@ extension String.UnicodeScalarIndex {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L471"
+        data-line-number="471"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-s"><span class="pl-pds">&quot;</span>Invalid String.UTF8Index for this UnicodeScalar view<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R471"
+        data-line-number="471"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-s"><span class="pl-pds">&quot;</span>Invalid String.UTF8Index for this UnicodeScalar view<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L472"
+        data-line-number="472"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R472"
+        data-line-number="472"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L473"
+        data-line-number="473"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">//</span> Detect positions that have no corresponding index.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R473"
+        data-line-number="473"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">//</span> Detect positions that have no corresponding index.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L474"
+        data-line-number="474"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>    <span class="pl-k">if</span> <span class="pl-k">!</span>utf8Index.<span class="pl-smi">_isOnUnicodeScalarBoundary</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R474"
+        data-line-number="474"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>    <span class="pl-k">if</span> <span class="pl-k">!</span>utf8Index.<span class="pl-c1">_isOnUnicodeScalarBoundary</span><span class="x x-first">(</span><span class="pl-c1 x">in</span><span class="x x-last">: core)</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L475"
+        data-line-number="475"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       <span class="pl-k">return</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R475"
+        data-line-number="475"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       <span class="pl-k">return</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L476"
+        data-line-number="476"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R476"
+        data-line-number="476"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8L477"
+        data-line-number="477"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-c1">self</span>.<span class="pl-k">init</span>(<span class="pl-c1">_position</span>: utf8Index.<span class="pl-smi">_coreIndex</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-d4c31844038772fd6f99dd12a1f552d8R477"
+        data-line-number="477"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-c1">self</span>.<span class="pl-k">init</span>(<span class="pl-c1">_position</span>: utf8Index.<span class="pl-smi">_coreIndex</span>)</span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-d4c31844038772fd6f99dd12a1f552d8"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/b3c1ca010c03d9c969120de591bbddcd33d111d6?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fpublic%2Fcore%2FStringUnicodeScalarView.swift&amp;prev_line_num_left=477&amp;prev_line_num_right=477"
+          data-left-range="478-611" data-right-range="478-611">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-0496d31d9614b298551b0232e92f21db"></a>
+<div id="diff-3"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="validation-test/stdlib/StringViews.swift" data-short-path="0496d31" data-anchor="diff-0496d31d9614b298551b0232e92f21db">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b0e20e1eda3496cea07b56c586f0ac90608ef549/validation-test/stdlib/StringViews.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b0e20e1 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="8 additions &amp; 0 deletions">8 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span></span>
+
+      <a href="#diff-0496d31d9614b298551b0232e92f21db" class="link-gray-dark"
+         title="validation-test/stdlib/StringViews.swift">validation-test/stdlib/StringViews.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-0496d31d9614b298551b0232e92f21db"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/ed09324fc6f2441fe302be4cbe8e17708bf11d2e?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=687&amp;next_line_num_right=687&amp;path=validation-test%2Fstdlib%2FStringViews.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=14"
+            data-left-range="1-686" data-right-range="1-686">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -687,6 +687,14 @@ tests.test(&quot;UTF8 indexes&quot;) {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL687"
+        data-line-number="687"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR687"
+        data-line-number="687"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL688"
+        data-line-number="688"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR688"
+        data-line-number="688"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL689"
+        data-line-number="689"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR689"
+        data-line-number="689"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR690"
+        data-line-number="690"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>index/Comparable<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR691"
+        data-line-number="691"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: [summer, winter]) { str <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR692"
+        data-line-number="692"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkComparable</span>(str.<span class="pl-c1">characters</span>.<span class="pl-c1">indices</span>, <span class="pl-c1">oracle</span>: <span class="pl-k">&lt;=&gt;</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR693"
+        data-line-number="693"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkComparable</span>(str.<span class="pl-c1">unicodeScalars</span>.<span class="pl-c1">indices</span>, <span class="pl-c1">oracle</span>: <span class="pl-k">&lt;=&gt;</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR694"
+        data-line-number="694"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkComparable</span>(str.<span class="pl-c1">utf16</span>.<span class="pl-c1">indices</span>, <span class="pl-c1">oracle</span>: <span class="pl-k">&lt;=&gt;</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR695"
+        data-line-number="695"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkComparable</span>(str.<span class="pl-c1">utf8</span>.<span class="pl-c1">indices</span>, <span class="pl-c1">oracle</span>: <span class="pl-k">&lt;=&gt;</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR696"
+        data-line-number="696"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR697"
+        data-line-number="697"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL690"
+        data-line-number="690"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>UTF16-&gt;String<span class="pl-pds">&quot;</span></span>) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR698"
+        data-line-number="698"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>UTF16-&gt;String<span class="pl-pds">&quot;</span></span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL691"
+        data-line-number="691"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> s <span class="pl-k">=</span> summer <span class="pl-k">+</span> winter <span class="pl-k">+</span> winter <span class="pl-k">+</span> summer</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR699"
+        data-line-number="699"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> s <span class="pl-k">=</span> summer <span class="pl-k">+</span> winter <span class="pl-k">+</span> winter <span class="pl-k">+</span> summer</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL692"
+        data-line-number="692"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> v <span class="pl-k">=</span> s.<span class="pl-c1">utf16</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR700"
+        data-line-number="700"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> v <span class="pl-k">=</span> s.<span class="pl-c1">utf16</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-0496d31d9614b298551b0232e92f21db"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/ed09324fc6f2441fe302be4cbe8e17708bf11d2e?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=validation-test%2Fstdlib%2FStringViews.swift&amp;prev_line_num_left=692&amp;prev_line_num_right=700"
+          data-left-range="693-744" data-right-range="701-744">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<button type="button" class="js-toggle-all-file-notes" data-hotkey="i" style="display:none">Toggle all file notes</button>
+
+<svg aria-hidden="true" width="340px" height="84px" viewBox="0 0 340 84" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="diff-placeholder-svg position-absolute bottom-0">
+  <defs>
+    <clippath id="diff-placeholder">
+      <rect x="0" y="0" width="67.0175439" height="11.9298746" rx="2"></rect>
+      <rect x="18.9473684" y="47.7194983" width="100.701754" height="11.9298746" rx="2"></rect>
+      <rect x="0" y="71.930126" width="37.8947368" height="11.9298746" rx="2"></rect>
+      <rect x="127.017544" y="48.0703769" width="53.3333333" height="11.9298746" rx="2"></rect>
+      <rect x="187.719298" y="48.0703769" width="72.9824561" height="11.9298746" rx="2"></rect>
+      <rect x="76.8421053" y="0" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="17.8947368" y="23.8597491" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="166.315789" y="23.8597491" width="173.684211" height="11.9298746" rx="2"></rect>
+    </clippath>
+
+    <linearGradient id="animated-diff-gradient" x1="0" x2="0" y1="0" y2="1" spreadMethod="reflect">
+      <stop offset="0" stop-color="#eee"></stop>
+      <stop offset="0.2" stop-color="#eee"></stop>
+      <stop offset="0.5" stop-color="#ddd"></stop>
+      <stop offset="0.8" stop-color="#eee"></stop>
+      <stop offset="1" stop-color="#eee"></stop>
+      <animateTransform attributeName="y1" values="0%; 100%; 0" dur="1s" repeatCount="3"></animateTransform>
+      <animateTransform attributeName="y2" values="100%; 200%; 0" dur="1s" repeatCount="3"></animateTransform>
+    </linearGradient>
+  </defs>
+</svg>
+
+
+
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container-lg site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="1.44405s from unicorn-2678245877-ctmmg">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/compat-91f98c37fc84eac24836eec2567e9912742094369a04c4eba6e3cd1fa18902d9.js"></script>
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-3a24d5c861294564cb46aae8f7e3c74c7aad8e5b861816bfd96927300f203f51.js"></script>
+    
+    <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-aea01bc4b7fa366479732897bf3ded978aad81f1283b630de36f45cdf861c8a1.js"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
+

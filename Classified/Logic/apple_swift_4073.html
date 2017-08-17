@@ -1,0 +1,4131 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-77c3b874f32e71b14cded5a120f42f5c7288fa52e0a37f2d5919fbd8bcfca63c.css" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-be6fb2d13c0f5a7f90f50a2d176aa40de82344329a86e85e0a1a80409a88340c.css" media="all" rel="stylesheet" />
+  
+  
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/site-87fc1b705115bb5758018dffb7c1ed35b316b40ef094c4d5bd0478efe83d7af7.css" media="all" rel="stylesheet" />
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>stdlib: fix incorrect distance measurement between UTF-16 indices by gribozavr · Pull Request #4073 · apple/swift · GitHub</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars0.githubusercontent.com/u/1120569?v=4&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="stdlib: fix incorrect distance measurement between UTF-16 indices by gribozavr · Pull Request #4073 · apple/swift" property="og:title" /><meta content="https://github.com/apple/swift/pull/4073" property="og:url" /><meta content="String.UTF16View.Index.distance(to:) was returning a negated result.
+Fixes SR-1988.
+
+
+Before merging this pull request to apple/swift repository:
+
+ Test pull request on Swift continuous integration..." property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  
+  <meta name="pjax-timeout" content="1000">
+  
+  <meta name="request-id" content="7B61:195E4:4661DCD:742B018:5980F3BD" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_pulls" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="7B61:195E4:4661DCD:742B018:5980F3BD" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/pull_requests/show/files" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged Out">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="MDQ2MTdmYjFhMzAwODBkYTEzZGIzNTBlOTcxNDliODJhYzg3OGZhZGU1ZmMzYzgxNDE4YWUzYjYyM2U2NzZiYXx7InJlbW90ZV9hZGRyZXNzIjoiMzIuOTcuMTEwLjYxIiwicmVxdWVzdF9pZCI6IjdCNjE6MTk1RTQ6NDY2MURDRDo3NDJCMDE4OjU5ODBGM0JEIiwidGltZXN0YW1wIjoxNTAxNjIzMjMwLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+
+
+  <meta name="html-safe-nonce" content="a0bc5896d15a175b88e3209ac0839f332945f15f">
+
+  <meta http-equiv="x-pjax-version" content="21402ecd44637867a6c92c4eebf4ee92">
+  
+
+      <link data-pjax-transient rel="alternate" type="text/x-diff" href="/apple/swift/pull/4073.diff">
+  <link data-pjax-transient rel="alternate" type="text/x-patch" href="/apple/swift/pull/4073.patch">
+
+  <meta name="diff-view" content="split" data-pjax-transient>
+  <link href="https://github.com/apple/swift/commits/88de90a92da6263c2209336ce1c1b7de4c547bcd.atom" rel="alternate" title="Recent Commits to swift:88de90a92da6263c2209336ce1c1b7de4c547bcd" type="application/atom+xml">
+
+  <meta name="description" content="swift - The Swift Programming Language">
+  <meta name="go-import" content="github.com/apple/swift git https://github.com/apple/swift.git">
+
+  <meta content="10639145" name="octolytics-dimension-user_id" /><meta content="apple" name="octolytics-dimension-user_login" /><meta content="44838949" name="octolytics-dimension-repository_id" /><meta content="apple/swift" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="44838949" name="octolytics-dimension-repository_network_root_id" /><meta content="apple/swift" name="octolytics-dimension-repository_network_root_nwo" /><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+
+  </head>
+
+  <body class="logged-out env-production full-width">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="px-2 py-4 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-out position-relative f4 py-3" role="banner">
+  <div class="container-lg px-3 clearfix">
+    <div class="d-flex flex-justify-between">
+      <div class="d-flex">
+        <a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+          <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+
+        <div class="header-sitemenu clearfix">
+            <nav>
+              <ul class="d-flex list-style-none">
+                  <li class="ml-2">
+                    <a href="/features" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:features" data-selected-links="/features /features">
+                      Features
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/business" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:business" data-selected-links="/business /business/security /business/customers /business">
+                      Business
+</a>                  </li>
+
+                  <li class="ml-4">
+                    <a href="/explore" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship /showcases /explore">
+                      Explore
+</a>                  </li>
+
+                  <li class="ml-4">
+                        <a href="/marketplace" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:marketplace" data-selected-links=" /marketplace">
+                          Marketplace
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/pricing" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:pricing" data-selected-links="/pricing /pricing/developer /pricing/team /pricing/business-hosted /pricing/business-enterprise /pricing">
+                      Pricing
+</a>                  </li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+
+      <div class="d-flex">
+          <div class="mt-1 mr-3">
+            <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/apple/swift/search" class="js-site-search-form" data-scoped-search-url="/apple/swift/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/apple/swift/pull/4073/files" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+          </div>
+
+        <span class="d-inline-block">
+            <div class="header-navlink px-0 py-2 m-0">
+              <a class="text-bold text-white no-underline" href="/login?return_to=%2Fapple%2Fswift%2Fpull%2F4073%2Ffiles%3Fdiff%3Dsplit" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+                <span class="text-gray">or</span>
+                <a class="text-bold text-white no-underline" href="/join?source=header-repo" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+      
+
+
+
+
+  
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+    Watch
+  </a>
+  <a class="social-count" href="/apple/swift/watchers"
+     aria-label="2556 users are watching this repository">
+    2,556
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/apple/swift/stargazers"
+      aria-label="39661 users starred this repository">
+      39,661
+    </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+        Fork
+      </a>
+
+    <a href="/apple/swift/network" class="social-count"
+       aria-label="6020 users forked this repository">
+      6,020
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/apple" class="url fn" rel="author">apple</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/apple/swift" data-pjax="#js-repo-pjax-container">swift</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /apple/swift" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift/pulls" class="js-selected-navigation-item selected reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /apple/swift/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">166</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+
+
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="/apple/swift/pulse" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="/apple/swift/graphs" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div class="issues-listing js-review-state-classes " data-pjax>
+    <div id="files_bucket" class="files-bucket files-next-bucket clearfix pull-request-tab-content is-visible">
+      
+
+
+        
+  <div
+    id="partial-discussion-header"
+    class="gh-header js-details-container Details js-socket-channel js-updatable-content pull request"
+    data-channel="pull_request:80364207"
+    data-url="/apple/swift/pull/4073/show_partial?partial=pull_requests%2Ftitle">
+
+  <div class="gh-header-show gh-header-no-access">
+      <div class="gh-header-actions">
+
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        stdlib: fix incorrect distance measurement between UTF-16 indices
+      </span>
+      <span class="gh-header-number">#4073</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--purple">
+          <svg aria-hidden="true" class="octicon octicon-git-merge" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 0 0 2 .99C.89.99 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 0 0 1-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+          Merged
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+          <a href="/gribozavr" class="author pull-header-username css-truncate css-truncate-target expandable">
+    gribozavr
+  </a>
+  merged 2 commits into
+
+
+
+  <span class="commit-ref css-truncate user-select-contain expandable " title="apple/swift:master"><span class="css-truncate-target">master</span></span>
+
+from
+
+<span class="commit-ref css-truncate user-select-contain expandable head-ref" title="apple/swift:SR-1988"><span class="css-truncate-target">SR-1988</span></span>
+
+
+  <relative-time datetime="2016-08-07T19:55:21Z">Aug 7, 2016</relative-time>
+
+    </div>
+  </div>
+</div>
+
+        
+<div class="tabnav tabnav-pr">
+
+  <nav class="tabnav-tabs">
+      <link rel="pjax-prefetch" href="/apple/swift/pull/4073">
+    <a href="/apple/swift/pull/4073" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-comment-discussion" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/></svg>
+      Conversation
+
+      <span id="conversation_tab_counter" class="Counter">
+        4
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/4073/commits" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-git-commit" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"/></svg>
+      Commits
+
+      <span id="commits_tab_counter" class="Counter">
+        2
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/4073/files" class="tabnav-tab selected js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-diff" height="16" version="1.1" viewBox="0 0 13 16" width="13"><path fill-rule="evenodd" d="M6 7h2v1H6v2H5V8H3V7h2V5h1v2zm-3 6h5v-1H3v1zM7.5 2L11 5.5V15c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h6.5zM10 6L7 3H1v12h9V6zM8.5 0H3v1h5l4 4v8h1V4.5L8.5 0z"/></svg>
+      Files changed
+
+        <span id="files_tab_counter" class="Counter">
+            4
+        </span>
+    </a>
+  </nav>
+</div>
+
+
+        <div class="pr-toolbar js-sticky js-sticky-offset-scroll">
+          <div class="diffbar details-collapse js-details-container Details">
+            
+
+<div class="diffbar-item">
+  <div class="diffbar-range-menu select-menu js-menu-container js-select-menu js-diffbar-commits-menu"
+    data-range-url="/apple/swift/pull/4073/files/$range">
+    <div class="js-select-button">
+      <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="c">
+        Changes from
+          <strong>all commits</strong>
+      </button>
+    </div>
+
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">Commits</span>
+        </div>
+        <div class="select-menu-list js-navigation-container js-active-navigation-container" role="menu">
+          <a href="/apple/swift/pull/4073/files" class="select-menu-item js-navigation-item js-navigation-open" role="menuitem">
+            <div class="select-menu-item-text">
+              <div class="text-emphasized css-truncate css-truncate-target">
+                Show all changes
+              </div>
+              <span class="description">
+                2 commits
+              </span>
+            </div>
+          </a>
+
+
+          <div class="select-menu-divider">
+            Select commit
+              <span class="note text-normal mt-0 float-right">Hold shift + click to select a range</span>
+          </div>
+
+          <div class="js-diffbar-commits-list">
+              <a href="/apple/swift/pull/4073/commits/3dc793ce8aca8707ecb587a8f5c99117b0bc40b9"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="3dc793c" >
+                <div class="select-menu-item-text">
+                  <code class="float-right">3dc793c</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    StdlibUnittest: add checkStrideable()
+                  </div>
+                  <span class="description">
+                    gribozavr <relative-time datetime="2016-08-07T10:57:15Z">Aug 7, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/4073/commits/88de90a92da6263c2209336ce1c1b7de4c547bcd"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="88de90a" data-parent-commit="3dc793c">
+                <div class="select-menu-item-text">
+                  <code class="float-right">88de90a</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    stdlib: fix incorrect distance measurement between UTF-16 indices
+                  </div>
+                  <span class="description">
+                    gribozavr <relative-time datetime="2016-08-07T10:57:38Z">Aug 7, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+<include-fragment src="/apple/swift/pull/4073/show_toc?base_sha=5cc67990bdd11e7ecb633860ddcb3df94befcb3d&amp;ds=true&amp;sha1=5cc67990bdd11e7ecb633860ddcb3df94befcb3d&amp;sha2=88de90a92da6263c2209336ce1c1b7de4c547bcd"></include-fragment>
+
+<div class="diffbar-item toc-select select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/apple/swift/pull/4073/show_toc?base_sha=5cc67990bdd11e7ecb633860ddcb3df94befcb3d&amp;sha1=5cc67990bdd11e7ecb633860ddcb3df94befcb3d&amp;sha2=88de90a92da6263c2209336ce1c1b7de4c547bcd">
+  <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="t" data-ga-click="Pull Requests, open table of contents, type:semantic">
+      <strong>Jump to…</strong>
+  </button>
+  <div class="select-menu-modal-holder">
+    <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">
+              Jump to file or symbol
+          </span>
+        </div>
+        <div class="js-select-menu-deferred-content">
+          <div class="select-menu-blankslate select-menu-error">
+            Failed to load files and symbols. <button type="button" class="btn-link js-toc-retry">Retry</button>
+          </div>
+        </div>
+        <div class="select-menu-loading-overlay anim-pulse">
+          <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+              <span class="diffbar-item diffstat">
+  <span class="text-green">
+    +153
+  </span>
+  <span class="text-red">
+    −1
+  </span>
+  <span class="tooltipped tooltipped-s" aria-label="154 lines changed">
+    <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span>
+  </span>
+</span>
+
+
+            <div class="float-right pr-review-tools">
+              <div class="diffbar-item">
+  <div class="BtnGroup">
+      <a class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s" href="https://github.com/apple/swift/pull/4073/files?diff=unified" aria-label="View diff in unified mode">Unified</a>
+      <button type="button" class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s bg-gray-light text-gray-light" href="https://github.com/apple/swift/pull/4073/files?diff=split" aria-label="Viewing diff in split mode" disabled>Split</button>
+  </div>
+</div>
+
+
+            </div>
+
+                  <div class="js-socket-channel js-updatable-content js-pull-refresh-on-pjax" data-channel="pull_request:80364207" data-url="/apple/swift/pull/4073/show_partial_comparison?base_commit_oid=5cc67990bdd11e7ecb633860ddcb3df94befcb3d&amp;end_commit_oid=88de90a92da6263c2209336ce1c1b7de4c547bcd&amp;partial=pull_requests%2Fstale_comparison&amp;start_commit_oid=5cc67990bdd11e7ecb633860ddcb3df94befcb3d"></div>
+
+
+            <div class="modal-backdrop js-touch-events"></div>
+          </div>
+        </div>
+        <div class="pr-toolbar-shadow"></div>
+
+
+
+          <div id="files" class="diff-view ">
+
+  <div class="js-diff-progressive-container">
+    
+<a name="diff-84ec0a3d1d673d4a4046f01f49749336"></a>
+<div id="diff-0"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/private/StdlibUnittest/CMakeLists.txt" data-short-path="84ec0a3" data-anchor="diff-84ec0a3d1d673d4a4046f01f49749336">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/apple/swift/blob/88de90a92da6263c2209336ce1c1b7de4c547bcd/stdlib/private/StdlibUnittest/CMakeLists.txt" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version 88de90a ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="1 addition &amp; 0 deletions">1 <span class="block-diff-added"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-84ec0a3d1d673d4a4046f01f49749336" class="link-gray-dark"
+         title="stdlib/private/StdlibUnittest/CMakeLists.txt">stdlib/private/StdlibUnittest/CMakeLists.txt</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="40">
+                <col>
+                <col width="40">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-84ec0a3d1d673d4a4046f01f49749336"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/e18d39fd8c3302431c9abf242afeed2138b2f625?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=15&amp;next_line_num_right=15&amp;path=stdlib%2Fprivate%2FStdlibUnittest%2FCMakeLists.txt&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-14" data-right-range="1-14">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -15,6 +15,7 @@ add_swift_library(swiftStdlibUnittest ${SWIFT_STDLIB_LIBRARY_BUILD_TYPES} IS_STD</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-c"><span class="pl-c">#</span> filename.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-c"><span class="pl-c">#</span> filename.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   StdlibUnittest.swift.gyb</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   StdlibUnittest.swift.gyb</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  CheckStrideable.swift.gyb</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   InspectValue.cpp</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   InspectValue.cpp</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   InspectValue.swift</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   InspectValue.swift</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336L20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   InterceptTraps.cpp</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-84ec0a3d1d673d4a4046f01f49749336R21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   InterceptTraps.cpp</span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-84ec0a3d1d673d4a4046f01f49749336"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/e18d39fd8c3302431c9abf242afeed2138b2f625?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fprivate%2FStdlibUnittest%2FCMakeLists.txt&amp;prev_line_num_left=20&amp;prev_line_num_right=21"
+          data-left-range="21-44" data-right-range="22-44">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-fe268b0044247d3c49414c8552cc69bd"></a>
+<div id="diff-1"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/private/StdlibUnittest/CheckStrideable.swift.gyb" data-short-path="fe268b0" data-anchor="diff-fe268b0044247d3c49414c8552cc69bd">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/apple/swift/blob/88de90a92da6263c2209336ce1c1b7de4c547bcd/stdlib/private/StdlibUnittest/CheckStrideable.swift.gyb" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version 88de90a ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="32 additions &amp; 0 deletions">32 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span></span>
+
+      <a href="#diff-fe268b0044247d3c49414c8552cc69bd" class="link-gray-dark"
+         title="stdlib/private/StdlibUnittest/CheckStrideable.swift.gyb">stdlib/private/StdlibUnittest/CheckStrideable.swift.gyb</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="40">
+                <col>
+                <col width="40">
+                <col>
+              </colgroup>
+            
+      <tr data-position="0">
+    <td id="diff-fe268b0044247d3c49414c8552cc69bdL-1" class="blob-num blob-num-hunk" data-line-number="..."></td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -0,0 +1,32 @@</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR1"
+        data-line-number="1"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//===----------------------------------------------------------------------===//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR2"
+        data-line-number="2"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR3"
+        data-line-number="3"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+// This source file is part of the Swift.org open source project</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+// Copyright (c) 2014 - 2016 Apple Inc. and the Swift project authors</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+// Licensed under Apache License v2.0 with Runtime Library Exception</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR7"
+        data-line-number="7"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR8"
+        data-line-number="8"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+// See http://swift.org/LICENSE.txt for license information</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR9"
+        data-line-number="9"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+// See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR10"
+        data-line-number="10"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR11"
+        data-line-number="11"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+//===----------------------------------------------------------------------===//</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR12"
+        data-line-number="12"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR13"
+        data-line-number="13"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+%{</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+from gyb_stdlib_unittest_support import TRACE, stackTrace, trace</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}%</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+public func checkStrideable&lt;S : Strideable&gt;(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  instances: [S],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  distances: [S.Stride],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  distanceOracle: (Int, Int) -&gt; S.Stride,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ${TRACE}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR22"
+        data-line-number="22"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR23"
+        data-line-number="23"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  for i in instances.indices {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR24"
+        data-line-number="24"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    let first = instances[i]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR25"
+        data-line-number="25"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    for j in instances.indices {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR26"
+        data-line-number="26"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      let second = instances[j]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR27"
+        data-line-number="27"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      expectEqual(distanceOracle(i, j), first.distance(to: second))</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR28"
+        data-line-number="28"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      expectEqual(second, first.advanced(by: distanceOracle(i, j)))</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR29"
+        data-line-number="29"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR30"
+        data-line-number="30"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR31"
+        data-line-number="31"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-fe268b0044247d3c49414c8552cc69bdR32"
+        data-line-number="32"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-7ede0806f6d921d1d1c8a7b9f60f258c"></a>
+<div id="diff-2"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/public/SDK/Foundation/ExtraStringAPIs.swift" data-short-path="7ede080" data-anchor="diff-7ede0806f6d921d1d1c8a7b9f60f258c">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/apple/swift/blob/88de90a92da6263c2209336ce1c1b7de4c547bcd/stdlib/public/SDK/Foundation/ExtraStringAPIs.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version 88de90a ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="1 addition &amp; 1 deletion">2 <span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-7ede0806f6d921d1d1c8a7b9f60f258c" class="link-gray-dark"
+         title="stdlib/public/SDK/Foundation/ExtraStringAPIs.swift">stdlib/public/SDK/Foundation/ExtraStringAPIs.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="40">
+                <col>
+                <col width="40">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-7ede0806f6d921d1d1c8a7b9f60f258c"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/607199eec7d469ebec27095580197f62937bb56f?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=21&amp;next_line_num_right=21&amp;path=stdlib%2Fpublic%2FSDK%2FFoundation%2FExtraStringAPIs.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-20" data-right-range="1-20">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -21,7 +21,7 @@ extension String.UTF16View.Index : Strideable {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL22"
+        data-line-number="22"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR22"
+        data-line-number="22"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL23"
+        data-line-number="23"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">distance</span>(<span class="pl-en">to</span> <span class="pl-smi">other</span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF16View</span>.<span class="pl-c1">Index</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Int</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR23"
+        data-line-number="23"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">distance</span>(<span class="pl-en">to</span> <span class="pl-smi">other</span>: <span class="pl-c1">String</span>.<span class="pl-c1">UTF16View</span>.<span class="pl-c1">Index</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Int</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL24"
+        data-line-number="24"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    <span class="pl-k">return</span> <span class="x x-first x-last">other.</span><span class="pl-smi">_offset</span>.<span class="pl-c1">distance</span>(<span class="pl-c1">to</span>: _offset)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR24"
+        data-line-number="24"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">return</span> _offset.<span class="pl-c1">distance</span>(<span class="pl-c1">to</span>: <span class="x x-first x-last">other.</span><span class="pl-smi">_offset</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL25"
+        data-line-number="25"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR25"
+        data-line-number="25"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL26"
+        data-line-number="26"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR26"
+        data-line-number="26"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cL27"
+        data-line-number="27"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">advanced</span>(<span class="pl-en">by</span> <span class="pl-smi">n</span>: <span class="pl-c1">Int</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">String</span>.<span class="pl-c1">UTF16View</span>.<span class="pl-c1">Index</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-7ede0806f6d921d1d1c8a7b9f60f258cR27"
+        data-line-number="27"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">advanced</span>(<span class="pl-en">by</span> <span class="pl-smi">n</span>: <span class="pl-c1">Int</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">String</span>.<span class="pl-c1">UTF16View</span>.<span class="pl-c1">Index</span> {</span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-7ede0806f6d921d1d1c8a7b9f60f258c"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/607199eec7d469ebec27095580197f62937bb56f?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fpublic%2FSDK%2FFoundation%2FExtraStringAPIs.swift&amp;prev_line_num_left=27&amp;prev_line_num_right=27"
+          data-left-range="28-34" data-right-range="28-34">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-0496d31d9614b298551b0232e92f21db"></a>
+<div id="diff-3"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="validation-test/stdlib/StringViews.swift" data-short-path="0496d31" data-anchor="diff-0496d31d9614b298551b0232e92f21db">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/apple/swift/blob/88de90a92da6263c2209336ce1c1b7de4c547bcd/validation-test/stdlib/StringViews.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version 88de90a ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="119 additions &amp; 0 deletions">119 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span></span>
+
+      <a href="#diff-0496d31d9614b298551b0232e92f21db" class="link-gray-dark"
+         title="validation-test/stdlib/StringViews.swift">validation-test/stdlib/StringViews.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-0496d31d9614b298551b0232e92f21db"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/3f8da63647547621fe228f15355345e3125ff5b2?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=14&amp;next_line_num_right=14&amp;path=validation-test%2Fstdlib%2FStringViews.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-13" data-right-range="1-13">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -14,6 +14,7 @@</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Swift</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Swift</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">StdlibUnittest</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">StdlibUnittest</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">import</span> <span class="pl-en">StdlibCollectionUnittest</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> #<span class="pl-k">if</span> _runtime(_ObjC)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> #<span class="pl-k">if</span> _runtime(_ObjC)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> FIXME: Foundation leaks through StdlibUnittest.  It adds some conformances</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> FIXME: Foundation leaks through StdlibUnittest.  It adds some conformances</span></span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="8">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-0496d31d9614b298551b0232e92f21db"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/3f8da63647547621fe228f15355345e3125ff5b2?diff=split&amp;in_wiki_context=&amp;left_hunk_size=5&amp;mode=100644&amp;next_line_num_left=740&amp;next_line_num_right=741&amp;path=validation-test%2Fstdlib%2FStringViews.swift&amp;prev_line_num_left=19&amp;prev_line_num_right=20&amp;right_hunk_size=123"
+            data-left-range="20-739" data-right-range="21-740">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -740,5 +741,123 @@ tests.test(&quot;UnicodeScalars-&gt;String&quot;) {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL740"
+        data-line-number="740"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR741"
+        data-line-number="741"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL741"
+        data-line-number="741"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR742"
+        data-line-number="742"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL742"
+        data-line-number="742"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR743"
+        data-line-number="743"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR744"
+        data-line-number="744"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">struct</span> <span class="pl-en">StringViewTest</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR745"
+        data-line-number="745"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">var</span> string<span class="pl-k">:</span> <span class="pl-c1">String</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR746"
+        data-line-number="746"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">var</span> utf8<span class="pl-k">:</span> [<span class="pl-c1">UInt8</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR747"
+        data-line-number="747"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">var</span> utf16<span class="pl-k">:</span> [<span class="pl-c1">UInt16</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR748"
+        data-line-number="748"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">var</span> unicodeScalars<span class="pl-k">:</span> [<span class="pl-c1">UnicodeScalar</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR749"
+        data-line-number="749"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR750"
+        data-line-number="750"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">init</span>(<span class="pl-smi"><span class="pl-en">string</span></span>: <span class="pl-c1">String</span>, <span class="pl-smi"><span class="pl-en">utf8</span></span>: [<span class="pl-c1">UInt8</span>], <span class="pl-smi"><span class="pl-en">utf16</span></span>: [<span class="pl-c1">UInt16</span>], <span class="pl-smi"><span class="pl-en">utf32</span></span>: [<span class="pl-c1">UInt32</span>]) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR751"
+        data-line-number="751"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">self</span>.<span class="pl-smi">string</span> <span class="pl-k">=</span> string</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR752"
+        data-line-number="752"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">self</span>.<span class="pl-c1">utf8</span> <span class="pl-k">=</span> utf8</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR753"
+        data-line-number="753"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">self</span>.<span class="pl-c1">utf16</span> <span class="pl-k">=</span> utf16</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR754"
+        data-line-number="754"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">self</span>.<span class="pl-c1">unicodeScalars</span> <span class="pl-k">=</span> utf32.<span class="pl-c1">map</span> { <span class="pl-c1">UnicodeScalar</span>(<span class="pl-c1">$0</span>)<span class="pl-k">!</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR755"
+        data-line-number="755"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR756"
+        data-line-number="756"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR757"
+        data-line-number="757"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR758"
+        data-line-number="758"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">var</span> stringViewTests<span class="pl-k">:</span> [StringViewTest] <span class="pl-k">=</span> [</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR759"
+        data-line-number="759"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR760"
+        data-line-number="760"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR761"
+        data-line-number="761"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR762"
+        data-line-number="762"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR763"
+        data-line-number="763"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: []),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR764"
+        data-line-number="764"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR765"
+        data-line-number="765"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-cce">\u{0000}</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR766"
+        data-line-number="766"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x00</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR767"
+        data-line-number="767"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x00</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR768"
+        data-line-number="768"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x00</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR769"
+        data-line-number="769"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR770"
+        data-line-number="770"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>a<span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR771"
+        data-line-number="771"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x61</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR772"
+        data-line-number="772"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x61</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR773"
+        data-line-number="773"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x61</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR774"
+        data-line-number="774"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR775"
+        data-line-number="775"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>aa<span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR776"
+        data-line-number="776"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x61</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR777"
+        data-line-number="777"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x61</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR778"
+        data-line-number="778"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x61</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR779"
+        data-line-number="779"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR780"
+        data-line-number="780"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>ab<span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR781"
+        data-line-number="781"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR782"
+        data-line-number="782"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR783"
+        data-line-number="783"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR784"
+        data-line-number="784"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR785"
+        data-line-number="785"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>abc<span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR786"
+        data-line-number="786"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>, <span class="pl-c1">0x63</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR787"
+        data-line-number="787"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>, <span class="pl-c1">0x63</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR788"
+        data-line-number="788"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x61</span>, <span class="pl-c1">0x62</span>, <span class="pl-c1">0x63</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR789"
+        data-line-number="789"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR790"
+        data-line-number="790"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-cce">\u{007f}</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR791"
+        data-line-number="791"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0x7f</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR792"
+        data-line-number="792"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x7f</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR793"
+        data-line-number="793"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x7f</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR794"
+        data-line-number="794"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR795"
+        data-line-number="795"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-cce">\u{0430}</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR796"
+        data-line-number="796"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0xd0</span>, <span class="pl-c1">0xb0</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR797"
+        data-line-number="797"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x0430</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR798"
+        data-line-number="798"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x0430</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR799"
+        data-line-number="799"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR800"
+        data-line-number="800"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-cce">\u{0430}\u{0431}\u{0432}</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR801"
+        data-line-number="801"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0xd0</span>, <span class="pl-c1">0xb0</span>, <span class="pl-c1">0xd0</span>, <span class="pl-c1">0xb1</span>, <span class="pl-c1">0xd0</span>, <span class="pl-c1">0xb2</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR802"
+        data-line-number="802"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0x0430</span>, <span class="pl-c1">0x0431</span>, <span class="pl-c1">0x0432</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR803"
+        data-line-number="803"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x0430</span>, <span class="pl-c1">0x0431</span>, <span class="pl-c1">0x0432</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR804"
+        data-line-number="804"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">StringViewTest</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR805"
+        data-line-number="805"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">string</span>: <span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-cce">\u{1f425}</span><span class="pl-pds">&quot;</span></span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR806"
+        data-line-number="806"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf8</span>: [<span class="pl-c1">0xf0</span>, <span class="pl-c1">0x9f</span>, <span class="pl-c1">0x90</span>, <span class="pl-c1">0xa5</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR807"
+        data-line-number="807"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf16</span>: [<span class="pl-c1">0xd83d</span>, <span class="pl-c1">0xdc25</span>],</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR808"
+        data-line-number="808"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">utf32</span>: [<span class="pl-c1">0x1f425</span>]),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR809"
+        data-line-number="809"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR810"
+        data-line-number="810"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR811"
+        data-line-number="811"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+#<span class="pl-k">if</span> _runtime(_ObjC)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR812"
+        data-line-number="812"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>String.UTF16View.Index/Strideable<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR813"
+        data-line-number="813"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: stringViewTests) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR814"
+        data-line-number="814"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  test <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR815"
+        data-line-number="815"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR816"
+        data-line-number="816"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">func</span> <span class="pl-en">allIndices</span>&lt;<span class="pl-c1">C</span> : <span class="pl-e"><span class="pl-c1">Collection</span></span>&gt;(<span class="pl-en">of</span> <span class="pl-smi">c</span>: C) <span class="pl-k">-&gt;</span> [C.<span class="pl-c1">Index</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR817"
+        data-line-number="817"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">where</span> C.<span class="pl-c1">Indices</span>.<span class="pl-c1">Iterator</span>.<span class="pl-c1">Element</span> <span class="pl-k">==</span> C.<span class="pl-c1">Index</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR818"
+        data-line-number="818"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR819"
+        data-line-number="819"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">Array</span>(c.<span class="pl-c1">indices</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR820"
+        data-line-number="820"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    result.<span class="pl-c1">append</span>(c.<span class="pl-c1">endIndex</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR821"
+        data-line-number="821"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">return</span> result</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR822"
+        data-line-number="822"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR823"
+        data-line-number="823"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR824"
+        data-line-number="824"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkStrideable</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR825"
+        data-line-number="825"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">instances</span>: <span class="pl-c1">allIndices</span>(<span class="pl-c1">of</span>: test.<span class="pl-smi">string</span>.<span class="pl-c1">utf16</span>),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR826"
+        data-line-number="826"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">distances</span>: <span class="pl-c1">Array</span>(<span class="pl-c1">0</span><span class="pl-k">..&lt;</span>test.<span class="pl-smi">string</span>.<span class="pl-c1">utf16</span>.<span class="pl-c1">count</span>),</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR827"
+        data-line-number="827"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">distanceOracle</span>: { <span class="pl-c1">$1</span> <span class="pl-k">-</span> <span class="pl-c1">$0</span> })</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR828"
+        data-line-number="828"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR829"
+        data-line-number="829"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+#<span class="pl-k">endif</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR830"
+        data-line-number="830"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR831"
+        data-line-number="831"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>String.UTF8View/Collection<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR832"
+        data-line-number="832"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: stringViewTests) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR833"
+        data-line-number="833"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  test <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR834"
+        data-line-number="834"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR835"
+        data-line-number="835"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c"><span class="pl-c">//</span> FIXME(ABI): should be `checkBidirectionalCollection`.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR836"
+        data-line-number="836"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>  <span class="pl-c1">checkForwardCollection</span>(test.<span class="pl-c1">utf8</span>, test.<span class="pl-smi">string</span>.<span class="pl-c1">utf8</span>) { <span class="pl-c1">$0</span> <span class="pl-k">==</span> <span class="pl-c1">$1</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR837"
+        data-line-number="837"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR838"
+        data-line-number="838"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR839"
+        data-line-number="839"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+#<span class="pl-k">if</span> _runtime(_Native)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR840"
+        data-line-number="840"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>String.UTF16View/BidirectionalCollection<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR841"
+        data-line-number="841"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: stringViewTests) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR842"
+        data-line-number="842"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  test <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR843"
+        data-line-number="843"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR844"
+        data-line-number="844"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkBidirectionalCollection</span>(test.<span class="pl-c1">utf16</span>, test.<span class="pl-smi">string</span>.<span class="pl-c1">utf16</span>) { <span class="pl-c1">$0</span> <span class="pl-k">==</span> <span class="pl-c1">$1</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR845"
+        data-line-number="845"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR846"
+        data-line-number="846"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+#<span class="pl-k">else</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR847"
+        data-line-number="847"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>String.UTF16View/RandomAccessCollection<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR848"
+        data-line-number="848"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: stringViewTests) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR849"
+        data-line-number="849"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  test <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR850"
+        data-line-number="850"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR851"
+        data-line-number="851"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkRandomAccessCollection</span>(test.<span class="pl-c1">utf16</span>, test.<span class="pl-smi">string</span>.<span class="pl-c1">utf16</span>) { <span class="pl-c1">$0</span> <span class="pl-k">==</span> <span class="pl-c1">$1</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR852"
+        data-line-number="852"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR853"
+        data-line-number="853"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+#<span class="pl-k">endif</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR854"
+        data-line-number="854"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR855"
+        data-line-number="855"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+tests.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>String.UTF32View/BidirectionalCollection<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR856"
+        data-line-number="856"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: stringViewTests) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR857"
+        data-line-number="857"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  test <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR858"
+        data-line-number="858"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR859"
+        data-line-number="859"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-c1">checkBidirectionalCollection</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR860"
+        data-line-number="860"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    test.<span class="pl-c1">unicodeScalars</span>, test.<span class="pl-smi">string</span>.<span class="pl-c1">unicodeScalars</span>) { <span class="pl-c1">$0</span> <span class="pl-k">==</span> <span class="pl-c1">$1</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR861"
+        data-line-number="861"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL743"
+        data-line-number="743"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR862"
+        data-line-number="862"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbL744"
+        data-line-number="744"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c1">runAllTests</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-0496d31d9614b298551b0232e92f21dbR863"
+        data-line-number="863"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c1">runAllTests</span>()</span>
+
+    </td>
+</tr>
+
+
+
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<button type="button" class="js-toggle-all-file-notes" data-hotkey="i" style="display:none">Toggle all file notes</button>
+
+<svg aria-hidden="true" width="340px" height="84px" viewBox="0 0 340 84" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="diff-placeholder-svg position-absolute bottom-0">
+  <defs>
+    <clippath id="diff-placeholder">
+      <rect x="0" y="0" width="67.0175439" height="11.9298746" rx="2"></rect>
+      <rect x="18.9473684" y="47.7194983" width="100.701754" height="11.9298746" rx="2"></rect>
+      <rect x="0" y="71.930126" width="37.8947368" height="11.9298746" rx="2"></rect>
+      <rect x="127.017544" y="48.0703769" width="53.3333333" height="11.9298746" rx="2"></rect>
+      <rect x="187.719298" y="48.0703769" width="72.9824561" height="11.9298746" rx="2"></rect>
+      <rect x="76.8421053" y="0" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="17.8947368" y="23.8597491" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="166.315789" y="23.8597491" width="173.684211" height="11.9298746" rx="2"></rect>
+    </clippath>
+
+    <linearGradient id="animated-diff-gradient" x1="0" x2="0" y1="0" y2="1" spreadMethod="reflect">
+      <stop offset="0" stop-color="#eee"></stop>
+      <stop offset="0.2" stop-color="#eee"></stop>
+      <stop offset="0.5" stop-color="#ddd"></stop>
+      <stop offset="0.8" stop-color="#eee"></stop>
+      <stop offset="1" stop-color="#eee"></stop>
+      <animateTransform attributeName="y1" values="0%; 100%; 0" dur="1s" repeatCount="3"></animateTransform>
+      <animateTransform attributeName="y2" values="100%; 200%; 0" dur="1s" repeatCount="3"></animateTransform>
+    </linearGradient>
+  </defs>
+</svg>
+
+
+
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container-lg site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="0.87714s from unicorn-2549075655-p9hnp">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/compat-91f98c37fc84eac24836eec2567e9912742094369a04c4eba6e3cd1fa18902d9.js"></script>
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-3a24d5c861294564cb46aae8f7e3c74c7aad8e5b861816bfd96927300f203f51.js"></script>
+    
+    <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-aea01bc4b7fa366479732897bf3ded978aad81f1283b630de36f45cdf861c8a1.js"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
+

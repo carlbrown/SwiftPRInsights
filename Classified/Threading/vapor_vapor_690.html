@@ -1,0 +1,4924 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-77c3b874f32e71b14cded5a120f42f5c7288fa52e0a37f2d5919fbd8bcfca63c.css" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-6aa6c145362b4891aac2acb0174c926899e203fc333faddf158a9dd981aac9bf.css" media="all" rel="stylesheet" />
+  
+  
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/site-87fc1b705115bb5758018dffb7c1ed35b316b40ef094c4d5bd0478efe83d7af7.css" media="all" rel="stylesheet" />
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>Enable nonblocking operation by andreasley · Pull Request #690 · vapor/vapor · GitHub</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars0.githubusercontent.com/u/1769714?v=4&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="Enable nonblocking operation by andreasley · Pull Request #690 · vapor/vapor" property="og:title" /><meta content="https://github.com/vapor/vapor/pull/690" property="og:url" /><meta content="This PR is part of a series to enable nonblocking operation in Vapor and solve vapor/engine#66
+This PR depends on vapor/engine#71" property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  
+  <meta name="pjax-timeout" content="1000">
+  
+  <meta name="request-id" content="D3AC:0475:37B285C:649AF8F:597B9B1D" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_pulls" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="D3AC:0475:37B285C:649AF8F:597B9B1D" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/pull_requests/show/files" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged Out">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="OGQ2NTBjN2Y1MmJhNTA1OGU5NjFhNmFhNTExY2JlYjQwYzU5ZTQ2MTAyMGYyMzliZmQ5ODQxNjIzNDQ2MTNhNXx7InJlbW90ZV9hZGRyZXNzIjoiMTcwLjIyNS45LjE0MSIsInJlcXVlc3RfaWQiOiJEM0FDOjA0NzU6MzdCMjg1Qzo2NDlBRjhGOjU5N0I5QjFEIiwidGltZXN0YW1wIjoxNTAxMjcyODYyLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+
+
+  <meta name="html-safe-nonce" content="d8f260cd566dcf9cf0df130a7f565df422d85a98">
+
+  <meta http-equiv="x-pjax-version" content="f3a1850625c189ad04289cfc2b85a63c">
+  
+
+      <link data-pjax-transient rel="alternate" type="text/x-diff" href="/vapor/vapor/pull/690.diff">
+  <link data-pjax-transient rel="alternate" type="text/x-patch" href="/vapor/vapor/pull/690.patch">
+
+  <meta name="diff-view" content="split" data-pjax-transient>
+  <link href="https://github.com/vapor/vapor/commits/c0d3945d8862de92183a98006181be5795381ff7.atom" rel="alternate" title="Recent Commits to vapor:c0d3945d8862de92183a98006181be5795381ff7" type="application/atom+xml">
+
+  <meta name="description" content="vapor - A server-side Swift web framework.">
+  <meta name="go-import" content="github.com/vapor/vapor git https://github.com/vapor/vapor.git">
+
+  <meta content="17364220" name="octolytics-dimension-user_id" /><meta content="vapor" name="octolytics-dimension-user_login" /><meta content="49910095" name="octolytics-dimension-repository_id" /><meta content="vapor/vapor" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="49910095" name="octolytics-dimension-repository_network_root_id" /><meta content="vapor/vapor" name="octolytics-dimension-repository_network_root_nwo" /><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+
+  </head>
+
+  <body class="logged-out env-production full-width">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="px-2 py-4 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-out position-relative f4 py-3" role="banner">
+  <div class="container-lg px-3 clearfix">
+    <div class="d-flex flex-justify-between">
+      <div class="d-flex">
+        <a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+          <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+
+        <div class="header-sitemenu clearfix">
+            <nav>
+              <ul class="d-flex list-style-none">
+                  <li class="ml-2">
+                    <a href="/features" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:features" data-selected-links="/features /features">
+                      Features
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/business" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:business" data-selected-links="/business /business/security /business/customers /business">
+                      Business
+</a>                  </li>
+
+                  <li class="ml-4">
+                    <a href="/explore" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship /showcases /explore">
+                      Explore
+</a>                  </li>
+
+                  <li class="ml-4">
+                        <a href="/marketplace" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:marketplace" data-selected-links=" /marketplace">
+                          Marketplace
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/pricing" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:pricing" data-selected-links="/pricing /pricing/developer /pricing/team /pricing/business-hosted /pricing/business-enterprise /pricing">
+                      Pricing
+</a>                  </li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+
+      <div class="d-flex">
+          <div class="mt-1 mr-3">
+            <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/vapor/vapor/search" class="js-site-search-form" data-scoped-search-url="/vapor/vapor/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/vapor/vapor/pull/690/files" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+          </div>
+
+        <span class="d-inline-block">
+            <div class="header-navlink px-0 py-2 m-0">
+              <a class="text-bold text-white no-underline" href="/login?return_to=%2Fvapor%2Fvapor%2Fpull%2F690%2Ffiles%3Fdiff%3Dsplit" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+                <span class="text-gray">or</span>
+                <a class="text-bold text-white no-underline" href="/join?source=header-repo" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+      
+
+
+
+
+  
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+      <a href="/login?return_to=%2Fvapor%2Fvapor"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+    Watch
+  </a>
+  <a class="social-count" href="/vapor/vapor/watchers"
+     aria-label="424 users are watching this repository">
+    424
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fvapor%2Fvapor"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/vapor/vapor/stargazers"
+      aria-label="10341 users starred this repository">
+      10,341
+    </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fvapor%2Fvapor"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+        Fork
+      </a>
+
+    <a href="/vapor/vapor/network" class="social-count"
+       aria-label="579 users forked this repository">
+      579
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/vapor" class="url fn" rel="author">vapor</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/vapor/vapor" data-pjax="#js-repo-pjax-container">vapor</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/vapor/vapor" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /vapor/vapor" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="/vapor/vapor/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /vapor/vapor/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg>
+        <span itemprop="name">Issues</span>
+        <span class="Counter">7</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/vapor/vapor/pulls" class="js-selected-navigation-item selected reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /vapor/vapor/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">4</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+
+
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="/vapor/vapor/pulse" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="/vapor/vapor/graphs" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div class="issues-listing js-review-state-classes " data-pjax>
+    <div id="files_bucket" class="files-bucket files-next-bucket clearfix pull-request-tab-content is-visible">
+      
+
+
+        
+  <div
+    id="partial-discussion-header"
+    class="gh-header js-details-container Details js-socket-channel js-updatable-content pull request"
+    data-channel="pull_request:92455018"
+    data-url="/vapor/vapor/pull/690/show_partial?partial=pull_requests%2Ftitle">
+
+  <div class="gh-header-show ">
+      <div class="gh-header-actions">
+
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        Enable nonblocking operation
+      </span>
+      <span class="gh-header-number">#690</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--purple">
+          <svg aria-hidden="true" class="octicon octicon-git-merge" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 0 0 2 .99C.89.99 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 0 0 1-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+          Merged
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+          <a href="/LoganWright" class="author pull-header-username css-truncate css-truncate-target expandable">
+    LoganWright
+  </a>
+  merged 14 commits into
+
+
+
+  <span class="commit-ref css-truncate user-select-contain expandable " title="vapor/vapor:master"><span class="css-truncate-target">master</span></span>
+
+from
+
+<span class="commit-ref css-truncate user-select-contain expandable head-ref" title="vapor/vapor:feature-nonblocking"><span class="css-truncate-target">feature-nonblocking</span></span>
+
+
+  <relative-time datetime="2016-11-30T16:02:18Z">Nov 30, 2016</relative-time>
+
+    </div>
+  </div>
+</div>
+
+        
+<div class="tabnav tabnav-pr">
+
+  <nav class="tabnav-tabs">
+      <link rel="pjax-prefetch" href="/vapor/vapor/pull/690">
+    <a href="/vapor/vapor/pull/690" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-comment-discussion" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/></svg>
+      Conversation
+
+      <span id="conversation_tab_counter" class="Counter">
+        5
+      </span>
+    </a>
+
+    <a href="/vapor/vapor/pull/690/commits" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-git-commit" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"/></svg>
+      Commits
+
+      <span id="commits_tab_counter" class="Counter">
+        14
+      </span>
+    </a>
+
+    <a href="/vapor/vapor/pull/690/files" class="tabnav-tab selected js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-diff" height="16" version="1.1" viewBox="0 0 13 16" width="13"><path fill-rule="evenodd" d="M6 7h2v1H6v2H5V8H3V7h2V5h1v2zm-3 6h5v-1H3v1zM7.5 2L11 5.5V15c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h6.5zM10 6L7 3H1v12h9V6zM8.5 0H3v1h5l4 4v8h1V4.5L8.5 0z"/></svg>
+      Files changed
+
+        <span id="files_tab_counter" class="Counter">
+            4
+        </span>
+    </a>
+  </nav>
+</div>
+
+
+        <div class="pr-toolbar js-sticky js-sticky-offset-scroll">
+          <div class="diffbar details-collapse js-details-container Details">
+            
+
+<div class="diffbar-item">
+  <div class="diffbar-range-menu select-menu js-menu-container js-select-menu js-diffbar-commits-menu"
+    data-range-url="/vapor/vapor/pull/690/files/$range">
+    <div class="js-select-button">
+      <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="c">
+        Changes from
+          <strong>all commits</strong>
+      </button>
+    </div>
+
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">Commits</span>
+        </div>
+        <div class="select-menu-list js-navigation-container js-active-navigation-container" role="menu">
+          <a href="/vapor/vapor/pull/690/files" class="select-menu-item js-navigation-item js-navigation-open" role="menuitem">
+            <div class="select-menu-item-text">
+              <div class="text-emphasized css-truncate css-truncate-target">
+                Show all changes
+              </div>
+              <span class="description">
+                14 commits
+              </span>
+            </div>
+          </a>
+
+
+          <div class="select-menu-divider">
+            Select commit
+              <span class="note text-normal mt-0 float-right">Hold shift + click to select a range</span>
+          </div>
+
+          <div class="js-diffbar-commits-list">
+              <a href="/vapor/vapor/pull/690/commits/b766a50bbadf5c8c5d67c8022b02a2e03fd894a1"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="b766a50" >
+                <div class="select-menu-item-text">
+                  <code class="float-right">b766a50</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Changes for nonblocking operation
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-05T14:07:32Z">Nov 5, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/7bb63f7e433a62e920eda82c29a4990cfb1917b7"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="7bb63f7" data-parent-commit="b766a50">
+                <div class="select-menu-item-text">
+                  <code class="float-right">7bb63f7</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Fixed Tests
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-05T14:15:45Z">Nov 5, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/1a12074c08622b023f07e52ff7806938248c6b1f"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="1a12074" data-parent-commit="7bb63f7">
+                <div class="select-menu-item-text">
+                  <code class="float-right">1a12074</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Added Dispatch import for Linux
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-05T14:42:31Z">Nov 5, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/8a20d4774e59f73cfd8d0325914591c2b92c7527"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="8a20d47" data-parent-commit="1a12074">
+                <div class="select-menu-item-text">
+                  <code class="float-right">8a20d47</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Using DispatchGroup instead of RunLoop the keep the app running
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-07T21:35:43Z">Nov 7, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/f35ecd94797e64a508fe056f986fcb44f894c4dd"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="f35ecd9" data-parent-commit="8a20d47">
+                <div class="select-menu-item-text">
+                  <code class="float-right">f35ecd9</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Merge branch &#39;master&#39; into feature-nonblocking
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-13T12:04:28Z">Nov 13, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/5bdeb2b7744aa2195c8650573e71bfc16f0e550a"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="5bdeb2b" data-parent-commit="f35ecd9">
+                <div class="select-menu-item-text">
+                  <code class="float-right">5bdeb2b</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Cleanup
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-13T13:42:51Z">Nov 13, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/8f18d00afc7e0cae87fc322121ee81e8471dac09"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="8f18d00" data-parent-commit="5bdeb2b">
+                <div class="select-menu-item-text">
+                  <code class="float-right">8f18d00</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Restored public API
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-13T14:06:53Z">Nov 13, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/0cce35e8c4e6e2b6340dc3178b62fed45b2f53ff"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="0cce35e" data-parent-commit="8f18d00">
+                <div class="select-menu-item-text">
+                  <code class="float-right">0cce35e</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Cleanup
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-13T14:09:24Z">Nov 13, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/2c8abfeb1f52f48c28b612254b3bedff8210c257"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="2c8abfe" data-parent-commit="0cce35e">
+                <div class="select-menu-item-text">
+                  <code class="float-right">2c8abfe</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Added ability to stop servers and made setter of list of started serv…
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-16T20:13:33Z">Nov 16, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/846792630896d5b75e2c03ca2c53fad3fa83b213"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="8467926" data-parent-commit="2c8abfe">
+                <div class="select-menu-item-text">
+                  <code class="float-right">8467926</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Fixed a bug that prevented a server from being retained if `startServ…
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-16T20:26:10Z">Nov 16, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/9a0399f331e5b40626f643a02082c7968ff2724a"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="9a0399f" data-parent-commit="8467926">
+                <div class="select-menu-item-text">
+                  <code class="float-right">9a0399f</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Changed tests to start servers directly
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-16T22:40:21Z">Nov 16, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/e517f4b32f8c8f5bffe708e9261cc02a1a9c7a2d"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="e517f4b" data-parent-commit="9a0399f">
+                <div class="select-menu-item-text">
+                  <code class="float-right">e517f4b</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Silenced a few warnings
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-16T22:42:29Z">Nov 16, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/4e97f43b0dc98025e0ea752b872733bd5f44ad9e"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="4e97f43" data-parent-commit="e517f4b">
+                <div class="select-menu-item-text">
+                  <code class="float-right">4e97f43</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Added tests for stoppping servers
+                  </div>
+                  <span class="description">
+                     <relative-time datetime="2016-11-16T23:47:29Z">Nov 16, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/vapor/vapor/pull/690/commits/c0d3945d8862de92183a98006181be5795381ff7"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="c0d3945" data-parent-commit="4e97f43">
+                <div class="select-menu-item-text">
+                  <code class="float-right">c0d3945</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Merge branch &#39;master&#39; into feature-nonblocking
+                  </div>
+                  <span class="description">
+                    LoganWright <relative-time datetime="2016-11-29T16:51:27Z">Nov 29, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+<div class="diffbar-item toc-select select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/vapor/vapor/pull/690/show_toc?base_sha=c806a5ff72bfb7e737c981b6f8eb8991d177f432&amp;sha1=c806a5ff72bfb7e737c981b6f8eb8991d177f432&amp;sha2=c0d3945d8862de92183a98006181be5795381ff7">
+  <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="t" data-ga-click="Pull Requests, open table of contents, type:semantic">
+      <strong>Jump to…</strong>
+  </button>
+  <div class="select-menu-modal-holder">
+    <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">
+              Jump to file or symbol
+          </span>
+        </div>
+        <div class="js-select-menu-deferred-content">
+          <div class="select-menu-blankslate select-menu-error">
+            Failed to load files and symbols. <button type="button" class="btn-link js-toc-retry">Retry</button>
+          </div>
+        </div>
+        <div class="select-menu-loading-overlay anim-pulse">
+          <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+              <span class="diffbar-item diffstat">
+  <span class="text-green">
+    +115
+  </span>
+  <span class="text-red">
+    −18
+  </span>
+  <span class="tooltipped tooltipped-s" aria-label="133 lines changed">
+    <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span>
+  </span>
+</span>
+
+
+            <div class="float-right pr-review-tools">
+              <div class="diffbar-item">
+  <div class="BtnGroup">
+      <a class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s" href="https://github.com/vapor/vapor/pull/690/files?diff=unified" aria-label="View diff in unified mode">Unified</a>
+      <button type="button" class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s bg-gray-light text-gray-light" href="https://github.com/vapor/vapor/pull/690/files?diff=split" aria-label="Viewing diff in split mode" disabled>Split</button>
+  </div>
+</div>
+
+
+            </div>
+
+                  <div class="js-socket-channel js-updatable-content js-pull-refresh-on-pjax" data-channel="pull_request:92455018" data-url="/vapor/vapor/pull/690/show_partial_comparison?base_commit_oid=c806a5ff72bfb7e737c981b6f8eb8991d177f432&amp;end_commit_oid=c0d3945d8862de92183a98006181be5795381ff7&amp;partial=pull_requests%2Fstale_comparison&amp;start_commit_oid=c806a5ff72bfb7e737c981b6f8eb8991d177f432"></div>
+
+
+            <div class="modal-backdrop js-touch-events"></div>
+          </div>
+        </div>
+        <div class="pr-toolbar-shadow"></div>
+
+
+
+          <div id="files" class="diff-view ">
+
+  <div class="js-diff-progressive-container">
+    
+<a name="diff-ec93f7b178d04053960b0837c49deb8a"></a>
+<div id="diff-0"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="Sources/Vapor/Droplet/Droplet+Run.swift" data-short-path="ec93f7b" data-anchor="diff-ec93f7b178d04053960b0837c49deb8a">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/vapor/vapor/blob/c0d3945d8862de92183a98006181be5795381ff7/Sources/Vapor/Droplet/Droplet%2BRun.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version c0d3945 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="5 additions &amp; 1 deletion">6 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-ec93f7b178d04053960b0837c49deb8a" class="link-gray-dark"
+         title="Sources/Vapor/Droplet/Droplet+Run.swift">Sources/Vapor/Droplet/Droplet+Run.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="40">
+                <col>
+                <col width="40">
+                <col>
+              </colgroup>
+            
+      <tr data-position="0">
+    <td id="diff-ec93f7b178d04053960b0837c49deb8aL0" class="blob-num blob-num-hunk" data-line-number="..."></td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -1,5 +1,6 @@</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL1"
+        data-line-number="1"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">libc</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR1"
+        data-line-number="1"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">libc</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL2"
+        data-line-number="2"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Console</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR2"
+        data-line-number="2"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Console</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR3"
+        data-line-number="3"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">import</span> <span class="pl-en">Dispatch</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL3"
+        data-line-number="3"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">extension</span> <span class="pl-en">Droplet</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">extension</span> <span class="pl-en">Droplet</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">enum</span> <span class="pl-en">ExecutionError</span>: <span class="pl-e">Swift</span>.<span class="pl-e"><span class="pl-c1">Error</span> </span>{</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">enum</span> <span class="pl-en">ExecutionError</span>: <span class="pl-e">Swift</span>.<span class="pl-e"><span class="pl-c1">Error</span> </span>{</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="7">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-ec93f7b178d04053960b0837c49deb8a"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/af50ee1d566269390822ac9fb801a1442bc30da2?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=12&amp;next_line_num_right=13&amp;path=Sources%2FVapor%2FDroplet%2FDroplet%2BRun.swift&amp;prev_line_num_left=5&amp;prev_line_num_right=6&amp;right_hunk_size=9"
+            data-left-range="6-11" data-right-range="7-12">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -12,6 +13,9 @@ extension Droplet {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL12"
+        data-line-number="12"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">run</span>(<span class="pl-smi"><span class="pl-en">servers</span></span>: [<span class="pl-c1">String</span>: ServerConfig]<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Never</span>  {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR13"
+        data-line-number="13"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">run</span>(<span class="pl-smi"><span class="pl-en">servers</span></span>: [<span class="pl-c1">String</span>: ServerConfig]<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Never</span>  {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL13"
+        data-line-number="13"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">do</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">do</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-k">try</span> <span class="pl-c1">runCommands</span>(<span class="pl-c1">servers</span>: servers)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-k">try</span> <span class="pl-c1">runCommands</span>(<span class="pl-c1">servers</span>: servers)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">let</span> group <span class="pl-k">=</span> <span class="pl-c1">DispatchGroup</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            group.<span class="pl-c1">enter</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            group.<span class="pl-c1">wait</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-c1">exit</span>(<span class="pl-c1">0</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-c1">exit</span>(<span class="pl-c1">0</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         } <span class="pl-k">catch</span> CommandError.<span class="pl-c1">general</span>(<span class="pl-k">let</span> error) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         } <span class="pl-k">catch</span> CommandError.<span class="pl-c1">general</span>(<span class="pl-k">let</span> error) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             console.<span class="pl-c1">output</span>(error, <span class="pl-c1">style</span>: .<span class="pl-c1">error</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             console.<span class="pl-c1">output</span>(error, <span class="pl-c1">style</span>: .<span class="pl-c1">error</span>)</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="17">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-ec93f7b178d04053960b0837c49deb8a"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/af50ee1d566269390822ac9fb801a1442bc30da2?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=39&amp;next_line_num_right=43&amp;path=Sources%2FVapor%2FDroplet%2FDroplet%2BRun.swift&amp;prev_line_num_left=17&amp;prev_line_num_right=21&amp;right_hunk_size=7"
+            data-left-range="18-38" data-right-range="22-42">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -39,7 +43,7 @@ extension Droplet {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL39"
+        data-line-number="39"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> the serve command will boot the servers</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR43"
+        data-line-number="43"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> the serve command will boot the servers</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL40"
+        data-line-number="40"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> and always runs the prepare command</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR44"
+        data-line-number="44"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> and always runs the prepare command</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL41"
+        data-line-number="41"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-k">let</span> serve <span class="pl-k">=</span> <span class="pl-c1">Serve</span>(<span class="pl-c1">console</span>: console, <span class="pl-c1">prepare</span>: prepare) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR45"
+        data-line-number="45"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-k">let</span> serve <span class="pl-k">=</span> <span class="pl-c1">Serve</span>(<span class="pl-c1">console</span>: console, <span class="pl-c1">prepare</span>: prepare) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL42"
+        data-line-number="42"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-k">try</span> <span class="pl-c1">self</span>.<span class="pl-c1 x x-first x-last">bootServers</span>(servers)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR46"
+        data-line-number="46"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">try</span> <span class="pl-c1">self</span>.<span class="pl-c1 x x-first x-last">startServers</span>(servers)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL43"
+        data-line-number="43"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR47"
+        data-line-number="47"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL44"
+        data-line-number="44"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR48"
+        data-line-number="48"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aL45"
+        data-line-number="45"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> the version command prints the frameworks version.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-ec93f7b178d04053960b0837c49deb8aR49"
+        data-line-number="49"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c"><span class="pl-c">//</span> the version command prints the frameworks version.</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-ec93f7b178d04053960b0837c49deb8a"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/vapor/vapor/blob_excerpt/af50ee1d566269390822ac9fb801a1442bc30da2?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=Sources%2FVapor%2FDroplet%2FDroplet%2BRun.swift&amp;prev_line_num_left=45&amp;prev_line_num_right=49"
+          data-left-range="46-85" data-right-range="50-85">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-a69a5619ac240b2ebf98a1a4920c0479"></a>
+<div id="diff-1"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="Sources/Vapor/Droplet/Droplet.swift" data-short-path="a69a561" data-anchor="diff-a69a5619ac240b2ebf98a1a4920c0479">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/vapor/vapor/blob/c0d3945d8862de92183a98006181be5795381ff7/Sources/Vapor/Droplet/Droplet.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version c0d3945 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="5 additions &amp; 0 deletions">5 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span></span>
+
+      <a href="#diff-a69a5619ac240b2ebf98a1a4920c0479" class="link-gray-dark"
+         title="Sources/Vapor/Droplet/Droplet.swift">Sources/Vapor/Droplet/Droplet.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-a69a5619ac240b2ebf98a1a4920c0479"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/d1e4d9ac0d2681cfe71fcedf45081521695c713a?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=146&amp;next_line_num_right=146&amp;path=Sources%2FVapor%2FDroplet%2FDroplet.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=11"
+            data-left-range="1-145" data-right-range="1-145">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -146,6 +146,11 @@ public class Droplet {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L146"
+        data-line-number="146"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">var</span> storage<span class="pl-k">:</span> [<span class="pl-c1">String</span><span class="pl-k">:</span> <span class="pl-c1">Any</span>]</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R146"
+        data-line-number="146"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">var</span> storage<span class="pl-k">:</span> [<span class="pl-c1">String</span><span class="pl-k">:</span> <span class="pl-c1">Any</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L147"
+        data-line-number="147"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R147"
+        data-line-number="147"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L148"
+        data-line-number="148"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">/**</span></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R148"
+        data-line-number="148"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-c"><span class="pl-c">/**</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R149"
+        data-line-number="149"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c">        The currently running servers</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R150"
+        data-line-number="150"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c">     <span class="pl-c">*/</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R151"
+        data-line-number="151"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">public</span> <span class="pl-k">internal</span>(<span class="pl-k">set</span>) <span class="pl-k">var</span> startedServers<span class="pl-k">:</span> [<span class="pl-c1">String</span><span class="pl-k">:</span>ServerProtocol] <span class="pl-k">=</span> [<span class="pl-k">:</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R152"
+        data-line-number="152"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R153"
+        data-line-number="153"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c"><span class="pl-c">/**</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L149"
+        data-line-number="149"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c">        The providers that have been added.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R154"
+        data-line-number="154"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c">        The providers that have been added.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L150"
+        data-line-number="150"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c">    <span class="pl-c">*/</span></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R155"
+        data-line-number="155"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c">    <span class="pl-c">*/</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479L151"
+        data-line-number="151"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">internal</span>(<span class="pl-k">set</span>) <span class="pl-k">var</span> providers<span class="pl-k">:</span> [Provider]</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-a69a5619ac240b2ebf98a1a4920c0479R156"
+        data-line-number="156"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">public</span> <span class="pl-k">internal</span>(<span class="pl-k">set</span>) <span class="pl-k">var</span> providers<span class="pl-k">:</span> [Provider]</span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-a69a5619ac240b2ebf98a1a4920c0479"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/vapor/vapor/blob_excerpt/d1e4d9ac0d2681cfe71fcedf45081521695c713a?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=Sources%2FVapor%2FDroplet%2FDroplet.swift&amp;prev_line_num_left=151&amp;prev_line_num_right=156"
+          data-left-range="152-339" data-right-range="157-339">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-684cfc86da1b1fa75795b43acfb1b93f"></a>
+<div id="diff-2"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="Sources/Vapor/Serve/Droplet+BootServers.swift" data-short-path="684cfc8" data-anchor="diff-684cfc86da1b1fa75795b43acfb1b93f">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/vapor/vapor/blob/c0d3945d8862de92183a98006181be5795381ff7/Sources/Vapor/Serve/Droplet%2BBootServers.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version c0d3945 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="57 additions &amp; 1 deletion">58 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-684cfc86da1b1fa75795b43acfb1b93f" class="link-gray-dark"
+         title="Sources/Vapor/Serve/Droplet+BootServers.swift">Sources/Vapor/Serve/Droplet+BootServers.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-684cfc86da1b1fa75795b43acfb1b93f"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/eb8e7b5bb806e6183bf134ee61ae6a4b21c6dbf3?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=4&amp;next_line_num_right=4&amp;path=Sources%2FVapor%2FServe%2FDroplet%2BBootServers.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=63"
+            data-left-range="1-3" data-right-range="1-3">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -4,6 +4,63 @@ import Transport</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">public</span> <span class="pl-k">typealias</span> <span class="pl-en">ServerConfig</span> <span class="pl-k">=</span> (host: <span class="pl-c1">String</span>, port: <span class="pl-c1">Int</span>, securityLayer: SecurityLayer)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">public</span> <span class="pl-k">typealias</span> <span class="pl-en">ServerConfig</span> <span class="pl-k">=</span> (host: <span class="pl-c1">String</span>, port: <span class="pl-c1">Int</span>, securityLayer: SecurityLayer)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR7"
+        data-line-number="7"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span> MARK: Starting (async booting)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR8"
+        data-line-number="8"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR9"
+        data-line-number="9"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">extension</span> <span class="pl-en">Droplet</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR10"
+        data-line-number="10"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">startServers</span>(<span class="pl-en">_</span> <span class="pl-smi">s</span>: [<span class="pl-c1">String</span>: ServerConfig]<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span>) <span class="pl-k">throws</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR11"
+        data-line-number="11"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> configs<span class="pl-k">:</span> [<span class="pl-c1">String</span><span class="pl-k">:</span> ServerConfig]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR12"
+        data-line-number="12"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">if</span> <span class="pl-k">let</span> s <span class="pl-k">=</span> s {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR13"
+        data-line-number="13"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            configs <span class="pl-k">=</span> s</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR14"
+        data-line-number="14"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        } <span class="pl-k">else</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR15"
+        data-line-number="15"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            configs <span class="pl-k">=</span> <span class="pl-c1">parseServersConfig</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR16"
+        data-line-number="16"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR17"
+        data-line-number="17"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR18"
+        data-line-number="18"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">for</span> (name, config) <span class="pl-k">in</span> configs {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR19"
+        data-line-number="19"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">_</span> <span class="pl-k">=</span> <span class="pl-k">try</span> <span class="pl-c1">startServer</span>(config, <span class="pl-c1">name</span>: name)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR20"
+        data-line-number="20"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR21"
+        data-line-number="21"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR22"
+        data-line-number="22"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR23"
+        data-line-number="23"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">startServer</span>(<span class="pl-en">_</span> <span class="pl-smi">config</span>: ServerConfig, <span class="pl-smi"><span class="pl-en">name</span></span>: <span class="pl-c1">String</span>) <span class="pl-k">throws</span> <span class="pl-k">-&gt;</span> ServerProtocol {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR24"
+        data-line-number="24"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">var</span> message<span class="pl-k">:</span> [<span class="pl-c1">String</span>] <span class="pl-k">=</span> []</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR25"
+        data-line-number="25"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Server &#39;<span class="pl-pse">\(</span><span class="pl-s1">name</span><span class="pl-pse"><span class="pl-s1">)</span></span>&#39; starting<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR26"
+        data-line-number="26"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>at <span class="pl-pse">\(</span><span class="pl-s1">config.<span class="pl-smi">host</span></span><span class="pl-pse"><span class="pl-s1">)</span></span>:<span class="pl-pse">\(</span><span class="pl-s1">config.<span class="pl-smi">port</span></span><span class="pl-pse"><span class="pl-s1">)</span></span><span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR27"
+        data-line-number="27"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">if</span> config.<span class="pl-smi">securityLayer</span>.<span class="pl-smi">isSecure</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR28"
+        data-line-number="28"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>🔒<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR29"
+        data-line-number="29"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR30"
+        data-line-number="30"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> info <span class="pl-k">=</span> message.<span class="pl-c1">joined</span>(<span class="pl-c1">separator</span>: <span class="pl-s"><span class="pl-pds">&quot;</span> <span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR31"
+        data-line-number="31"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR32"
+        data-line-number="32"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        console.<span class="pl-c1">output</span>(info, <span class="pl-c1">style</span>: .<span class="pl-smi">info</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR33"
+        data-line-number="33"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> server <span class="pl-k">=</span> <span class="pl-k">try</span> <span class="pl-c1">self</span>.<span class="pl-smi">server</span>.<span class="pl-c1">startAsync</span>(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR34"
+        data-line-number="34"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">host</span>: config.<span class="pl-smi">host</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR35"
+        data-line-number="35"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">port</span>: config.<span class="pl-smi">port</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR36"
+        data-line-number="36"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">securityLayer</span>: config.<span class="pl-smi">securityLayer</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR37"
+        data-line-number="37"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">responder</span>: <span class="pl-c1">self</span>,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR38"
+        data-line-number="38"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">errors</span>: serverErrors</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR39"
+        data-line-number="39"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        )</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR40"
+        data-line-number="40"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        startedServers[name] <span class="pl-k">=</span> server</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR41"
+        data-line-number="41"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> server</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR42"
+        data-line-number="42"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR43"
+        data-line-number="43"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR44"
+        data-line-number="44"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">stopServers</span>() {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR45"
+        data-line-number="45"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c"><span class="pl-c">//</span> release all servers, which should close the listening socket(s)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR46"
+        data-line-number="46"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        startedServers.<span class="pl-c1">removeAll</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR47"
+        data-line-number="47"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR48"
+        data-line-number="48"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR49"
+        data-line-number="49"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">stopServer</span>(<span class="pl-smi"><span class="pl-en">name</span></span>: <span class="pl-c1">String</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR50"
+        data-line-number="50"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">guard</span> <span class="pl-k">let</span> server <span class="pl-k">=</span> startedServers[name] <span class="pl-k">else</span> { <span class="pl-k">return</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR51"
+        data-line-number="51"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        startedServers.<span class="pl-c1">removeValue</span>(<span class="pl-c1">forKey</span>: name)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR52"
+        data-line-number="52"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">var</span> message<span class="pl-k">:</span> [<span class="pl-c1">String</span>] <span class="pl-k">=</span> []</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR53"
+        data-line-number="53"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>Stopping server &#39;<span class="pl-pse">\(</span><span class="pl-s1">name</span><span class="pl-pse"><span class="pl-s1">)</span></span>&#39;<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR54"
+        data-line-number="54"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>at <span class="pl-pse">\(</span><span class="pl-s1">server.<span class="pl-smi">host</span></span><span class="pl-pse"><span class="pl-s1">)</span></span>:<span class="pl-pse">\(</span><span class="pl-s1">server.<span class="pl-smi">port</span></span><span class="pl-pse"><span class="pl-s1">)</span></span><span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR55"
+        data-line-number="55"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">if</span> server.<span class="pl-smi">securityLayer</span>.<span class="pl-smi">isSecure</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR56"
+        data-line-number="56"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            message <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">&quot;</span>🔒<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR57"
+        data-line-number="57"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR58"
+        data-line-number="58"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> info <span class="pl-k">=</span> message.<span class="pl-c1">joined</span>(<span class="pl-c1">separator</span>: <span class="pl-s"><span class="pl-pds">&quot;</span> <span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR59"
+        data-line-number="59"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR60"
+        data-line-number="60"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        console.<span class="pl-c1">output</span>(info, <span class="pl-c1">style</span>: .<span class="pl-smi">info</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR61"
+        data-line-number="61"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR62"
+        data-line-number="62"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR63"
+        data-line-number="63"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL7"
+        data-line-number="7"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> MARK: Booting</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR64"
+        data-line-number="64"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> MARK: Booting</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL8"
+        data-line-number="8"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR65"
+        data-line-number="65"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL9"
+        data-line-number="9"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">extension</span> <span class="pl-en">Droplet</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR66"
+        data-line-number="66"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">extension</span> <span class="pl-en">Droplet</span> {</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="64">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-684cfc86da1b1fa75795b43acfb1b93f"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/eb8e7b5bb806e6183bf134ee61ae6a4b21c6dbf3?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=65&amp;next_line_num_right=122&amp;path=Sources%2FVapor%2FServe%2FDroplet%2BBootServers.swift&amp;prev_line_num_left=9&amp;prev_line_num_right=66&amp;right_hunk_size=6"
+            data-left-range="10-64" data-right-range="67-121">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -65,7 +122,6 @@ extension Droplet {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL65"
+        data-line-number="65"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             )</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR122"
+        data-line-number="122"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             )</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL66"
+        data-line-number="66"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL67"
+        data-line-number="67"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL68"
+        data-line-number="68"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL69"
+        data-line-number="69"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL70"
+        data-line-number="70"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fL71"
+        data-line-number="71"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> MARK: Parsing</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-684cfc86da1b1fa75795b43acfb1b93fR127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"><span class="pl-c">//</span> MARK: Parsing</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-684cfc86da1b1fa75795b43acfb1b93f"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/vapor/vapor/blob_excerpt/eb8e7b5bb806e6183bf134ee61ae6a4b21c6dbf3?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=Sources%2FVapor%2FServe%2FDroplet%2BBootServers.swift&amp;prev_line_num_left=71&amp;prev_line_num_right=127"
+          data-left-range="72-186" data-right-range="128-186">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-63e7c8338b0d025c9cccb0971cfabe0e"></a>
+<div id="diff-3"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="Tests/VaporTests/DropletTests.swift" data-short-path="63e7c83" data-anchor="diff-63e7c8338b0d025c9cccb0971cfabe0e">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/vapor/vapor/blob/c0d3945d8862de92183a98006181be5795381ff7/Tests/VaporTests/DropletTests.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version c0d3945 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="48 additions &amp; 16 deletions">64 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-63e7c8338b0d025c9cccb0971cfabe0e" class="link-gray-dark"
+         title="Tests/VaporTests/DropletTests.swift">Tests/VaporTests/DropletTests.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-63e7c8338b0d025c9cccb0971cfabe0e"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/6a8a256147a8810ac998d3a792549eb5128c929c?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=2&amp;next_line_num_right=2&amp;path=Tests%2FVaporTests%2FDropletTests.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=7"
+            data-left-range="1-1" data-right-range="1-1">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -2,6 +2,7 @@ import XCTest</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL2"
+        data-line-number="2"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">@testable</span> <span class="pl-k">import</span> <span class="pl-en">Vapor</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR2"
+        data-line-number="2"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">@testable</span> <span class="pl-k">import</span> <span class="pl-en">Vapor</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL3"
+        data-line-number="3"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">HTTP</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR3"
+        data-line-number="3"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">HTTP</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Core</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR4"
+        data-line-number="4"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">import</span> <span class="pl-en">Core</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">import</span> <span class="pl-en">SocksCore</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL5"
+        data-line-number="5"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL6"
+        data-line-number="6"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-k">class</span> <span class="pl-en">DropletTests</span>: <span class="pl-e">XCTestCase </span>{</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR7"
+        data-line-number="7"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-k">class</span> <span class="pl-en">DropletTests</span>: <span class="pl-e">XCTestCase </span>{</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL7"
+        data-line-number="7"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">static</span> <span class="pl-k">let</span> allTests <span class="pl-k">=</span> [</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR8"
+        data-line-number="8"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">static</span> <span class="pl-k">let</span> allTests <span class="pl-k">=</span> [</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="8">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-63e7c8338b0d025c9cccb0971cfabe0e"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/6a8a256147a8810ac998d3a792549eb5128c929c?diff=split&amp;in_wiki_context=&amp;left_hunk_size=15&amp;mode=100644&amp;next_line_num_left=79&amp;next_line_num_right=80&amp;path=Tests%2FVaporTests%2FDropletTests.swift&amp;prev_line_num_left=7&amp;prev_line_num_right=8&amp;right_hunk_size=32"
+            data-left-range="8-78" data-right-range="9-79">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -79,15 +80,32 @@ class DropletTests: XCTestCase {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL79"
+        data-line-number="79"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR80"
+        data-line-number="80"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL80"
+        data-line-number="80"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR81"
+        data-line-number="81"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL81"
+        data-line-number="81"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR82"
+        data-line-number="82"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL82"
+        data-line-number="82"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">try</span> background {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR83"
+        data-line-number="83"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">try</span> drop.<span class="pl-c1">startServers</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL83"
+        data-line-number="83"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            drop.<span class="pl-c1">run</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL84"
+        data-line-number="84"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL85"
+        data-line-number="85"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">try</span> background {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL86"
+        data-line-number="86"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL87"
+        data-line-number="87"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR84"
+        data-line-number="84"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL88"
+        data-line-number="88"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-k">let</span> res <span class="pl-k">=</span> <span class="pl-k">try</span><span class="pl-k">!</span> drop.<span class="pl-smi">client</span>.<span class="pl-c1">get</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>http://0.0.0.0:8080/foo<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR85"
+        data-line-number="85"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL89"
+        data-line-number="89"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-c1">XCTAssertEqual</span>(<span class="pl-k">try</span><span class="pl-k">!</span> res.<span class="pl-c1">bodyString</span>(), <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR86"
+        data-line-number="86"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL90"
+        data-line-number="90"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR87"
+        data-line-number="87"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> res <span class="pl-k">=</span> <span class="pl-k">try</span><span class="pl-k">!</span> drop.<span class="pl-smi">client</span>.<span class="pl-c1">get</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>http://0.0.0.0:8080/foo<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR88"
+        data-line-number="88"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c1">XCTAssertEqual</span>(<span class="pl-k">try</span><span class="pl-k">!</span> res.<span class="pl-c1">bodyString</span>(), <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR89"
+        data-line-number="89"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR90"
+        data-line-number="90"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        drop.<span class="pl-c1">stopServers</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR91"
+        data-line-number="91"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR92"
+        data-line-number="92"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c1">XCTAssert</span>(drop.<span class="pl-smi">startedServers</span>.<span class="pl-c1">count</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR93"
+        data-line-number="93"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR94"
+        data-line-number="94"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">0.5</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR95"
+        data-line-number="95"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR96"
+        data-line-number="96"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c"><span class="pl-c">//</span> TODO: Enable when a new version of vapor/engine is released with this PR:</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR97"
+        data-line-number="97"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> https://github.com/vapor/engine/pull/78</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR98"
+        data-line-number="98"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> Currently, listening sockets aren&#39;t closed properly, resulting in wrong errors</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR99"
+        data-line-number="99"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR100"
+        data-line-number="100"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        do {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR101"
+        data-line-number="101"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            _ = try drop.client.get(&quot;http://0.0.0.0:8080/foo&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR102"
+        data-line-number="102"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            XCTFail(&quot;Expected to throw&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR103"
+        data-line-number="103"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        } catch let error as SocksError {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR104"
+        data-line-number="104"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            guard case ErrorReason.connectFailed = error.type else {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR105"
+        data-line-number="105"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>                XCTFail(&quot;Unexpected SocksError: \(error)&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>                return</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            }</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        }</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL91"
+        data-line-number="91"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL92"
+        data-line-number="92"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL93"
+        data-line-number="93"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     <span class="pl-k">func</span> <span class="pl-en">testRunConfig</span>() <span class="pl-k">throws</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     <span class="pl-k">func</span> <span class="pl-en">testRunConfig</span>() <span class="pl-k">throws</span> {</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="49">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-63e7c8338b0d025c9cccb0971cfabe0e"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/6a8a256147a8810ac998d3a792549eb5128c929c?diff=split&amp;in_wiki_context=&amp;left_hunk_size=9&amp;mode=100644&amp;next_line_num_left=106&amp;next_line_num_right=124&amp;path=Tests%2FVaporTests%2FDropletTests.swift&amp;prev_line_num_left=93&amp;prev_line_num_right=111&amp;right_hunk_size=7"
+            data-left-range="94-105" data-right-range="112-123">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -106,9 +124,7 @@ class DropletTests: XCTestCase {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">try</span> background {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">try</span> drop.<span class="pl-c1">startServers</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            drop.<span class="pl-c1">run</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL112"
+        data-line-number="112"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR128"
+        data-line-number="128"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL113"
+        data-line-number="113"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR129"
+        data-line-number="129"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL114"
+        data-line-number="114"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR130"
+        data-line-number="130"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="60">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-63e7c8338b0d025c9cccb0971cfabe0e"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/vapor/vapor/blob_excerpt/6a8a256147a8810ac998d3a792549eb5128c929c?diff=split&amp;in_wiki_context=&amp;left_hunk_size=15&amp;mode=100644&amp;next_line_num_left=123&amp;next_line_num_right=139&amp;path=Tests%2FVaporTests%2FDropletTests.swift&amp;prev_line_num_left=114&amp;prev_line_num_right=130&amp;right_hunk_size=31"
+            data-left-range="115-122" data-right-range="131-138">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -123,15 +139,31 @@ class DropletTests: XCTestCase {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR139"
+        data-line-number="139"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR140"
+        data-line-number="140"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR141"
+        data-line-number="141"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">try</span> background {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR142"
+        data-line-number="142"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c1">_</span> <span class="pl-k">=</span> <span class="pl-k">try</span> drop.<span class="pl-c1">startServer</span>((<span class="pl-s"><span class="pl-pds">&quot;</span>0.0.0.0<span class="pl-pds">&quot;</span></span>, <span class="pl-c1">8424</span>, .<span class="pl-c1">none</span>), <span class="pl-c1">name</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>my-server<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            drop.<span class="pl-c1">run</span>(<span class="pl-c1">servers</span>: [</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL128"
+        data-line-number="128"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-                <span class="pl-s"><span class="pl-pds">&quot;</span>my-server<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> (<span class="pl-s"><span class="pl-pds">&quot;</span>0.0.0.0<span class="pl-pds">&quot;</span></span>, <span class="pl-c1">8424</span>, .<span class="pl-c1">none</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL129"
+        data-line-number="129"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            ])</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL130"
+        data-line-number="130"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL131"
+        data-line-number="131"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR143"
+        data-line-number="143"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL132"
+        data-line-number="132"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR144"
+        data-line-number="144"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">2</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL133"
+        data-line-number="133"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR145"
+        data-line-number="145"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL134"
+        data-line-number="134"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> res <span class="pl-k">=</span> <span class="pl-k">try</span> drop.<span class="pl-smi">client</span>.<span class="pl-c1">get</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>http://0.0.0.0:8424/foo<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR146"
+        data-line-number="146"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> res <span class="pl-k">=</span> <span class="pl-k">try</span> drop.<span class="pl-smi">client</span>.<span class="pl-c1">get</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>http://0.0.0.0:8424/foo<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL135"
+        data-line-number="135"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-c1">XCTAssertEqual</span>(<span class="pl-k">try</span> res.<span class="pl-c1">bodyString</span>(), <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR147"
+        data-line-number="147"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-c1">XCTAssertEqual</span>(<span class="pl-k">try</span> res.<span class="pl-c1">bodyString</span>(), <span class="pl-s"><span class="pl-pds">&quot;</span>bar<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR148"
+        data-line-number="148"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR149"
+        data-line-number="149"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        drop.<span class="pl-c1">stopServer</span>(<span class="pl-c1">name</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>my-server<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR150"
+        data-line-number="150"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR151"
+        data-line-number="151"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c1">XCTAssert</span>(drop.<span class="pl-smi">startedServers</span>.<span class="pl-c1">count</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR152"
+        data-line-number="152"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR153"
+        data-line-number="153"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        drop.<span class="pl-smi">console</span>.<span class="pl-c1">wait</span>(<span class="pl-c1">seconds</span>: <span class="pl-c1">0.5</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR154"
+        data-line-number="154"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR155"
+        data-line-number="155"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c"><span class="pl-c">//</span> TODO: Enable when a new version of vapor/engine is released with this PR:</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR156"
+        data-line-number="156"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> https://github.com/vapor/engine/pull/78</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR157"
+        data-line-number="157"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> Currently, listening sockets aren&#39;t closed properly, resulting in wrong errors</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR158"
+        data-line-number="158"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR159"
+        data-line-number="159"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        do {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR160"
+        data-line-number="160"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            _ = try drop.client.get(&quot;http://0.0.0.0:8424/foo&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR161"
+        data-line-number="161"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            XCTFail(&quot;Expected to throw&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR162"
+        data-line-number="162"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        } catch let error as SocksError {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR163"
+        data-line-number="163"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            guard case ErrorReason.connectFailed = error.type else {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR164"
+        data-line-number="164"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>                XCTFail(&quot;Unexpected SocksError: \(error)&quot;)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR165"
+        data-line-number="165"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>                return</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR166"
+        data-line-number="166"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>            }</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR167"
+        data-line-number="167"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"><span class="pl-c">//</span>        }</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL136"
+        data-line-number="136"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR168"
+        data-line-number="168"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eL137"
+        data-line-number="137"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-63e7c8338b0d025c9cccb0971cfabe0eR169"
+        data-line-number="169"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<button type="button" class="js-toggle-all-file-notes" data-hotkey="i" style="display:none">Toggle all file notes</button>
+
+<svg aria-hidden="true" width="340px" height="84px" viewBox="0 0 340 84" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="diff-placeholder-svg position-absolute bottom-0">
+  <defs>
+    <clippath id="diff-placeholder">
+      <rect x="0" y="0" width="67.0175439" height="11.9298746" rx="2"></rect>
+      <rect x="18.9473684" y="47.7194983" width="100.701754" height="11.9298746" rx="2"></rect>
+      <rect x="0" y="71.930126" width="37.8947368" height="11.9298746" rx="2"></rect>
+      <rect x="127.017544" y="48.0703769" width="53.3333333" height="11.9298746" rx="2"></rect>
+      <rect x="187.719298" y="48.0703769" width="72.9824561" height="11.9298746" rx="2"></rect>
+      <rect x="76.8421053" y="0" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="17.8947368" y="23.8597491" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="166.315789" y="23.8597491" width="173.684211" height="11.9298746" rx="2"></rect>
+    </clippath>
+
+    <linearGradient id="animated-diff-gradient" x1="0" x2="0" y1="0" y2="1" spreadMethod="reflect">
+      <stop offset="0" stop-color="#eee"></stop>
+      <stop offset="0.2" stop-color="#eee"></stop>
+      <stop offset="0.5" stop-color="#ddd"></stop>
+      <stop offset="0.8" stop-color="#eee"></stop>
+      <stop offset="1" stop-color="#eee"></stop>
+      <animateTransform attributeName="y1" values="0%; 100%; 0" dur="1s" repeatCount="3"></animateTransform>
+      <animateTransform attributeName="y2" values="100%; 200%; 0" dur="1s" repeatCount="3"></animateTransform>
+    </linearGradient>
+  </defs>
+</svg>
+
+
+
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container-lg site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="1.03629s from unicorn-622316711-xl2nm">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/compat-91f98c37fc84eac24836eec2567e9912742094369a04c4eba6e3cd1fa18902d9.js"></script>
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-3a24d5c861294564cb46aae8f7e3c74c7aad8e5b861816bfd96927300f203f51.js"></script>
+    
+    <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-52fef493bd38b399d132dee9d4366c50ae8cd06537ba35868712a9e9faa22139.js"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
+

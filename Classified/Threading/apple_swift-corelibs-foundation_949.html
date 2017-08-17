@@ -1,0 +1,2587 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-77c3b874f32e71b14cded5a120f42f5c7288fa52e0a37f2d5919fbd8bcfca63c.css" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-0a953a85eecf1859fe38b3fad6e30ccb5aa2407b6b09264f457a36a90a1469e2.css" media="all" rel="stylesheet" />
+  
+  
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/site-87fc1b705115bb5758018dffb7c1ed35b316b40ef094c4d5bd0478efe83d7af7.css" media="all" rel="stylesheet" />
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>[URLSession](SR-4567) Fix for a race condition in URLSession by pushkarnk · Pull Request #949 · apple/swift-corelibs-foundation · GitHub</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars3.githubusercontent.com/u/4761859?v=4&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="[URLSession](SR-4567) Fix for a race condition in URLSession by pushkarnk · Pull Request #949 · apple/swift-corelibs-foundation" property="og:title" /><meta content="https://github.com/apple/swift-corelibs-foundation/pull/949" property="og:url" /><meta content="This race condition is a result of a unique sequence of events in the Foundation-libcurl-libdispatch interplay. Details of the issue can found here. This PR proposes a way to fix that race conditio..." property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  
+  <meta name="pjax-timeout" content="1000">
+  
+  <meta name="request-id" content="AFCC:195E4:454F75C:725099B:5980E0FE" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_pulls" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="AFCC:195E4:454F75C:725099B:5980E0FE" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/pull_requests/show/files" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged Out">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="YzBjMzBkZjQ4MDMwMGM1ZTZlZWE0N2M4YzVlNGRjMTMzZDJjOTk3YjEzZDMyMTNiNTViMGUyNTQ1Yjg2NzlhOHx7InJlbW90ZV9hZGRyZXNzIjoiMzIuOTcuMTEwLjYxIiwicmVxdWVzdF9pZCI6IkFGQ0M6MTk1RTQ6NDU0Rjc1Qzo3MjUwOTlCOjU5ODBFMEZFIiwidGltZXN0YW1wIjoxNTAxNjE4NDMxLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+
+
+  <meta name="html-safe-nonce" content="9deda0e22ac842a4cb2c28c4f753dfd5badd2e2d">
+
+  <meta http-equiv="x-pjax-version" content="51e85317078e8fd794356e8acc689248">
+  
+
+      <link data-pjax-transient rel="alternate" type="text/x-diff" href="/apple/swift-corelibs-foundation/pull/949.diff">
+  <link data-pjax-transient rel="alternate" type="text/x-patch" href="/apple/swift-corelibs-foundation/pull/949.patch">
+
+  <meta name="diff-view" content="split" data-pjax-transient>
+  <link href="https://github.com/apple/swift-corelibs-foundation/commits/93519422221fdb64cec1fb6845c8654b4ec55dc8.atom" rel="alternate" title="Recent Commits to swift-corelibs-foundation:93519422221fdb64cec1fb6845c8654b4ec55dc8" type="application/atom+xml">
+
+  <meta name="description" content="swift-corelibs-foundation - The Foundation Project, providing core utilities, internationalization, and OS independence">
+  <meta name="go-import" content="github.com/apple/swift-corelibs-foundation git https://github.com/apple/swift-corelibs-foundation.git">
+
+  <meta content="10639145" name="octolytics-dimension-user_id" /><meta content="apple" name="octolytics-dimension-user_login" /><meta content="45863890" name="octolytics-dimension-repository_id" /><meta content="apple/swift-corelibs-foundation" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="45863890" name="octolytics-dimension-repository_network_root_id" /><meta content="apple/swift-corelibs-foundation" name="octolytics-dimension-repository_network_root_nwo" /><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+
+  </head>
+
+  <body class="logged-out env-production full-width">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="px-2 py-4 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-out position-relative f4 py-3" role="banner">
+  <div class="container-lg px-3 clearfix">
+    <div class="d-flex flex-justify-between">
+      <div class="d-flex">
+        <a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+          <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+
+        <div class="header-sitemenu clearfix">
+            <nav>
+              <ul class="d-flex list-style-none">
+                  <li class="ml-2">
+                    <a href="/features" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:features" data-selected-links="/features /features">
+                      Features
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/business" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:business" data-selected-links="/business /business/security /business/customers /business">
+                      Business
+</a>                  </li>
+
+                  <li class="ml-4">
+                    <a href="/explore" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship /showcases /explore">
+                      Explore
+</a>                  </li>
+
+                  <li class="ml-4">
+                        <a href="/marketplace" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:marketplace" data-selected-links=" /marketplace">
+                          Marketplace
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/pricing" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:pricing" data-selected-links="/pricing /pricing/developer /pricing/team /pricing/business-hosted /pricing/business-enterprise /pricing">
+                      Pricing
+</a>                  </li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+
+      <div class="d-flex">
+          <div class="mt-1 mr-3">
+            <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/apple/swift-corelibs-foundation/search" class="js-site-search-form" data-scoped-search-url="/apple/swift-corelibs-foundation/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/apple/swift-corelibs-foundation/pull/949/files" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+          </div>
+
+        <span class="d-inline-block">
+            <div class="header-navlink px-0 py-2 m-0">
+              <a class="text-bold text-white no-underline" href="/login?return_to=%2Fapple%2Fswift-corelibs-foundation%2Fpull%2F949%2Ffiles%3Fdiff%3Dsplit" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+                <span class="text-gray">or</span>
+                <a class="text-bold text-white no-underline" href="/join?source=header-repo" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+      
+
+
+
+
+  
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift-corelibs-foundation"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+    Watch
+  </a>
+  <a class="social-count" href="/apple/swift-corelibs-foundation/watchers"
+     aria-label="248 users are watching this repository">
+    248
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift-corelibs-foundation"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/apple/swift-corelibs-foundation/stargazers"
+      aria-label="2544 users starred this repository">
+      2,544
+    </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift-corelibs-foundation"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+        Fork
+      </a>
+
+    <a href="/apple/swift-corelibs-foundation/network" class="social-count"
+       aria-label="591 users forked this repository">
+      591
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/apple" class="url fn" rel="author">apple</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/apple/swift-corelibs-foundation" data-pjax="#js-repo-pjax-container">swift-corelibs-foundation</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift-corelibs-foundation" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /apple/swift-corelibs-foundation" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift-corelibs-foundation/pulls" class="js-selected-navigation-item selected reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /apple/swift-corelibs-foundation/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">32</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="/apple/swift-corelibs-foundation/projects" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /apple/swift-corelibs-foundation/projects">
+      <svg aria-hidden="true" class="octicon octicon-project" height="16" version="1.1" viewBox="0 0 15 16" width="15"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/></svg>
+      Projects
+      <span class="Counter" >0</span>
+</a>
+
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="/apple/swift-corelibs-foundation/pulse" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="/apple/swift-corelibs-foundation/graphs" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div class="issues-listing js-review-state-classes " data-pjax>
+    <div id="files_bucket" class="files-bucket files-next-bucket clearfix pull-request-tab-content is-visible">
+      
+
+
+        
+  <div
+    id="partial-discussion-header"
+    class="gh-header js-details-container Details js-socket-channel js-updatable-content pull request"
+    data-channel="pull_request:115605765"
+    data-url="/apple/swift-corelibs-foundation/pull/949/show_partial?partial=pull_requests%2Ftitle">
+
+  <div class="gh-header-show gh-header-no-access">
+      <div class="gh-header-actions">
+
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        [URLSession](SR-4567) Fix for a race condition in URLSession
+      </span>
+      <span class="gh-header-number">#949</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--purple">
+          <svg aria-hidden="true" class="octicon octicon-git-merge" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 0 0 2 .99C.89.99 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 0 0 1-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+          Merged
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+          <a href="/phausler" class="author pull-header-username css-truncate css-truncate-target expandable">
+    phausler
+  </a>
+  merged 1 commit into
+
+
+
+  <span class="commit-ref css-truncate user-select-contain expandable " title="apple/swift-corelibs-foundation:master"><span class="css-truncate-target user">apple</span>:<span class="css-truncate-target">master</span></span>
+
+from
+
+<span class="commit-ref css-truncate user-select-contain expandable head-ref" title="pushkarnk/swift-corelibs-foundation:urlsession-race-condition"><span class="css-truncate-target user">pushkarnk</span>:<span class="css-truncate-target">urlsession-race-condition</span></span>
+
+
+  <relative-time datetime="2017-04-19T19:19:57Z">Apr 19, 2017</relative-time>
+
+    </div>
+  </div>
+</div>
+
+        
+<div class="tabnav tabnav-pr">
+
+  <nav class="tabnav-tabs">
+      <link rel="pjax-prefetch" href="/apple/swift-corelibs-foundation/pull/949">
+    <a href="/apple/swift-corelibs-foundation/pull/949" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-comment-discussion" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/></svg>
+      Conversation
+
+      <span id="conversation_tab_counter" class="Counter">
+        13
+      </span>
+    </a>
+
+    <a href="/apple/swift-corelibs-foundation/pull/949/commits" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-git-commit" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"/></svg>
+      Commits
+
+      <span id="commits_tab_counter" class="Counter">
+        1
+      </span>
+    </a>
+
+    <a href="/apple/swift-corelibs-foundation/pull/949/files" class="tabnav-tab selected js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-diff" height="16" version="1.1" viewBox="0 0 13 16" width="13"><path fill-rule="evenodd" d="M6 7h2v1H6v2H5V8H3V7h2V5h1v2zm-3 6h5v-1H3v1zM7.5 2L11 5.5V15c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h6.5zM10 6L7 3H1v12h9V6zM8.5 0H3v1h5l4 4v8h1V4.5L8.5 0z"/></svg>
+      Files changed
+
+        <span id="files_tab_counter" class="Counter">
+            1
+        </span>
+    </a>
+  </nav>
+</div>
+
+
+        <div class="pr-toolbar js-sticky js-sticky-offset-scroll">
+          <div class="diffbar details-collapse js-details-container Details">
+            
+
+<div class="diffbar-item">
+  <div class="diffbar-range-menu select-menu js-menu-container js-select-menu "
+    data-range-url="/apple/swift-corelibs-foundation/pull/949/files/$range">
+    <div class="js-select-button">
+      <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="c">
+        Changes from
+          <strong>all commits</strong>
+      </button>
+    </div>
+
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">Commits</span>
+        </div>
+        <div class="select-menu-list js-navigation-container js-active-navigation-container" role="menu">
+          <a href="/apple/swift-corelibs-foundation/pull/949/files" class="select-menu-item js-navigation-item js-navigation-open" role="menuitem">
+            <div class="select-menu-item-text">
+              <div class="text-emphasized css-truncate css-truncate-target">
+                Show all changes
+              </div>
+              <span class="description">
+                1 commit
+              </span>
+            </div>
+          </a>
+
+
+          <div class="select-menu-divider">
+            Select commit
+          </div>
+
+          <div class="js-diffbar-commits-list">
+              <a href="/apple/swift-corelibs-foundation/pull/949/commits/93519422221fdb64cec1fb6845c8654b4ec55dc8"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="9351942" >
+                <div class="select-menu-item-text">
+                  <code class="float-right">9351942</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    Fix for a race condition in URLSession
+                  </div>
+                  <span class="description">
+                    pushkarnk <relative-time datetime="2017-04-12T07:25:25Z">Apr 12, 2017</relative-time>
+                  </span>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+<include-fragment src="/apple/swift-corelibs-foundation/pull/949/show_toc?base_sha=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5&amp;ds=true&amp;sha1=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5&amp;sha2=93519422221fdb64cec1fb6845c8654b4ec55dc8"></include-fragment>
+
+<div class="diffbar-item toc-select select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/apple/swift-corelibs-foundation/pull/949/show_toc?base_sha=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5&amp;sha1=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5&amp;sha2=93519422221fdb64cec1fb6845c8654b4ec55dc8">
+  <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="t" data-ga-click="Pull Requests, open table of contents, type:semantic">
+      <strong>Jump to…</strong>
+  </button>
+  <div class="select-menu-modal-holder">
+    <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">
+              Jump to file or symbol
+          </span>
+        </div>
+        <div class="js-select-menu-deferred-content">
+          <div class="select-menu-blankslate select-menu-error">
+            Failed to load files and symbols. <button type="button" class="btn-link js-toc-retry">Retry</button>
+          </div>
+        </div>
+        <div class="select-menu-loading-overlay anim-pulse">
+          <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+              <span class="diffbar-item diffstat">
+  <span class="text-green">
+    +37
+  </span>
+  <span class="text-red">
+    −19
+  </span>
+  <span class="tooltipped tooltipped-s" aria-label="56 lines changed">
+    <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span>
+  </span>
+</span>
+
+
+            <div class="float-right pr-review-tools">
+              <div class="diffbar-item">
+  <div class="BtnGroup">
+      <a class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s" href="https://github.com/apple/swift-corelibs-foundation/pull/949/files?diff=unified" aria-label="View diff in unified mode">Unified</a>
+      <button type="button" class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s bg-gray-light text-gray-light" href="https://github.com/apple/swift-corelibs-foundation/pull/949/files?diff=split" aria-label="Viewing diff in split mode" disabled>Split</button>
+  </div>
+</div>
+
+
+            </div>
+
+                  <div class="js-socket-channel js-updatable-content js-pull-refresh-on-pjax" data-channel="pull_request:115605765" data-url="/apple/swift-corelibs-foundation/pull/949/show_partial_comparison?base_commit_oid=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5&amp;end_commit_oid=93519422221fdb64cec1fb6845c8654b4ec55dc8&amp;partial=pull_requests%2Fstale_comparison&amp;start_commit_oid=a2f4eb6893fd1fd28cfec50c45ab4ec13ef342e5"></div>
+
+
+            <div class="modal-backdrop js-touch-events"></div>
+          </div>
+        </div>
+        <div class="pr-toolbar-shadow"></div>
+
+
+
+          <div id="files" class="diff-view ">
+
+  <div class="js-diff-progressive-container">
+    
+<a name="diff-832810d065a45145594704c78f93e062"></a>
+<div id="diff-0"
+     class="file js-file js-details-container Details
+             
+             
+             
+             has-inline-notes
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="Foundation/NSURLSession/MultiHandle.swift" data-short-path="832810d" data-anchor="diff-832810d065a45145594704c78f93e062">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/pushkarnk/swift-corelibs-foundation/blob/93519422221fdb64cec1fb6845c8654b4ec55dc8/Foundation/NSURLSession/MultiHandle.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version 9351942 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="37 additions &amp; 19 deletions">56 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-deleted"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-832810d065a45145594704c78f93e062" class="link-gray-dark"
+         title="Foundation/NSURLSession/MultiHandle.swift">Foundation/NSURLSession/MultiHandle.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-832810d065a45145594704c78f93e062"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift-corelibs-foundation/blob_excerpt/611918fe010a3f9625606eb1833acb5ba9085e24?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=39&amp;next_line_num_right=39&amp;path=Foundation%2FNSURLSession%2FMultiHandle.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=11"
+            data-left-range="1-38" data-right-range="1-38">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -39,7 +39,11 @@ extension URLSession {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L39"
+        data-line-number="39"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> group <span class="pl-k">=</span> <span class="pl-c1">DispatchGroup</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R39"
+        data-line-number="39"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">let</span> group <span class="pl-k">=</span> <span class="pl-c1">DispatchGroup</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L40"
+        data-line-number="40"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">fileprivate</span> <span class="pl-k">var</span> easyHandles<span class="pl-k">:</span> [_EasyHandle] <span class="pl-k">=</span> []</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R40"
+        data-line-number="40"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">fileprivate</span> <span class="pl-k">var</span> easyHandles<span class="pl-k">:</span> [_EasyHandle] <span class="pl-k">=</span> []</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L41"
+        data-line-number="41"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">fileprivate</span> <span class="pl-k">var</span> timeoutSource<span class="pl-k">:</span> _TimeoutSource<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R41"
+        data-line-number="41"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">fileprivate</span> <span class="pl-k">var</span> timeoutSource<span class="pl-k">:</span> _TimeoutSource<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L42"
+        data-line-number="42"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        </span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R42"
+        data-line-number="42"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R43"
+        data-line-number="43"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-c"><span class="pl-c">//</span>SR-4567: we need to synchronize the register/unregister commands to the epoll machinery in libdispatch</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R44"
+        data-line-number="44"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        <span class="pl-k">fileprivate</span> <span class="pl-k">let</span> commandQueue<span class="pl-k">:</span> DispatchQueue <span class="pl-k">=</span> <span class="pl-c1">DispatchQueue</span>(<span class="pl-c1">label</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>Register-unregister synchronization<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R45"
+        data-line-number="45"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">fileprivate</span> <span class="pl-k">var</span> cancelInProgress<span class="pl-k">:</span> DispatchSemaphore<span class="pl-k">?</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R46"
+        data-line-number="46"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L43"
+        data-line-number="43"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">init</span>(<span class="pl-smi"><span class="pl-en">configuration</span></span>: URLSession._Configuration, <span class="pl-smi"><span class="pl-en">workQueue</span></span>: DispatchQueue) {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R47"
+        data-line-number="47"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">init</span>(<span class="pl-smi"><span class="pl-en">configuration</span></span>: URLSession._Configuration, <span class="pl-smi"><span class="pl-en">workQueue</span></span>: DispatchQueue) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L44"
+        data-line-number="44"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             queue <span class="pl-k">=</span> <span class="pl-c1">DispatchQueue</span>(<span class="pl-c1">label</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>MultiHandle.isolation<span class="pl-pds">&quot;</span></span>, <span class="pl-c1">target</span>: workQueue)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R48"
+        data-line-number="48"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             queue <span class="pl-k">=</span> <span class="pl-c1">DispatchQueue</span>(<span class="pl-c1">label</span>: <span class="pl-s"><span class="pl-pds">&quot;</span>MultiHandle.isolation<span class="pl-pds">&quot;</span></span>, <span class="pl-c1">target</span>: workQueue)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L45"
+        data-line-number="45"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             <span class="pl-c1">setupCallbacks</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R49"
+        data-line-number="49"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             <span class="pl-c1">setupCallbacks</span>()</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="13">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-832810d065a45145594704c78f93e062"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift-corelibs-foundation/blob_excerpt/611918fe010a3f9625606eb1833acb5ba9085e24?diff=split&amp;in_wiki_context=&amp;left_hunk_size=25&amp;mode=100644&amp;next_line_num_left=99&amp;next_line_num_right=103&amp;path=Foundation%2FNSURLSession%2FMultiHandle.swift&amp;prev_line_num_left=45&amp;prev_line_num_right=49&amp;right_hunk_size=33"
+            data-left-range="46-98" data-right-range="50-102">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -99,25 +103,33 @@ fileprivate extension URLSession._MultiHandle {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L99"
+        data-line-number="99"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> through libdispatch (DispatchSource) and store the source(s) inside</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R103"
+        data-line-number="103"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> through libdispatch (DispatchSource) and store the source(s) inside</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L100"
+        data-line-number="100"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> a `SocketSources` which we in turn store inside libcurl&#39;s multi handle</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R104"
+        data-line-number="104"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> a `SocketSources` which we in turn store inside libcurl&#39;s multi handle</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L101"
+        data-line-number="101"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> by means of curl_multi_assign() -- we retain the object fist.</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R105"
+        data-line-number="105"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c"></span>        <span class="pl-c"><span class="pl-c">//</span> by means of curl_multi_assign() -- we retain the object fist.</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L102"
+        data-line-number="102"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>        <span class="pl-k">let</span> action <span class="pl-k">=</span> <span class="pl-c1">_SocketRegisterAction</span>(<span class="pl-c1">rawValue</span>: <span class="pl-c1">CFURLSessionPoll</span>(<span class="pl-c1">value</span>: what))</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>        commandQueue.<span class="pl-smi">async</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L103"
+        data-line-number="103"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">var</span> socketSources <span class="pl-k">=</span> _SocketSources.<span class="pl-c1">from</span>(<span class="pl-c1">socketSourcePtr</span>: socketSourcePtr)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">self</span>.<span class="pl-smi">cancelInProgress</span><span class="pl-k">?</span>.<span class="pl-c1">wait</span>()</span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r111992196"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="73334231718942c72f9dcb09610e8dd6">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/phausler">
+        <img alt="@phausler" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/278470?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/phausler" class="author link-gray-dark">phausler</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r111992196" class="timestamp">
+              <relative-time datetime="2017-04-18T15:56:23Z">Apr 18, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>how long could cancels take? this could back up this queue indefinitely.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r112117119"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="efd0895a04c0cf94bb7924b21616d8eb">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/pushkarnk">
+        <img alt="@pushkarnk" class="avatar" height="28" src="https://avatars3.githubusercontent.com/u/4761859?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/pushkarnk" class="author link-gray-dark">pushkarnk</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r112117119" class="timestamp">
+              <relative-time datetime="2017-04-19T05:16:18Z">Apr 19, 2017</relative-time>
+            </a>
+
+            &#8226;
+            <span class="timestamp timestamp-edited tooltipped tooltipped-n"
+                  aria-label="pushkarnk edited this comment 3 months ago">
+              edited
+            </span>
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has been invited to collaborate on the swift-corelibs-foundation repository.">
+      Collaborator
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Thanks <a href="https://github.com/phausler" class="user-mention">@phausler</a> for the review</p>
+<p>In my experience, I haven't seen <code>DispatchSource.cancel()</code> blocking for a long time. Moreover, the intention here is to block the command queue until a <code>cancel()</code> goes through completely, of course assuming that <code>cancel()</code> will not block. I have considered the fact that the cancel handler runs on the same queue as the event handler. The event handler will do two things:</p>
+<ol>
+<li>read/write from/to sockets that are ready - this will not block</li>
+<li>issue further register/unregister commands - this is async deferred to the command queue<br>
+So, in my understanding the event handler will not block the cancel handler - which means the <code>wait()</code> here will not block indefinitely.</li>
+</ol>
+<p><a href="https://github.com/dgrove-oss" class="user-mention">@dgrove-oss</a> Can <code>DispatchSource.cancel()</code> can block under any other circumstances?</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r112230554"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="6745821550a9193696164a815218a4cb">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/phausler">
+        <img alt="@phausler" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/278470?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/phausler" class="author link-gray-dark">phausler</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r112230554" class="timestamp">
+              <relative-time datetime="2017-04-19T15:13:42Z">Apr 19, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>If the only work that falls out is just <code>DispatchSource.cancel()</code> this is a non issue; it effectively is an atomic assign of a value.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L104"
+        data-line-number="104"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k">if</span> socketSources <span class="pl-k">==</span> <span class="pl-c1">nil</span> <span class="pl-k">&amp;&amp;</span> action.<span class="pl-smi">needsSource</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c1">self</span>.<span class="pl-smi">cancelInProgress</span> <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r111990556"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="a032ed3b6ff5c006beec013c4eb76352">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/phausler">
+        <img alt="@phausler" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/278470?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/phausler" class="author link-gray-dark">phausler</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r111990556" class="timestamp">
+              <relative-time datetime="2017-04-18T15:56:23Z">Apr 18, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>the assignment here is perhaps not thread safe since the cancel handler gets a reference to it captured in the tearDown method; is it possible to instead have the semaphore last as long as the containing object context that is retained past the lifespan of the execution on the queue?</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r112134808"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="7f97ab94f3b527956e88322177a5eb68">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/pushkarnk">
+        <img alt="@pushkarnk" class="avatar" height="28" src="https://avatars3.githubusercontent.com/u/4761859?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/pushkarnk" class="author link-gray-dark">pushkarnk</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r112134808" class="timestamp">
+              <relative-time datetime="2017-04-19T07:46:41Z">Apr 19, 2017</relative-time>
+            </a>
+
+            &#8226;
+            <span class="timestamp timestamp-edited tooltipped tooltipped-n"
+                  aria-label="pushkarnk edited this comment 3 months ago">
+              edited
+            </span>
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has been invited to collaborate on the swift-corelibs-foundation repository.">
+      Collaborator
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>The nil assignment is guarded by the <code>wait()</code> and only the cancel handler will <code>signal()</code> - which means the nil assignment is executed only when the cancel handler no longer needs the semaphore. The assignment to <code>nil</code> signifies that there is no cancel operation in progress which allows the register commands go through without waiting, until the next unregister. Increasing the scope of the semaphore will lead to other <code>register</code> commands (may be on unrelated sockets) to <code>wait</code> with perhaps  nobody to <code>signal</code> them.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r112231373"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="4a4301c9a7a9752b19dedd79050b6893">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/phausler">
+        <img alt="@phausler" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/278470?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/phausler" class="author link-gray-dark">phausler</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r112231373" class="timestamp">
+              <relative-time datetime="2017-04-19T15:16:31Z">Apr 19, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>there are three parts to the state of that semaphore; nil, not nil, and the signal. It doesn't look like a huge race potential but there is still something that strikes me as a potential failure here ( hard to tell without more understanding of exactly the involved queues/threads) This isn't a blocking objection - just a word of caution (and perhaps a suggestion to add a comment).</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r112374096"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="999f0b8e9d42bf154102444da1dffc87">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/pushkarnk">
+        <img alt="@pushkarnk" class="avatar" height="28" src="https://avatars3.githubusercontent.com/u/4761859?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/pushkarnk" class="author link-gray-dark">pushkarnk</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r112374096" class="timestamp">
+              <relative-time datetime="2017-04-20T06:26:18Z">Apr 20, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has been invited to collaborate on the swift-corelibs-foundation repository.">
+      Collaborator
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Sure, I'll add a comment around this code.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L105"
+        data-line-number="105"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-k">let</span> s <span class="pl-k">=</span> <span class="pl-c1">_SocketSources</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-k">let</span> p <span class="pl-k">=</span> <span class="pl-c1">Unmanaged</span>.<span class="pl-c1">passRetained</span>(s).<span class="pl-c1">toOpaque</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">let</span> action <span class="pl-k">=</span> <span class="pl-c1">_SocketRegisterAction</span>(<span class="pl-c1">rawValue</span>: <span class="pl-c1">CFURLSessionPoll</span>(<span class="pl-c1">value</span>: what))</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-c1">CFURLSessionMultiHandleAssign</span>(rawHandle, socket, <span class="pl-c1">UnsafeMutableRawPointer</span>(p))</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">var</span> socketSources <span class="pl-k">=</span> _SocketSources.<span class="pl-c1">from</span>(<span class="pl-c1">socketSourcePtr</span>: socketSourcePtr)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            socketSources <span class="pl-k">=</span> s</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R112"
+        data-line-number="112"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k">if</span> socketSources <span class="pl-k">==</span> <span class="pl-c1">nil</span> <span class="pl-k">&amp;&amp;</span> action.<span class="pl-smi">needsSource</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        } <span class="pl-k">else</span> <span class="pl-k">if</span> socketSources <span class="pl-k">!=</span> <span class="pl-c1">nil</span> <span class="pl-k">&amp;&amp;</span> action <span class="pl-k">==</span> .<span class="pl-smi">unregister</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R113"
+        data-line-number="113"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="pl-k">let</span> s <span class="pl-k">=</span> <span class="pl-c1">_SocketSources</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-c"><span class="pl-c">//</span> We need to release the stored pointer:</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R114"
+        data-line-number="114"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="pl-k">let</span> p <span class="pl-k">=</span> <span class="pl-c1">Unmanaged</span>.<span class="pl-c1">passRetained</span>(s).<span class="pl-c1">toOpaque</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-<span class="pl-c"></span>            <span class="pl-k">if</span> <span class="pl-k">let</span> opaque <span class="pl-k">=</span> socketSourcePtr {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R115"
+        data-line-number="115"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="pl-c1">CFURLSessionMultiHandleAssign</span>(<span class="pl-c1">self</span>.<span class="pl-smi">rawHandle</span>, socket, <span class="pl-c1">UnsafeMutableRawPointer</span>(p))</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L112"
+        data-line-number="112"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-                <span class="pl-c1">Unmanaged</span><span class="pl-k">&lt;</span>_SocketSources<span class="pl-k">&gt;</span>.<span class="pl-c1">fromOpaque</span>(opaque).<span class="pl-c1">release</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R116"
+        data-line-number="116"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                socketSources <span class="pl-k">=</span> s</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R117"
+        data-line-number="117"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            } <span class="pl-k">else</span> <span class="pl-k">if</span> socketSources <span class="pl-k">!=</span> <span class="pl-c1">nil</span> <span class="pl-k">&amp;&amp;</span> action <span class="pl-k">==</span> .<span class="pl-smi">unregister</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R118"
+        data-line-number="118"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="pl-c"><span class="pl-c">//</span>the beginning of an unregister operation</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R119"
+        data-line-number="119"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>                <span class="pl-c1">self</span>.<span class="pl-smi">cancelInProgress</span> <span class="pl-k">=</span> <span class="pl-c1">DispatchSemaphore</span>(<span class="pl-c1">value</span>: <span class="pl-c1">0</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R120"
+        data-line-number="120"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="pl-c"><span class="pl-c">//</span> We need to release the stored pointer:</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R121"
+        data-line-number="121"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>                <span class="pl-k">if</span> <span class="pl-k">let</span> opaque <span class="pl-k">=</span> socketSourcePtr {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R122"
+        data-line-number="122"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                    <span class="pl-c1">Unmanaged</span><span class="pl-k">&lt;</span>_SocketSources<span class="pl-k">&gt;</span>.<span class="pl-c1">fromOpaque</span>(opaque).<span class="pl-c1">release</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                socketSources<span class="pl-k">?</span>.<span class="pl-c1">tearDown</span>(<span class="pl-c1">self</span>.<span class="pl-smi">cancelInProgress</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                socketSources <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L113"
+        data-line-number="113"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L114"
+        data-line-number="114"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="x x-first">socketSources </span><span class="pl-k x">=</span><span class="x"> </span><span class="pl-c1 x x-last">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-k x x-first">if</span><span class="x"> </span><span class="pl-k x">let</span><span class="x"> ss </span><span class="pl-k x">=</span><span class="x x-last"> socketSources {</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L115"
+        data-line-number="115"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="x x-first x-last">}</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R128"
+        data-line-number="128"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="x x-first">        </span><span class="pl-k x">let</span><span class="x"> handler </span><span class="pl-k x">=</span><span class="x"> DispatchWorkItem { [</span><span class="pl-k x">weak</span><span class="x"> </span><span class="pl-c1 x">self</span><span class="x">] </span><span class="pl-k x x-last">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L116"
+        data-line-number="116"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-        <span class="pl-k x x-first">if</span><span class="x"> </span><span class="pl-k x">let</span><span class="x"> ss </span><span class="pl-k x">=</span><span class="x x-last"> socketSources {</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R129"
+        data-line-number="129"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="x x-first">            </span><span class="pl-c1 x">self</span><span class="pl-k x">?</span><span class="x">.</span><span class="pl-c1 x">performAction</span><span class="x">(</span><span class="pl-c1 x">for</span><span class="x x-last">: socket)</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L117"
+        data-line-number="117"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            <span class="pl-k x x-first">let</span><span class="x"> handler </span><span class="pl-k x">=</span><span class="x"> DispatchWorkItem { [</span><span class="pl-k x">weak</span><span class="x"> </span><span class="pl-c1 x">self</span><span class="x">] </span><span class="pl-k x x-last">in</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R130"
+        data-line-number="130"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="x x-first x-last">    }</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L118"
+        data-line-number="118"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-                <span class="pl-c1 x x-first">self</span><span class="pl-k x">?</span><span class="x">.</span><span class="pl-c1 x">performAction</span><span class="x">(</span><span class="pl-c1 x">for</span><span class="x x-last">: </span>socket)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R131"
+        data-line-number="131"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+                <span class="x x-first">ss.</span><span class="pl-c1 x">createSources</span><span class="x">(</span><span class="pl-c1 x">with</span><span class="x">: action, </span><span class="pl-c1 x">fileDescriptor</span><span class="x">: </span><span class="pl-c1 x">Int</span><span class="x x-last">(</span>socket<span class="x x-first">), </span><span class="pl-c1 x">queue</span><span class="x">: </span><span class="pl-c1 x">self</span><span class="x">.</span><span class="pl-smi x">queue</span><span class="x">, </span><span class="pl-c1 x">handler</span><span class="x x-last">: handler</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L119"
+        data-line-number="119"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R132"
+        data-line-number="132"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L120"
+        data-line-number="120"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-            ss.<span class="pl-c1">createSources</span>(<span class="pl-c1">with</span>: action, <span class="pl-c1">fileDescriptor</span>: <span class="pl-c1">Int</span>(socket), <span class="pl-c1">queue</span>: queue, <span class="pl-c1">handler</span>: handler)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L121"
+        data-line-number="121"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R133"
+        data-line-number="133"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L122"
+        data-line-number="122"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> <span class="pl-c1">0</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R134"
+        data-line-number="134"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">return</span> <span class="pl-c1">0</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R135"
+        data-line-number="135"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="64">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-832810d065a45145594704c78f93e062"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift-corelibs-foundation/blob_excerpt/611918fe010a3f9625606eb1833acb5ba9085e24?diff=split&amp;in_wiki_context=&amp;left_hunk_size=12&amp;mode=100644&amp;next_line_num_left=398&amp;next_line_num_right=410&amp;path=Foundation%2FNSURLSession%2FMultiHandle.swift&amp;prev_line_num_left=123&amp;prev_line_num_right=135&amp;right_hunk_size=18"
+            data-left-range="124-397" data-right-range="136-409">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -398,12 +410,18 @@ fileprivate class _SocketSources {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L398"
+        data-line-number="398"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         s.<span class="pl-c1">resume</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R410"
+        data-line-number="410"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         s.<span class="pl-c1">resume</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L399"
+        data-line-number="399"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R411"
+        data-line-number="411"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L400"
+        data-line-number="400"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R412"
+        data-line-number="412"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L401"
+        data-line-number="401"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    <span class="pl-k">func</span> <span class="pl-en">tearDown</span>() {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R413"
+        data-line-number="413"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">func</span> <span class="pl-en">tearDown</span>(<span class="pl-en">_</span> <span class="pl-smi">cancelInProgress</span>: DispatchSemaphore<span class="pl-k">?</span>) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R414"
+        data-line-number="414"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">let</span> cancelHandler <span class="pl-k">=</span> DispatchWorkItem {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R415"
+        data-line-number="415"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            <span class="pl-c"><span class="pl-c">//</span>the real end of an unregister operation!</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R416"
+        data-line-number="416"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>            cancelInProgress<span class="pl-k">?</span>.<span class="pl-c1">signal</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R417"
+        data-line-number="417"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L402"
+        data-line-number="402"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">if</span> <span class="pl-k">let</span> s <span class="pl-k">=</span> readSource {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R418"
+        data-line-number="418"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">if</span> <span class="pl-k">let</span> s <span class="pl-k">=</span> readSource {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R419"
+        data-line-number="419"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            s.<span class="pl-c1">setCancelHandler</span>(<span class="pl-c1">handler</span>: cancelHandler)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L403"
+        data-line-number="403"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             s.<span class="pl-c1">cancel</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R420"
+        data-line-number="420"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             s.<span class="pl-c1">cancel</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L404"
+        data-line-number="404"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R421"
+        data-line-number="421"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L405"
+        data-line-number="405"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         readSource <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R422"
+        data-line-number="422"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         readSource <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L406"
+        data-line-number="406"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         <span class="pl-k">if</span> <span class="pl-k">let</span> s <span class="pl-k">=</span> writeSource {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R423"
+        data-line-number="423"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         <span class="pl-k">if</span> <span class="pl-k">let</span> s <span class="pl-k">=</span> writeSource {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R424"
+        data-line-number="424"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+            s.<span class="pl-c1">setCancelHandler</span>(<span class="pl-c1">handler</span>: cancelHandler)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L407"
+        data-line-number="407"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">             s.<span class="pl-c1">cancel</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R425"
+        data-line-number="425"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">             s.<span class="pl-c1">cancel</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L408"
+        data-line-number="408"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R426"
+        data-line-number="426"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062L409"
+        data-line-number="409"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         writeSource <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-832810d065a45145594704c78f93e062R427"
+        data-line-number="427"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         writeSource <span class="pl-k">=</span> <span class="pl-c1">nil</span></span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-832810d065a45145594704c78f93e062"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift-corelibs-foundation/blob_excerpt/611918fe010a3f9625606eb1833acb5ba9085e24?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=Foundation%2FNSURLSession%2FMultiHandle.swift&amp;prev_line_num_left=409&amp;prev_line_num_right=427"
+          data-left-range="410-467" data-right-range="428-467">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<button type="button" class="js-toggle-all-file-notes" data-hotkey="i" style="display:none">Toggle all file notes</button>
+
+<svg aria-hidden="true" width="340px" height="84px" viewBox="0 0 340 84" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="diff-placeholder-svg position-absolute bottom-0">
+  <defs>
+    <clippath id="diff-placeholder">
+      <rect x="0" y="0" width="67.0175439" height="11.9298746" rx="2"></rect>
+      <rect x="18.9473684" y="47.7194983" width="100.701754" height="11.9298746" rx="2"></rect>
+      <rect x="0" y="71.930126" width="37.8947368" height="11.9298746" rx="2"></rect>
+      <rect x="127.017544" y="48.0703769" width="53.3333333" height="11.9298746" rx="2"></rect>
+      <rect x="187.719298" y="48.0703769" width="72.9824561" height="11.9298746" rx="2"></rect>
+      <rect x="76.8421053" y="0" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="17.8947368" y="23.8597491" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="166.315789" y="23.8597491" width="173.684211" height="11.9298746" rx="2"></rect>
+    </clippath>
+
+    <linearGradient id="animated-diff-gradient" x1="0" x2="0" y1="0" y2="1" spreadMethod="reflect">
+      <stop offset="0" stop-color="#eee"></stop>
+      <stop offset="0.2" stop-color="#eee"></stop>
+      <stop offset="0.5" stop-color="#ddd"></stop>
+      <stop offset="0.8" stop-color="#eee"></stop>
+      <stop offset="1" stop-color="#eee"></stop>
+      <animateTransform attributeName="y1" values="0%; 100%; 0" dur="1s" repeatCount="3"></animateTransform>
+      <animateTransform attributeName="y2" values="100%; 200%; 0" dur="1s" repeatCount="3"></animateTransform>
+    </linearGradient>
+  </defs>
+</svg>
+
+
+
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container-lg site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="0.95383s from unicorn-1887553162-zbzb9">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/compat-91f98c37fc84eac24836eec2567e9912742094369a04c4eba6e3cd1fa18902d9.js"></script>
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-3a24d5c861294564cb46aae8f7e3c74c7aad8e5b861816bfd96927300f203f51.js"></script>
+    
+    <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-aea01bc4b7fa366479732897bf3ded978aad81f1283b630de36f45cdf861c8a1.js"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
+

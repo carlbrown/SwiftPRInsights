@@ -1,0 +1,475 @@
+{
+  "total_count": 39,
+  "incomplete_results": false,
+  "items": [
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/201",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/201/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/201/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/201/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/201",
+      "id": 162333144,
+      "number": 201,
+      "title": "Refactoring few methods in File.swift to use guard syntax to ",
+      "user": {
+        "login": "CoderXpert",
+        "id": 5382501,
+        "avatar_url": "https://avatars0.githubusercontent.com/u/5382501?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/CoderXpert",
+        "html_url": "https://github.com/CoderXpert",
+        "followers_url": "https://api.github.com/users/CoderXpert/followers",
+        "following_url": "https://api.github.com/users/CoderXpert/following{/other_user}",
+        "gists_url": "https://api.github.com/users/CoderXpert/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/CoderXpert/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/CoderXpert/subscriptions",
+        "organizations_url": "https://api.github.com/users/CoderXpert/orgs",
+        "repos_url": "https://api.github.com/users/CoderXpert/repos",
+        "events_url": "https://api.github.com/users/CoderXpert/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/CoderXpert/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2016-06-26T15:43:38Z",
+      "updated_at": "2016-06-27T18:10:09Z",
+      "closed_at": "2016-06-27T18:10:09Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/201",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/201",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/201.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/201.patch"
+      },
+      "body": "Refactoring few methods in File.swift to use guard syntax to avoid pyramid of doom and if else noise.\n",
+      "score": 0.039484277
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/214",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/214/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/214/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/214/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/214",
+      "id": 168690018,
+      "number": 214,
+      "title": "Added Int32 & Int64 Extensions (Plus Unsigned)",
+      "user": {
+        "login": "rymcol",
+        "id": 2954549,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/2954549?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/rymcol",
+        "html_url": "https://github.com/rymcol",
+        "followers_url": "https://api.github.com/users/rymcol/followers",
+        "following_url": "https://api.github.com/users/rymcol/following{/other_user}",
+        "gists_url": "https://api.github.com/users/rymcol/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/rymcol/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/rymcol/subscriptions",
+        "organizations_url": "https://api.github.com/users/rymcol/orgs",
+        "repos_url": "https://api.github.com/users/rymcol/repos",
+        "events_url": "https://api.github.com/users/rymcol/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/rymcol/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2016-08-01T16:43:22Z",
+      "updated_at": "2016-08-02T14:12:30Z",
+      "closed_at": "2016-08-02T14:12:30Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/214",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/214",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/214.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/214.patch"
+      },
+      "body": "Added Extensions for Uint32, UInt64, Int32, & Int64 so that those types do not fail when converting to string with jsonEncodedString()\n",
+      "score": 0.053736232
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/215",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/215/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/215/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/215/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/215",
+      "id": 172588849,
+      "number": 215,
+      "title": "Make Things Pretty",
+      "user": {
+        "login": "rymcol",
+        "id": 2954549,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/2954549?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/rymcol",
+        "html_url": "https://github.com/rymcol",
+        "followers_url": "https://api.github.com/users/rymcol/followers",
+        "following_url": "https://api.github.com/users/rymcol/following{/other_user}",
+        "gists_url": "https://api.github.com/users/rymcol/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/rymcol/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/rymcol/subscriptions",
+        "organizations_url": "https://api.github.com/users/rymcol/orgs",
+        "repos_url": "https://api.github.com/users/rymcol/repos",
+        "events_url": "https://api.github.com/users/rymcol/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/rymcol/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2016-08-23T00:54:57Z",
+      "updated_at": "2016-08-23T16:17:54Z",
+      "closed_at": "2016-08-23T16:17:54Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/215",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/215",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/215.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/215.patch"
+      },
+      "body": "This group of commits centers the images and badges at the top of the readme. \n",
+      "score": 0.06454807
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/216",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/216/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/216/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/216/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/216",
+      "id": 172715551,
+      "number": 216,
+      "title": "modifiable interface for child object",
+      "user": {
+        "login": "scorovit",
+        "id": 1694177,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/1694177?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/scorovit",
+        "html_url": "https://github.com/scorovit",
+        "followers_url": "https://api.github.com/users/scorovit/followers",
+        "following_url": "https://api.github.com/users/scorovit/following{/other_user}",
+        "gists_url": "https://api.github.com/users/scorovit/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/scorovit/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/scorovit/subscriptions",
+        "organizations_url": "https://api.github.com/users/scorovit/orgs",
+        "repos_url": "https://api.github.com/users/scorovit/repos",
+        "events_url": "https://api.github.com/users/scorovit/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/scorovit/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 3,
+      "created_at": "2016-08-23T14:33:31Z",
+      "updated_at": "2016-08-25T12:56:56Z",
+      "closed_at": "2016-08-25T12:56:56Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/216",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/216",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/216.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/216.patch"
+      },
+      "body": "Create child object from JSONConvertibleObject with base overriding methods\n",
+      "score": 0.06552448
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/224",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/224/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/224/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/224/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/224",
+      "id": 206690304,
+      "number": 224,
+      "title": "Adding process group support to SysProcess",
+      "user": {
+        "login": "jlyonsmith",
+        "id": 306467,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/306467?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/jlyonsmith",
+        "html_url": "https://github.com/jlyonsmith",
+        "followers_url": "https://api.github.com/users/jlyonsmith/followers",
+        "following_url": "https://api.github.com/users/jlyonsmith/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jlyonsmith/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/jlyonsmith/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jlyonsmith/subscriptions",
+        "organizations_url": "https://api.github.com/users/jlyonsmith/orgs",
+        "repos_url": "https://api.github.com/users/jlyonsmith/repos",
+        "events_url": "https://api.github.com/users/jlyonsmith/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/jlyonsmith/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 3,
+      "created_at": "2017-02-10T02:31:39Z",
+      "updated_at": "2017-02-14T17:15:29Z",
+      "closed_at": "2017-02-14T16:00:15Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/224",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/224",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/224.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/224.patch"
+      },
+      "body": "I wasn't sure if the standard indent was tabs or spaces, so I converted to tabs which seemed to generate the least noise.  Tests should be passing on both macOS and Ubuntu.\r\n\r\nI found there were some tests commented out with a note saying that they did not run under Xcode.  That must have been an older version, because I was able to debug them just fine in Xcode 8.  So I took out the #if/#endif's ",
+      "score": 0.31981418
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/234",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/234/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/234/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/234/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/234",
+      "id": 224657739,
+      "number": 234,
+      "title": "Float type support for JSONConvertible",
+      "user": {
+        "login": "drinking",
+        "id": 985343,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/985343?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/drinking",
+        "html_url": "https://github.com/drinking",
+        "followers_url": "https://api.github.com/users/drinking/followers",
+        "following_url": "https://api.github.com/users/drinking/following{/other_user}",
+        "gists_url": "https://api.github.com/users/drinking/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/drinking/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/drinking/subscriptions",
+        "organizations_url": "https://api.github.com/users/drinking/orgs",
+        "repos_url": "https://api.github.com/users/drinking/repos",
+        "events_url": "https://api.github.com/users/drinking/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/drinking/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 2,
+      "created_at": "2017-04-27T03:20:02Z",
+      "updated_at": "2017-07-08T20:32:06Z",
+      "closed_at": "2017-07-08T20:32:06Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/234",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/234",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/234.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/234.patch"
+      },
+      "body": "Fix bug for some situations that converting Float to String failure",
+      "score": 1.0643162
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/235",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/235/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/235/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/235/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/235",
+      "id": 232631842,
+      "number": 235,
+      "title": "Streamlined decode url hotspot. formatting",
+      "user": {
+        "login": "kjessup",
+        "id": 1755579,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/1755579?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/kjessup",
+        "html_url": "https://github.com/kjessup",
+        "followers_url": "https://api.github.com/users/kjessup/followers",
+        "following_url": "https://api.github.com/users/kjessup/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kjessup/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/kjessup/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kjessup/subscriptions",
+        "organizations_url": "https://api.github.com/users/kjessup/orgs",
+        "repos_url": "https://api.github.com/users/kjessup/repos",
+        "events_url": "https://api.github.com/users/kjessup/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/kjessup/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-05-31T17:00:45Z",
+      "updated_at": "2017-05-31T17:03:11Z",
+      "closed_at": "2017-05-31T17:01:37Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/235",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/235",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/235.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/235.patch"
+      },
+      "body": "",
+      "score": 1.0018836
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/236",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/236/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/236/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/236/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/236",
+      "id": 239615007,
+      "number": 236,
+      "title": "Remove redundant `G.Element == D.CodeUnit` check",
+      "user": {
+        "login": "thislooksfun",
+        "id": 5367333,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/5367333?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/thislooksfun",
+        "html_url": "https://github.com/thislooksfun",
+        "followers_url": "https://api.github.com/users/thislooksfun/followers",
+        "following_url": "https://api.github.com/users/thislooksfun/following{/other_user}",
+        "gists_url": "https://api.github.com/users/thislooksfun/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/thislooksfun/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/thislooksfun/subscriptions",
+        "organizations_url": "https://api.github.com/users/thislooksfun/orgs",
+        "repos_url": "https://api.github.com/users/thislooksfun/repos",
+        "events_url": "https://api.github.com/users/thislooksfun/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/thislooksfun/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-06-29T21:22:31Z",
+      "updated_at": "2017-07-08T21:04:30Z",
+      "closed_at": "2017-07-08T20:32:51Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/236",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/236",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/236.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/236.patch"
+      },
+      "body": "",
+      "score": 1.4677922
+    },
+    {
+      "url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/238",
+      "repository_url": "https://api.github.com/repos/PerfectlySoft/Perfect",
+      "labels_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/238/labels{/name}",
+      "comments_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/238/comments",
+      "events_url": "https://api.github.com/repos/PerfectlySoft/Perfect/issues/238/events",
+      "html_url": "https://github.com/PerfectlySoft/Perfect/pull/238",
+      "id": 239965895,
+      "number": 238,
+      "title": "Add ability to 'even out' logs",
+      "user": {
+        "login": "thislooksfun",
+        "id": 5367333,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/5367333?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/thislooksfun",
+        "html_url": "https://github.com/thislooksfun",
+        "followers_url": "https://api.github.com/users/thislooksfun/followers",
+        "following_url": "https://api.github.com/users/thislooksfun/following{/other_user}",
+        "gists_url": "https://api.github.com/users/thislooksfun/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/thislooksfun/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/thislooksfun/subscriptions",
+        "organizations_url": "https://api.github.com/users/thislooksfun/orgs",
+        "repos_url": "https://api.github.com/users/thislooksfun/repos",
+        "events_url": "https://api.github.com/users/thislooksfun/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/thislooksfun/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2017-07-01T18:45:32Z",
+      "updated_at": "2017-07-08T21:04:51Z",
+      "closed_at": "2017-07-08T20:35:11Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/PerfectlySoft/Perfect/pulls/238",
+        "html_url": "https://github.com/PerfectlySoft/Perfect/pull/238",
+        "diff_url": "https://github.com/PerfectlySoft/Perfect/pull/238.diff",
+        "patch_url": "https://github.com/PerfectlySoft/Perfect/pull/238.patch"
+      },
+      "body": "If you read log files in plaintext, like I do, having the lines be different lengths is annoying. This adds an opt-in way to make the log messages flush with each other:\r\n\r\neven = false (default)\r\n```\r\n[INFO] Starting server in mode 'debug'\r\n[INFO] mustacheRoot: /Users/[redacted]/Desktop/Programming/Swift/Perfect/[redacted]/Web/templates/public\r\n[INFO] Starting [redacted] core...\r\n[INFO] Initializing StORM\r\n[ERR] The operation couldn’t be completed. (MongoDB.BSONError error 0.)\r\n[INFO] Starting server...\r\n```\r\n\r\neven = true\r\n```\r\n[INFO] Starting server in mode 'debug'\r\n[INFO] mustacheRoot: /Users/[redacted]/Desktop/Programming/Swift/Perfect/[redacted]/Web/templates/public\r\n[INFO] Starting [redacted] core...\r\n[INFO] Initializing StORM\r\n[ERR]  The operation couldn’t be completed. (MongoDB.BSONError error 0.)\r\n[INFO] Starting server...\r\n```\r\n\r\nNote: this ties in with PerfectlySoft/Perfect-Logger#1",
+      "score": 1.4874561
+    }
+  ]
+}
+

@@ -1,0 +1,5580 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-77c3b874f32e71b14cded5a120f42f5c7288fa52e0a37f2d5919fbd8bcfca63c.css" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-be6fb2d13c0f5a7f90f50a2d176aa40de82344329a86e85e0a1a80409a88340c.css" media="all" rel="stylesheet" />
+  
+  
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/site-87fc1b705115bb5758018dffb7c1ed35b316b40ef094c4d5bd0478efe83d7af7.css" media="all" rel="stylesheet" />
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>[stdlib] Modify sort to pivot on median of 3 by natecook1000 · Pull Request #6382 · apple/swift · GitHub</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars1.githubusercontent.com/u/7053374?v=4&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="[stdlib] Modify sort to pivot on median of 3 by natecook1000 · Pull Request #6382 · apple/swift" property="og:title" /><meta content="https://github.com/apple/swift/pull/6382" property="og:url" /><meta content="This modifies the internal _partition function used during sorting to select a better candidate as the pivot element. Currently, the first element of the range is always selected, leading to poor p..." property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  
+  <meta name="pjax-timeout" content="1000">
+  
+  <meta name="request-id" content="8E1F:15991:322DCBF:5225DEE:598105C5" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_pulls" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="8E1F:15991:322DCBF:5225DEE:598105C5" name="octolytics-dimension-request_id" /><meta content="iad" name="octolytics-dimension-region_edge" /><meta content="iad" name="octolytics-dimension-region_render" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/pull_requests/show/files" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged Out">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="ZGY0OGUzOGFmOGQwZmY0MmY0ODVmNmM5YjJkMDg5YzI4OTUxMDMzOTkyZWQyZjAzYjMyMjI4MDY1MGJlYTQ5ZHx7InJlbW90ZV9hZGRyZXNzIjoiMTcyLjEyNi43OS4yMjgiLCJyZXF1ZXN0X2lkIjoiOEUxRjoxNTk5MTozMjJEQ0JGOjUyMjVERUU6NTk4MTA1QzUiLCJ0aW1lc3RhbXAiOjE1MDE2Mjc4NDgsImhvc3QiOiJnaXRodWIuY29tIn0=">
+
+
+  <meta name="html-safe-nonce" content="d77fcdeb37859d9375054d4d3f4ff2af3a602280">
+
+  <meta http-equiv="x-pjax-version" content="21402ecd44637867a6c92c4eebf4ee92">
+  
+
+      <link data-pjax-transient rel="alternate" type="text/x-diff" href="/apple/swift/pull/6382.diff">
+  <link data-pjax-transient rel="alternate" type="text/x-patch" href="/apple/swift/pull/6382.patch">
+
+  <meta name="diff-view" content="split" data-pjax-transient>
+  <link href="https://github.com/apple/swift/commits/b582683ecbc536d81dbac7ca4e00c28ccf55eebd.atom" rel="alternate" title="Recent Commits to swift:b582683ecbc536d81dbac7ca4e00c28ccf55eebd" type="application/atom+xml">
+
+  <meta name="description" content="swift - The Swift Programming Language">
+  <meta name="go-import" content="github.com/apple/swift git https://github.com/apple/swift.git">
+
+  <meta content="10639145" name="octolytics-dimension-user_id" /><meta content="apple" name="octolytics-dimension-user_login" /><meta content="44838949" name="octolytics-dimension-repository_id" /><meta content="apple/swift" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="44838949" name="octolytics-dimension-repository_network_root_id" /><meta content="apple/swift" name="octolytics-dimension-repository_network_root_nwo" /><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" />
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+
+  </head>
+
+  <body class="logged-out env-production full-width">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="px-2 py-4 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-out position-relative f4 py-3" role="banner">
+  <div class="container-lg px-3 clearfix">
+    <div class="d-flex flex-justify-between">
+      <div class="d-flex">
+        <a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+          <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+
+        <div class="header-sitemenu clearfix">
+            <nav>
+              <ul class="d-flex list-style-none">
+                  <li class="ml-2">
+                    <a href="/features" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:features" data-selected-links="/features /features">
+                      Features
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/business" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:business" data-selected-links="/business /business/security /business/customers /business">
+                      Business
+</a>                  </li>
+
+                  <li class="ml-4">
+                    <a href="/explore" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship /showcases /explore">
+                      Explore
+</a>                  </li>
+
+                  <li class="ml-4">
+                        <a href="/marketplace" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:marketplace" data-selected-links=" /marketplace">
+                          Marketplace
+</a>                  </li>
+                  <li class="ml-4">
+                    <a href="/pricing" class="js-selected-navigation-item header-navlink px-0 py-2 m-0" data-ga-click="Header, click, Nav menu - item:pricing" data-selected-links="/pricing /pricing/developer /pricing/team /pricing/business-hosted /pricing/business-enterprise /pricing">
+                      Pricing
+</a>                  </li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+
+      <div class="d-flex">
+          <div class="mt-1 mr-3">
+            <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/apple/swift/search" class="js-site-search-form" data-scoped-search-url="/apple/swift/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/apple/swift/pull/6382/files" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+          </div>
+
+        <span class="d-inline-block">
+            <div class="header-navlink px-0 py-2 m-0">
+              <a class="text-bold text-white no-underline" href="/login?return_to=%2Fapple%2Fswift%2Fpull%2F6382%2Ffiles%3Fdiff%3Dsplit" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+                <span class="text-gray">or</span>
+                <a class="text-bold text-white no-underline" href="/join?source=header-repo" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+      
+
+
+
+
+  
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+    Watch
+  </a>
+  <a class="social-count" href="/apple/swift/watchers"
+     aria-label="2556 users are watching this repository">
+    2,556
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/apple/swift/stargazers"
+      aria-label="39661 users starred this repository">
+      39,661
+    </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fapple%2Fswift"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+        Fork
+      </a>
+
+    <a href="/apple/swift/network" class="social-count"
+       aria-label="6020 users forked this repository">
+      6,020
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/apple" class="url fn" rel="author">apple</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/apple/swift" data-pjax="#js-repo-pjax-container">swift</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /apple/swift" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/apple/swift/pulls" class="js-selected-navigation-item selected reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /apple/swift/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">168</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+
+
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="/apple/swift/pulse" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="/apple/swift/graphs" data-skip-pjax>
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div class="issues-listing js-review-state-classes " data-pjax>
+    <div id="files_bucket" class="files-bucket files-next-bucket clearfix pull-request-tab-content is-visible">
+      
+
+
+        
+  <div
+    id="partial-discussion-header"
+    class="gh-header js-details-container Details js-socket-channel js-updatable-content pull request"
+    data-channel="pull_request:98516498"
+    data-url="/apple/swift/pull/6382/show_partial?partial=pull_requests%2Ftitle">
+
+  <div class="gh-header-show gh-header-no-access">
+      <div class="gh-header-actions">
+
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        [stdlib] Modify sort to pivot on median of 3
+      </span>
+      <span class="gh-header-number">#6382</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--purple">
+          <svg aria-hidden="true" class="octicon octicon-git-merge" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 0 0 2 .99C.89.99 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 0 0 1-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+          Merged
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+          <a href="/natecook1000" class="author pull-header-username css-truncate css-truncate-target expandable">
+    natecook1000
+  </a>
+  merged 4 commits into
+
+
+
+  <span class="commit-ref css-truncate user-select-contain expandable " title="apple/swift:master"><span class="css-truncate-target user">apple</span>:<span class="css-truncate-target">master</span></span>
+
+from
+
+<span class="commit-ref css-truncate user-select-contain expandable head-ref" title="natecook1000/swift:nc-sort-median"><span class="css-truncate-target user">natecook1000</span>:<span class="css-truncate-target">nc-sort-median</span></span>
+
+
+  <relative-time datetime="2017-01-06T20:27:54Z">Jan 6, 2017</relative-time>
+
+    </div>
+  </div>
+</div>
+
+        
+<div class="tabnav tabnav-pr">
+
+  <nav class="tabnav-tabs">
+      <link rel="pjax-prefetch" href="/apple/swift/pull/6382">
+    <a href="/apple/swift/pull/6382" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-comment-discussion" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/></svg>
+      Conversation
+
+      <span id="conversation_tab_counter" class="Counter">
+        48
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/6382/commits" class="tabnav-tab  js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-git-commit" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z"/></svg>
+      Commits
+
+      <span id="commits_tab_counter" class="Counter">
+        4
+      </span>
+    </a>
+
+    <a href="/apple/swift/pull/6382/files" class="tabnav-tab selected js-pjax-history-navigate">
+      <svg aria-hidden="true" class="octicon octicon-diff" height="16" version="1.1" viewBox="0 0 13 16" width="13"><path fill-rule="evenodd" d="M6 7h2v1H6v2H5V8H3V7h2V5h1v2zm-3 6h5v-1H3v1zM7.5 2L11 5.5V15c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h6.5zM10 6L7 3H1v12h9V6zM8.5 0H3v1h5l4 4v8h1V4.5L8.5 0z"/></svg>
+      Files changed
+
+        <span id="files_tab_counter" class="Counter">
+            2
+        </span>
+    </a>
+  </nav>
+</div>
+
+
+        <div class="pr-toolbar js-sticky js-sticky-offset-scroll">
+          <div class="diffbar details-collapse js-details-container Details">
+            
+
+<div class="diffbar-item">
+  <div class="diffbar-range-menu select-menu js-menu-container js-select-menu js-diffbar-commits-menu"
+    data-range-url="/apple/swift/pull/6382/files/$range">
+    <div class="js-select-button">
+      <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="c">
+        Changes from
+          <strong>all commits</strong>
+      </button>
+    </div>
+
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">Commits</span>
+        </div>
+        <div class="select-menu-list js-navigation-container js-active-navigation-container" role="menu">
+          <a href="/apple/swift/pull/6382/files" class="select-menu-item js-navigation-item js-navigation-open" role="menuitem">
+            <div class="select-menu-item-text">
+              <div class="text-emphasized css-truncate css-truncate-target">
+                Show all changes
+              </div>
+              <span class="description">
+                4 commits
+              </span>
+            </div>
+          </a>
+
+
+          <div class="select-menu-divider">
+            Select commit
+              <span class="note text-normal mt-0 float-right">Hold shift + click to select a range</span>
+          </div>
+
+          <div class="js-diffbar-commits-list">
+              <a href="/apple/swift/pull/6382/commits/606bf83af393cdde2ff4de419e833de77226e90f"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="606bf83" >
+                <div class="select-menu-item-text">
+                  <code class="float-right">606bf83</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Modify intro sort to pivot on median of 3
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2016-12-19T02:14:10Z">Dec 19, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/6382/commits/7303125b7b99304ea1fe4a83ff12e133b773d1f5"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="7303125" data-parent-commit="606bf83">
+                <div class="select-menu-item-text">
+                  <code class="float-right">7303125</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Add tests for _sort3 function
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2016-12-19T03:20:53Z">Dec 19, 2016</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/6382/commits/5d42113375f80cc0a64ff9682340e8c3b8886b71"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="5d42113" data-parent-commit="7303125">
+                <div class="select-menu-item-text">
+                  <code class="float-right">5d42113</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Expand comments for _sort3
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2017-01-05T20:13:08Z">Jan 5, 2017</relative-time>
+                  </span>
+                </div>
+              </a>
+              <a href="/apple/swift/pull/6382/commits/b582683ecbc536d81dbac7ca4e00c28ccf55eebd"
+                class="select-menu-item js-navigation-item js-navigation-open " role="menuitem"
+                data-commit="b582683" data-parent-commit="5d42113">
+                <div class="select-menu-item-text">
+                  <code class="float-right">b582683</code>
+                  <div class="text-emphasized css-truncate css-truncate-target">
+                    [stdlib] Use unsigned arithmetic in partition
+                  </div>
+                  <span class="description">
+                    natecook1000 <relative-time datetime="2017-01-06T03:32:14Z">Jan 6, 2017</relative-time>
+                  </span>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+<include-fragment src="/apple/swift/pull/6382/show_toc?base_sha=ad45e0be414aab7e72963e25a1f2157f715f4796&amp;ds=true&amp;sha1=ad45e0be414aab7e72963e25a1f2157f715f4796&amp;sha2=b582683ecbc536d81dbac7ca4e00c28ccf55eebd"></include-fragment>
+
+<div class="diffbar-item toc-select select-menu js-menu-container js-select-menu js-load-contents" data-contents-url="/apple/swift/pull/6382/show_toc?base_sha=ad45e0be414aab7e72963e25a1f2157f715f4796&amp;sha1=ad45e0be414aab7e72963e25a1f2157f715f4796&amp;sha2=b582683ecbc536d81dbac7ca4e00c28ccf55eebd">
+  <button type="button" class="btn-link muted-link select-menu-button js-menu-target" aria-expanded="false" aria-haspopup="true" data-hotkey="t" data-ga-click="Pull Requests, open table of contents, type:semantic">
+      <strong>Jump to…</strong>
+  </button>
+  <div class="select-menu-modal-holder">
+    <div class="select-menu-modal js-menu-content">
+        <div class="select-menu-header">
+          <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+          <span class="select-menu-title">
+              Jump to file or symbol
+          </span>
+        </div>
+        <div class="js-select-menu-deferred-content">
+          <div class="select-menu-blankslate select-menu-error">
+            Failed to load files and symbols. <button type="button" class="btn-link js-toc-retry">Retry</button>
+          </div>
+        </div>
+        <div class="select-menu-loading-overlay anim-pulse">
+          <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+              <span class="diffbar-item diffstat">
+  <span class="text-green">
+    +130
+  </span>
+  <span class="text-red">
+    −24
+  </span>
+  <span class="tooltipped tooltipped-s" aria-label="154 lines changed">
+    <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span>
+  </span>
+</span>
+
+
+            <div class="float-right pr-review-tools">
+              <div class="diffbar-item">
+  <div class="BtnGroup">
+      <a class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s" href="https://github.com/apple/swift/pull/6382/files?diff=unified" aria-label="View diff in unified mode">Unified</a>
+      <button type="button" class="btn btn-sm btn-outline BtnGroup-item tooltipped tooltipped-s bg-gray-light text-gray-light" href="https://github.com/apple/swift/pull/6382/files?diff=split" aria-label="Viewing diff in split mode" disabled>Split</button>
+  </div>
+</div>
+
+
+            </div>
+
+                  <div class="js-socket-channel js-updatable-content js-pull-refresh-on-pjax" data-channel="pull_request:98516498" data-url="/apple/swift/pull/6382/show_partial_comparison?base_commit_oid=ad45e0be414aab7e72963e25a1f2157f715f4796&amp;end_commit_oid=b582683ecbc536d81dbac7ca4e00c28ccf55eebd&amp;partial=pull_requests%2Fstale_comparison&amp;start_commit_oid=ad45e0be414aab7e72963e25a1f2157f715f4796"></div>
+
+
+            <div class="modal-backdrop js-touch-events"></div>
+          </div>
+        </div>
+        <div class="pr-toolbar-shadow"></div>
+
+
+
+          <div id="files" class="diff-view ">
+
+  <div class="js-diff-progressive-container">
+    
+<a name="diff-68c134d8478193cbe9299610501ff45b"></a>
+<div id="diff-0"
+     class="file js-file js-details-container Details
+             
+             
+             
+             has-inline-notes
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="stdlib/public/core/Sort.swift.gyb" data-short-path="68c134d" data-anchor="diff-68c134d8478193cbe9299610501ff45b">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b582683ecbc536d81dbac7ca4e00c28ccf55eebd/stdlib/public/core/Sort.swift.gyb" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b582683 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="99 additions &amp; 24 deletions">123 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-neutral"></span></span>
+
+      <a href="#diff-68c134d8478193cbe9299610501ff45b" class="link-gray-dark"
+         title="stdlib/public/core/Sort.swift.gyb">stdlib/public/core/Sort.swift.gyb</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-68c134d8478193cbe9299610501ff45b"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/c629a47432f34f06082a1d5a742551e63dfaa9b9?diff=split&amp;in_wiki_context=&amp;left_hunk_size=58&amp;mode=100644&amp;next_line_num_left=72&amp;next_line_num_right=72&amp;path=stdlib%2Fpublic%2Fcore%2FSort.swift.gyb&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=131"
+            data-left-range="1-71" data-right-range="1-71">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -72,58 +72,131 @@ func _insertionSort&lt;C&gt;(</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL72"
+        data-line-number="72"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR72"
+        data-line-number="72"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL73"
+        data-line-number="73"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR73"
+        data-line-number="73"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL74"
+        data-line-number="74"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR74"
+        data-line-number="74"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR75"
+        data-line-number="75"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// Sorts the elements at `elements[a]`, `elements[b]`, and `elements[c]`.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR76"
+        data-line-number="76"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// Stable.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR77"
+        data-line-number="77"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+///</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR78"
+        data-line-number="78"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// The indices passed as `a`, `b`, and `c` do not need to be consecutive, but</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR79"
+        data-line-number="79"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// must be in strict increasing order.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR80"
+        data-line-number="80"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+///</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR81"
+        data-line-number="81"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// - Precondition: `a &lt; b &amp;&amp; b &lt; c`</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR82"
+        data-line-number="82"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// - Postcondition: `elements[a] &lt;= elements[b] &amp;&amp; elements[b] &lt;= elements[c]`</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR83"
+        data-line-number="83"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+public // @testable</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR84"
+        data-line-number="84"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+func _sort3&lt;C&gt;(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR85"
+        data-line-number="85"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  _ elements: inout C,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR86"
+        data-line-number="86"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  _ a: C.Index, _ b: C.Index, _ c: C.Index</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR87"
+        data-line-number="87"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ${&quot;, by areInIncreasingOrder: (C.Iterator.Element, C.Iterator.Element) -&gt; Bool&quot; if p else &quot;&quot;}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR88"
+        data-line-number="88"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+)</span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r94792390"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="eaaa828e94682e29f92525239d0f4ada">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94792390" class="timestamp">
+              <relative-time datetime="2017-01-05T16:06:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Why isn't this declared in an extension to MutableCollection &amp; RandomAccessCollection?</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94792834"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="ee2784272f9819127de65f27d0d1ed18">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94792834" class="timestamp">
+              <relative-time datetime="2017-01-05T16:06:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Can we finally route everything through one sort implementation that takes a closure, rather than gyb'ing, without regressing performance?  A weak optimizer that may have since been fixed is the only reason we're gyb'ing this code. <a href="https://github.com/bob-wilson" class="user-mention">@bob-wilson</a> what do you think?</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94819189"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="6283c095d136a925ce76ad53d9f119db">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/natecook1000">
+        <img alt="@natecook1000" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/7053374?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/natecook1000" class="author link-gray-dark">natecook1000</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94819189" class="timestamp">
+              <relative-time datetime="2017-01-05T18:06:47Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the swift repository.">
+      Contributor
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>I'm following the rest of the functions in the file, here. It would be great to have all of these as extension methods and to get rid of the gyb—I can try those changes out after we get this merged.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94861414"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="25d893cc342616b445c416c4b63f9b7d">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94861414" class="timestamp">
+              <relative-time datetime="2017-01-05T22:03:24Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Unless I'm missing something, getting rid of gyb and using extension methods are totally orthogonal concerns.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94981999"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="af872a07e9d29197f9ff59edf53be400">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/bob-wilson">
+        <img alt="@bob-wilson" class="avatar" height="28" src="https://avatars2.githubusercontent.com/u/15724724?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/bob-wilson" class="author link-gray-dark">bob-wilson</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94981999" class="timestamp">
+              <relative-time datetime="2017-01-06T17:14:33Z">Jan 6, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the swift repository.">
+      Contributor
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>I don't know the history of this or why you had to gyb the code, but regardless, if the optimizer has improved to let you get rid of that without regressing performance, that would be great.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR89"
+        data-line-number="89"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  where</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR90"
+        data-line-number="90"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  C : MutableCollection &amp; RandomAccessCollection</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR91"
+        data-line-number="91"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ${&quot;&quot; if p else &quot;, C.Iterator.Element : Comparable&quot;}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR92"
+        data-line-number="92"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+{</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR93"
+        data-line-number="93"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // There are thirteen possible permutations for the original ordering of</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR94"
+        data-line-number="94"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // the elements at indices `a`, `b`, and `c`. The comments in the code below</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR95"
+        data-line-number="95"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // show the relative ordering of the three elements using a three-digit</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR96"
+        data-line-number="96"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // number as shorthand for the position and comparative relationship of</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR97"
+        data-line-number="97"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // each element. For example, &quot;312&quot; indicates that the element at `a` is the</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR98"
+        data-line-number="98"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // largest of the three, the element at `b` is the smallest, and the element</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR99"
+        data-line-number="99"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // at `c` is the median. This hypothetical input array has a 312 ordering for</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR100"
+        data-line-number="100"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // `a`, `b`, and `c`:</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR101"
+        data-line-number="101"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR102"
+        data-line-number="102"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //      [ 7, 4, 3, 9, 2, 0, 3, 7, 6, 5 ]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR103"
+        data-line-number="103"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //        ^              ^           ^</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR104"
+        data-line-number="104"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //        a              b           c</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR105"
+        data-line-number="105"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // - If each of the three elements is distinct, they could be ordered as any</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //   of the permutations of 1, 2, and 3: 123, 132, 213, 231, 312, or 321.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // - If two elements are equivalent and one is distinct, they could be</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //   ordered as any permutation of 1, 1, and 2 or 1, 2, and 2: 112, 121, 211,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  //   122, 212, or 221.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // - If all three elements are equivalent, they are already in order: 111.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR112"
+        data-line-number="112"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR113"
+        data-line-number="113"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  switch (${cmp(&quot;elements[b]&quot;, &quot;elements[a]&quot;, p)},</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR114"
+        data-line-number="114"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    ${cmp(&quot;elements[c]&quot;, &quot;elements[b]&quot;, p)}) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR115"
+        data-line-number="115"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  case (false, false):</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR116"
+        data-line-number="116"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // 0 swaps: 123, 112, 122, 111</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR117"
+        data-line-number="117"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    break</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR118"
+        data-line-number="118"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR119"
+        data-line-number="119"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  case (true, true):</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR120"
+        data-line-number="120"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // 1 swap: 321</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR121"
+        data-line-number="121"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // swap(a, c): 312-&gt;123</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR122"
+        data-line-number="122"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    swap(&amp;elements[a], &amp;elements[c])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  case (true, false):</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // 1 swap: 213, 212 --- 2 swaps: 312, 211</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // swap(a, b): 213-&gt;123, 212-&gt;122, 312-&gt;132, 211-&gt;121</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    swap(&amp;elements[a], &amp;elements[b])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR128"
+        data-line-number="128"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR129"
+        data-line-number="129"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    if ${cmp(&quot;elements[c]&quot;, &quot;elements[b]&quot;, p)} {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR130"
+        data-line-number="130"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      // 132 (started as 312), 121 (started as 211)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR131"
+        data-line-number="131"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      // swap(b, c): 132-&gt;123, 121-&gt;112</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR132"
+        data-line-number="132"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      swap(&amp;elements[b], &amp;elements[c])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR133"
+        data-line-number="133"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR134"
+        data-line-number="134"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR135"
+        data-line-number="135"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  case (false, true):</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR136"
+        data-line-number="136"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // 1 swap: 132, 121 --- 2 swaps: 231, 221</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR137"
+        data-line-number="137"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    // swap(b, c): 132-&gt;123, 121-&gt;112, 231-&gt;213, 221-&gt;212</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR138"
+        data-line-number="138"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    swap(&amp;elements[b], &amp;elements[c])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR139"
+        data-line-number="139"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR140"
+        data-line-number="140"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    if ${cmp(&quot;elements[b]&quot;, &quot;elements[a]&quot;, p)} {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR141"
+        data-line-number="141"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      // 213 (started as 231), 212 (started as 221)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR142"
+        data-line-number="142"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      // swap(a, b): 213-&gt;123, 212-&gt;122</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR143"
+        data-line-number="143"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      swap(&amp;elements[a], &amp;elements[b])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR144"
+        data-line-number="144"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR145"
+        data-line-number="145"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR146"
+        data-line-number="146"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR147"
+        data-line-number="147"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR148"
+        data-line-number="148"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// Reorders `elements` and returns an index `p` such that every element in</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR149"
+        data-line-number="149"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// `elements[range.lowerBound..&lt;p]` is less than every element in</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR150"
+        data-line-number="150"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// `elements[p..&lt;range.upperBound]`.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR151"
+        data-line-number="151"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+///</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR152"
+        data-line-number="152"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+/// - Precondition: The count of `range` must be &gt;= 3:</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR153"
+        data-line-number="153"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+///   `elements.distance(from: range.lowerBound, to: range.upperBound) &gt;= 3`</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL75"
+        data-line-number="75"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> func _partition&lt;C&gt;(</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR154"
+        data-line-number="154"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> func _partition&lt;C&gt;(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL76"
+        data-line-number="76"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR155"
+        data-line-number="155"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL77"
+        data-line-number="77"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR156"
+        data-line-number="156"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL78"
+        data-line-number="78"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   ${&quot;, by areInIncreasingOrder: (C.Iterator.Element, C.Iterator.Element) -&gt; Bool&quot; if p else &quot;&quot;}</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR157"
+        data-line-number="157"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   ${&quot;, by areInIncreasingOrder: (C.Iterator.Element, C.Iterator.Element) -&gt; Bool&quot; if p else &quot;&quot;}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL79"
+        data-line-number="79"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> ) -&gt; C.Index</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR158"
+        data-line-number="158"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> ) -&gt; C.Index</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL80"
+        data-line-number="80"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   where</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR159"
+        data-line-number="159"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   where</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL81"
+        data-line-number="81"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   C : MutableCollection &amp; RandomAccessCollection</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR160"
+        data-line-number="160"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   C : MutableCollection &amp; RandomAccessCollection</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL82"
+        data-line-number="82"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  ${&quot;&quot; if p else &quot;, C.Iterator.Element : Comparable&quot;}<span class="x x-first x-last"> {</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR161"
+        data-line-number="161"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ${&quot;&quot; if p else &quot;, C.Iterator.Element : Comparable&quot;}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL83"
+        data-line-number="83"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR162"
+        data-line-number="162"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="x x-first x-last">{</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL84"
+        data-line-number="84"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   var lo = range.lowerBound</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR163"
+        data-line-number="163"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   var lo = range.lowerBound</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL85"
+        data-line-number="85"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  var hi = range.upperBound</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR164"
+        data-line-number="164"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  var hi = elements.index(before: range.upperBound)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL86"
+        data-line-number="86"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL87"
+        data-line-number="87"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  if lo == hi {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL88"
+        data-line-number="88"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    return lo</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL89"
+        data-line-number="89"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL90"
+        data-line-number="90"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR165"
+        data-line-number="165"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL91"
+        data-line-number="91"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  // The first element is the pivot.</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR166"
+        data-line-number="166"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // Sort the first, middle, and last elements, then use the middle value</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL92"
+        data-line-number="92"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  let pivot = elements[range.lowerBound]</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR167"
+        data-line-number="167"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // as the pivot for the partition.</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR168"
+        data-line-number="168"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  let half = numericCast(elements.distance(from: lo, to: hi)) as UInt / 2</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR169"
+        data-line-number="169"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  let mid = elements.index(lo, offsetBy: numericCast(half))</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR170"
+        data-line-number="170"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  _sort3(&amp;elements, lo, mid, hi</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR171"
+        data-line-number="171"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    ${&quot;, by: areInIncreasingOrder&quot; if p else &quot;&quot;})</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR172"
+        data-line-number="172"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  let pivot = elements[mid]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL93"
+        data-line-number="93"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR173"
+        data-line-number="173"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL94"
+        data-line-number="94"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   // Loop invariants:</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR174"
+        data-line-number="174"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   // Loop invariants:</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL95"
+        data-line-number="95"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   // * lo &lt; hi</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR175"
+        data-line-number="175"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   // * lo &lt; hi</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL96"
+        data-line-number="96"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  // * elements[i] &lt; pivot, for i in range.lowerBound+1..lo</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR176"
+        data-line-number="176"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // * elements[i] &lt; pivot, for i in range.lowerBound..&lt;lo</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL97"
+        data-line-number="97"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  // * pivot &lt;= elements[i] for i in hi..range.upperBound</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR177"
+        data-line-number="177"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  // * pivot &lt;= elements[i] for i in hi..&lt;range.upperBound</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL98"
+        data-line-number="98"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR178"
+        data-line-number="178"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  Loop: while true {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL99"
+        data-line-number="99"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-Loop: while true {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR179"
+        data-line-number="179"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    FindLo: do {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL100"
+        data-line-number="100"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  FindLo: repeat {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL101"
+        data-line-number="101"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       elements.formIndex(after: &amp;lo)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR180"
+        data-line-number="180"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       elements.formIndex(after: &amp;lo)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL102"
+        data-line-number="102"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       while lo != hi {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR181"
+        data-line-number="181"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       while lo != hi {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL103"
+        data-line-number="103"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         if !${cmp(&quot;elements[lo]&quot;, &quot;pivot&quot;, p)} { break FindLo }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR182"
+        data-line-number="182"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         if !${cmp(&quot;elements[lo]&quot;, &quot;pivot&quot;, p)} { break FindLo }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL104"
+        data-line-number="104"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         elements.formIndex(after: &amp;lo)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR183"
+        data-line-number="183"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         elements.formIndex(after: &amp;lo)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL105"
+        data-line-number="105"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR184"
+        data-line-number="184"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL106"
+        data-line-number="106"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       break Loop</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR185"
+        data-line-number="185"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       break Loop</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL107"
+        data-line-number="107"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    }<span class="x x-first x-last"> while false</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR186"
+        data-line-number="186"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r94794693"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="92e5a452e115efc012902ade5810db80">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94794693" class="timestamp">
+              <relative-time datetime="2017-01-05T16:06:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>That's a good transformation, but do we even need the do { ... } scope?  It looks like we could dump it.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94819344"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="d4e6ab3c8d8c7d3dc54ece73533be56e">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/natecook1000">
+        <img alt="@natecook1000" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/7053374?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/natecook1000" class="author link-gray-dark">natecook1000</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94819344" class="timestamp">
+              <relative-time datetime="2017-01-05T18:07:41Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the swift repository.">
+      Contributor
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>We need labeled scopes that <code>break FindLo</code> and <code>break FindHi</code> can break out of. The refactored versions I can come up with end up duplicating the <code>lo != hi</code> bounds checks.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94862144"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="a0f754dc4e2047157b682ea7c7484420">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94862144" class="timestamp">
+              <relative-time datetime="2017-01-05T22:07:49Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Ah, I overlooked the inner breaks.  No problem here, then.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL108"
+        data-line-number="108"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR187"
+        data-line-number="187"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL109"
+        data-line-number="109"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  FindHi: <span class="x x-first x-last">repeat</span> {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR188"
+        data-line-number="188"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="x x-first x-last">  </span>FindHi: <span class="x x-first x-last">do</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL110"
+        data-line-number="110"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       elements.formIndex(before: &amp;hi)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR189"
+        data-line-number="189"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       elements.formIndex(before: &amp;hi)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL111"
+        data-line-number="111"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       while hi != lo {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR190"
+        data-line-number="190"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       while hi != lo {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL112"
+        data-line-number="112"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         if ${cmp(&quot;elements[hi]&quot;, &quot;pivot&quot;, p)} { break FindHi }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR191"
+        data-line-number="191"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         if ${cmp(&quot;elements[hi]&quot;, &quot;pivot&quot;, p)} { break FindHi }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL113"
+        data-line-number="113"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">         elements.formIndex(before: &amp;hi)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR192"
+        data-line-number="192"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">         elements.formIndex(before: &amp;hi)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL114"
+        data-line-number="114"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR193"
+        data-line-number="193"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL115"
+        data-line-number="115"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       break Loop</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR194"
+        data-line-number="194"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       break Loop</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL116"
+        data-line-number="116"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    }<span class="x x-first x-last"> while false</span></span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR195"
+        data-line-number="195"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL117"
+        data-line-number="117"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR196"
+        data-line-number="196"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL118"
+        data-line-number="118"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     swap(&amp;elements[lo], &amp;elements[hi])</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR197"
+        data-line-number="197"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     swap(&amp;elements[lo], &amp;elements[hi])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL119"
+        data-line-number="119"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR198"
+        data-line-number="198"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL120"
+        data-line-number="120"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR199"
+        data-line-number="199"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL121"
+        data-line-number="121"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  elements.formIndex(before: &amp;lo)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL122"
+        data-line-number="122"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  if lo != range.lowerBound {</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL123"
+        data-line-number="123"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    // swap the pivot into place</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL124"
+        data-line-number="124"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    swap(&amp;elements[lo], &amp;elements[range.lowerBound])</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL125"
+        data-line-number="125"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-  }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL126"
+        data-line-number="126"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-</span>
+
+    </td>
+
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL127"
+        data-line-number="127"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   return lo</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR200"
+        data-line-number="200"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   return lo</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL128"
+        data-line-number="128"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR201"
+        data-line-number="201"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL129"
+        data-line-number="129"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR202"
+        data-line-number="202"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="155">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-68c134d8478193cbe9299610501ff45b"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/c629a47432f34f06082a1d5a742551e63dfaa9b9?diff=split&amp;in_wiki_context=&amp;left_hunk_size=7&amp;mode=100644&amp;next_line_num_left=190&amp;next_line_num_right=263&amp;path=stdlib%2Fpublic%2Fcore%2FSort.swift.gyb&amp;prev_line_num_left=129&amp;prev_line_num_right=202&amp;right_hunk_size=7"
+            data-left-range="130-189" data-right-range="203-262">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -190,7 +263,7 @@ func _introSortImpl&lt;C&gt;(</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL190"
+        data-line-number="190"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     depthLimit: depthLimit &amp;- 1)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR263"
+        data-line-number="263"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     depthLimit: depthLimit &amp;- 1)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL191"
+        data-line-number="191"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   _introSortImpl(</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR264"
+        data-line-number="264"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   _introSortImpl(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL192"
+        data-line-number="192"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     &amp;elements,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR265"
+        data-line-number="265"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     &amp;elements,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-deletion js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL193"
+        data-line-number="193"></td>
+
+    <td class="code-review blob-code blob-code-deletion ">
+
+      <span class="blob-code-inner">-    subRange: <span class="x x-first x-last">(elements.index(after: </span>partIdx<span class="x x-first x-last">))</span>..&lt;range.upperBound,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR266"
+        data-line-number="266"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    subRange: partIdx..&lt;range.upperBound,</span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r94794945"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="0b1cf117b60e243238b9c3b297c66629">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94794945" class="timestamp">
+              <relative-time datetime="2017-01-05T16:06:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Isn't this an unintentional change?  If not, why not?</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94819351"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="291959d80ba86f4d4ac1a3348d0b9382">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/natecook1000">
+        <img alt="@natecook1000" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/7053374?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/natecook1000" class="author link-gray-dark">natecook1000</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94819351" class="timestamp">
+              <relative-time datetime="2017-01-05T18:07:43Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the swift repository.">
+      Contributor
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>It's an intentional change. Because the previous implementation of <code>_partition</code> slotted the pivot element into <code>partIdx</code> as its final step, the elements were always arranged such that everything in <code>range.lowerBound..&lt;partIndex</code> was less than <code>elements[partIdx]</code> and in <code>elements.index(after: partIdx)..&lt;range.upperBound</code> was greater than or equal to <code>elements[partIdx]</code>.</p>
+<p>The new version doesn't have that guarantee, only that everything in <code>range.lowerBound..&lt;partIdx</code> is less than everything in <code>partIdx..&lt;range.upperBound</code>, so the sort of the upper partition needs to include the partitioning index.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94862259"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="b713499e9a5dd6d80b87837f07039633">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94862259" class="timestamp">
+              <relative-time datetime="2017-01-05T22:08:30Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>SGTM; thanks for explaining.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL194"
+        data-line-number="194"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     ${&quot;by: areInIncreasingOrder, &quot; if p else &quot;&quot;}</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR267"
+        data-line-number="267"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     ${&quot;by: areInIncreasingOrder, &quot; if p else &quot;&quot;}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL195"
+        data-line-number="195"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">     depthLimit: depthLimit &amp;- 1)</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR268"
+        data-line-number="268"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">     depthLimit: depthLimit &amp;- 1)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL196"
+        data-line-number="196"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR269"
+        data-line-number="269"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="164">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-68c134d8478193cbe9299610501ff45b"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/c629a47432f34f06082a1d5a742551e63dfaa9b9?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=234&amp;next_line_num_right=307&amp;path=stdlib%2Fpublic%2Fcore%2FSort.swift.gyb&amp;prev_line_num_left=196&amp;prev_line_num_right=269&amp;right_hunk_size=7"
+            data-left-range="197-233" data-right-range="270-306">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -234,6 +307,7 @@ func _siftDown&lt;C&gt;(</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL234"
+        data-line-number="234"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       ${&quot;, by: areInIncreasingOrder&quot; if p else &quot;&quot;})</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR307"
+        data-line-number="307"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       ${&quot;, by: areInIncreasingOrder&quot; if p else &quot;&quot;})</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL235"
+        data-line-number="235"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR308"
+        data-line-number="308"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL236"
+        data-line-number="236"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR309"
+        data-line-number="309"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR310"
+        data-line-number="310"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL237"
+        data-line-number="237"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> func _heapify&lt;C&gt;(</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR311"
+        data-line-number="311"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> func _heapify&lt;C&gt;(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL238"
+        data-line-number="238"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR312"
+        data-line-number="312"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL239"
+        data-line-number="239"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR313"
+        data-line-number="313"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+</tr>
+
+
+      <tr class="js-expandable-line" data-position="172">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-68c134d8478193cbe9299610501ff45b"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/c629a47432f34f06082a1d5a742551e63dfaa9b9?diff=split&amp;in_wiki_context=&amp;left_hunk_size=6&amp;mode=100644&amp;next_line_num_left=262&amp;next_line_num_right=336&amp;path=stdlib%2Fpublic%2Fcore%2FSort.swift.gyb&amp;prev_line_num_left=239&amp;prev_line_num_right=313&amp;right_hunk_size=7"
+            data-left-range="240-261" data-right-range="314-335">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -262,6 +336,7 @@ func _heapify&lt;C&gt;(</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL262"
+        data-line-number="262"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">       ${&quot;, by: areInIncreasingOrder&quot; if p else &quot;&quot;})</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR336"
+        data-line-number="336"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">       ${&quot;, by: areInIncreasingOrder&quot; if p else &quot;&quot;})</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL263"
+        data-line-number="263"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR337"
+        data-line-number="337"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL264"
+        data-line-number="264"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR338"
+        data-line-number="338"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR339"
+        data-line-number="339"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+      
+  <tr class="inline-comments js-inline-comments-container">
+      <td class="blob-num empty-cell js-deletion"></td>
+      <td class="empty-cell js-deletion"></td>
+
+
+      <td class="line-comments js-addition js-line-comments js-quote-selection-container " colspan="2">
+        <div class="review-thread comment-holder js-line-comments">
+  <div class="js-comments-holder">
+      
+
+
+
+<div id="r94795114"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="eeeaaf844d60db8d4b9dbf8eb1ae4778">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/dabrahams">
+        <img alt="@dabrahams" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/44065?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/dabrahams" class="author link-gray-dark">dabrahams</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94795114" class="timestamp">
+              <relative-time datetime="2017-01-05T16:06:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label text-bold tooltipped tooltipped-multiline tooltipped-s" aria-label="This user is a member of the Apple organization.">
+      Member
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Not that these are particularly bad, but we try to avoid whitespace-only changes, for the record.</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+      
+
+
+
+<div id="r94819377"
+    class="review-comment previewable-edit js-comment js-task-list-container
+           
+            "
+    data-body-version="00da50cedca31da887a26ba301427776">
+
+  <div class="edit-comment-hide">
+    <div class="timeline-comment-actions">
+
+
+    </div>
+
+      <a class="float-left mt-1" href="/natecook1000">
+        <img alt="@natecook1000" class="avatar" height="28" src="https://avatars0.githubusercontent.com/u/7053374?v=4&amp;s=56" width="28" />
+      </a>
+
+    <div class="review-comment-contents">
+      <h4 class="f5 text-normal d-inline">
+        <strong>
+            <a href="/natecook1000" class="author link-gray-dark">natecook1000</a> 
+        </strong>
+        <span class="text-gray">
+
+            <a href="#r94819377" class="timestamp">
+              <relative-time datetime="2017-01-05T18:07:50Z">Jan 5, 2017</relative-time>
+            </a>
+
+        </span>
+      </h4>
+      
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the swift repository.">
+      Contributor
+    </span>
+
+
+
+
+      <div class="comment-body markdown-body  js-comment-body">
+        <p>Noted, thanks!</p>
+      </div>
+
+        
+
+<div class="comment-reactions  js-reactions-container "
+
+    >
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
+
+
+
+      </td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL265"
+        data-line-number="265"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> func _heapSort&lt;C&gt;(</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR340"
+        data-line-number="340"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> func _heapSort&lt;C&gt;(</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL266"
+        data-line-number="266"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR341"
+        data-line-number="341"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   _ elements: inout C,</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bL267"
+        data-line-number="267"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-68c134d8478193cbe9299610501ff45bR342"
+        data-line-number="342"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   subRange range: Range&lt;C.Index&gt;</span>
+
+    </td>
+</tr>
+
+
+
+  <tr class="js-expandable-line">
+   <td class="blob-num blob-num-expandable" colspan="1">
+     <a href="#diff-68c134d8478193cbe9299610501ff45b"
+          class="diff-expander js-expand" title="Expand" aria-label="Expand"
+          data-url="/apple/swift/blob_excerpt/c629a47432f34f06082a1d5a742551e63dfaa9b9?diff=split&amp;in_wiki_context=&amp;mode=100644&amp;path=stdlib%2Fpublic%2Fcore%2FSort.swift.gyb&amp;prev_line_num_left=267&amp;prev_line_num_right=342"
+          data-left-range="268-386" data-right-range="343-386">
+       <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+     </a>
+   </td>
+   <td class="blob-code blob-code-expandable" colspan="3"></td>
+  </tr>
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+    
+<a name="diff-78ffd25465b0b821d94e5a8415b53d56"></a>
+<div id="diff-1"
+     class="file js-file js-details-container Details
+             
+             
+             
+             
+             
+              show-inline-notes
+           ">
+  <div class="file-header" data-path="validation-test/stdlib/Algorithm.swift" data-short-path="78ffd25" data-anchor="diff-78ffd25465b0b821d94e5a8415b53d56">
+    <div class="file-actions">
+
+        <span class="show-file-notes pt-1">
+          <label>
+            <input type="checkbox" checked="checked" class="js-toggle-file-notes">
+            Show comments
+          </label>
+        </span>
+
+          <a href="/natecook1000/swift/blob/b582683ecbc536d81dbac7ca4e00c28ccf55eebd/validation-test/stdlib/Algorithm.swift" class="btn btn-sm tooltipped tooltipped-nw" rel="nofollow" aria-label="View the whole file at version b582683 ">View</a>
+
+
+      <button type="button" class="btn-octicon p-1 pr-2 js-details-target" aria-label="Toggle diff text" aria-expanded="true">
+        <svg aria-hidden="true" class="octicon octicon-chevron-down Details-content--shown" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6z"/></svg>
+        <svg aria-hidden="true" class="octicon octicon-chevron-up Details-content--hidden" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M10 10l-1.5 1.5L5 7.75 1.5 11.5 0 10l5-5z"/></svg>
+      </button>
+    </div>
+    <div class="file-info">
+        <span class="diffstat tooltipped tooltipped-e" aria-label="31 additions &amp; 0 deletions">31 <span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span><span class="block-diff-added"></span></span>
+
+      <a href="#diff-78ffd25465b0b821d94e5a8415b53d56" class="link-gray-dark"
+         title="validation-test/stdlib/Algorithm.swift">validation-test/stdlib/Algorithm.swift</a>
+
+      
+    </div>
+  </div>
+  <div class="js-file-content Details-content--shown">
+
+        <div class="data highlight blob-wrapper">
+          <table class="diff-table tab-size  file-diff-split" data-tab-size="8">
+              <colgroup>
+                <col width="44">
+                <col>
+                <col width="44">
+                <col>
+              </colgroup>
+            
+      <tr class="js-expandable-line" data-position="0">
+    <td class="blob-num blob-num-expandable" colspan="1">
+      <a href="#diff-78ffd25465b0b821d94e5a8415b53d56"
+            class="diff-expander js-expand" title="Expand" aria-label="Expand"
+            data-url="/apple/swift/blob_excerpt/90076bd5e5d0c4132b5b23faad1f6e726ad7ac9f?diff=split&amp;in_wiki_context=&amp;left_hunk_size=5&amp;mode=100644&amp;next_line_num_left=224&amp;next_line_num_right=224&amp;path=validation-test%2Fstdlib%2FAlgorithm.swift&amp;prev_line_num_left=&amp;prev_line_num_right=&amp;right_hunk_size=36"
+            data-left-range="1-223" data-right-range="1-223">
+        <svg aria-hidden="true" class="octicon octicon-unfold" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 7.5L14 10c0 .55-.45 1-1 1H9v-1h3.5l-2-2h-7l-2 2H5v1H1c-.55 0-1-.45-1-1l2.5-2.5L0 5c0-.55.45-1 1-1h4v1H1.5l2 2h7l2-2H9V4h4c.55 0 1 .45 1 1l-2.5 2.5zM6 6h2V3h2L7 0 4 3h2v3zm2 3H6v3H4l3 3 3-3H8V9z"/></svg>
+      </a>
+    </td>
+    <td class="blob-code blob-code-inner blob-code-hunk" colspan="3">@@ -224,5 +224,36 @@ Algorithm.test(&quot;sorted/return type&quot;) {</td>
+  </tr>
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56L224"
+        data-line-number="224"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> x<span class="pl-k">:</span> <span class="pl-c1">Array</span> <span class="pl-k">=</span> ([<span class="pl-c1">5</span>, <span class="pl-c1">4</span>, <span class="pl-c1">3</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>] <span class="pl-k">as</span> <span class="pl-c1">ArraySlice</span>).<span class="pl-c1">sorted</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R224"
+        data-line-number="224"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner">   <span class="pl-k">let</span> x<span class="pl-k">:</span> <span class="pl-c1">Array</span> <span class="pl-k">=</span> ([<span class="pl-c1">5</span>, <span class="pl-c1">4</span>, <span class="pl-c1">3</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>] <span class="pl-k">as</span> <span class="pl-c1">ArraySlice</span>).<span class="pl-c1">sorted</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56L225"
+        data-line-number="225"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R225"
+        data-line-number="225"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56L226"
+        data-line-number="226"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R226"
+        data-line-number="226"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R227"
+        data-line-number="227"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+Algorithm.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>sort3/simple<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R228"
+        data-line-number="228"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: [</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R229"
+        data-line-number="229"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1</span>], [<span class="pl-c1">3</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">3</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R230"
+        data-line-number="230"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ]) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R231"
+        data-line-number="231"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-k">var</span> input <span class="pl-k">=</span> <span class="pl-c1">$0</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R232"
+        data-line-number="232"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">_sort3</span>(<span class="pl-k">&amp;</span>input, <span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R233"
+        data-line-number="233"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">expectEqual</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], input)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R234"
+        data-line-number="234"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R235"
+        data-line-number="235"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R236"
+        data-line-number="236"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-k">func</span> <span class="pl-en">isSorted</span>&lt;<span class="pl-c1">T</span>&gt;(<span class="pl-en">_</span> <span class="pl-smi">a</span>: [T], <span class="pl-en">by</span> <span class="pl-smi">areInIncreasingOrder</span>: (T, T) <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span>) <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R237"
+        data-line-number="237"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  <span class="pl-k">return</span> <span class="pl-k">!</span>a.<span class="pl-c1">dropFirst</span>().<span class="pl-c1">enumerated</span>().<span class="pl-c1">contains</span>(<span class="pl-c1">where</span>: { (offset, element) <span class="pl-k">in</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R238"
+        data-line-number="238"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">areInIncreasingOrder</span>(element, a[offset])</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R239"
+        data-line-number="239"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  })</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R240"
+        data-line-number="240"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R241"
+        data-line-number="241"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R242"
+        data-line-number="242"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+Algorithm.<span class="pl-c1">test</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>sort3/stable<span class="pl-pds">&quot;</span></span>)</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R243"
+        data-line-number="243"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  .<span class="pl-c1">forEach</span>(<span class="pl-c1">in</span>: [</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R244"
+        data-line-number="244"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    [<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>], [<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">1</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R245"
+        data-line-number="245"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+  ]) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R246"
+        data-line-number="246"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c"><span class="pl-c">//</span> decorate with offset, but sort by value</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R247"
+        data-line-number="247"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>    <span class="pl-k">var</span> input <span class="pl-k">=</span> <span class="pl-c1">Array</span>(<span class="pl-c1">$0</span>.<span class="pl-c1">enumerated</span>())</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R248"
+        data-line-number="248"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c1">_sort3</span>(<span class="pl-k">&amp;</span>input, <span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>) { <span class="pl-c1">$0</span>.<span class="pl-smi">element</span> <span class="pl-k">&lt;</span> <span class="pl-c1">$1</span>.<span class="pl-smi">element</span> }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R249"
+        data-line-number="249"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    <span class="pl-c"><span class="pl-c">//</span> offsets should still be ordered for equal values</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R250"
+        data-line-number="250"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+<span class="pl-c"></span>    <span class="pl-c1">expectTrue</span>(<span class="pl-c1">isSorted</span>(input) {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R251"
+        data-line-number="251"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-k">if</span> <span class="pl-c1">$0</span>.<span class="pl-smi">element</span> <span class="pl-k">==</span> <span class="pl-c1">$1</span>.<span class="pl-smi">element</span> {</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R252"
+        data-line-number="252"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+        <span class="pl-k">return</span> <span class="pl-c1">$0</span>.<span class="pl-smi">offset</span> <span class="pl-k">&lt;</span> <span class="pl-c1">$1</span>.<span class="pl-smi">offset</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R253"
+        data-line-number="253"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      }</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R254"
+        data-line-number="254"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+      <span class="pl-k">return</span> <span class="pl-c1">$0</span>.<span class="pl-smi">element</span> <span class="pl-k">&lt;</span> <span class="pl-c1">$1</span>.<span class="pl-smi">element</span></span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R255"
+        data-line-number="255"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+    })</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R256"
+        data-line-number="256"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+}</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-empty empty-cell"></td>
+    <td class="blob-code blob-code-empty empty-cell"></td>
+
+    <td class="blob-num blob-num-addition js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R257"
+        data-line-number="257"></td>
+
+    <td class="code-review blob-code blob-code-addition">
+
+      <span class="blob-code-inner">+</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56L227"
+        data-line-number="227"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> <span class="pl-c1">runAllTests</span>()</span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R258"
+        data-line-number="258"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> <span class="pl-c1">runAllTests</span>()</span>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56L228"
+        data-line-number="228"></td>
+
+    <td class="code-review blob-code blob-code-context ">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+
+    <td class="blob-num blob-num-context js-linkable-line-number"
+        id="diff-78ffd25465b0b821d94e5a8415b53d56R259"
+        data-line-number="259"></td>
+
+    <td class="code-review blob-code blob-code-context">
+
+      <span class="blob-code-inner"> </span>
+
+    </td>
+</tr>
+
+
+
+
+          </table>
+        </div>
+
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<button type="button" class="js-toggle-all-file-notes" data-hotkey="i" style="display:none">Toggle all file notes</button>
+
+<svg aria-hidden="true" width="340px" height="84px" viewBox="0 0 340 84" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="diff-placeholder-svg position-absolute bottom-0">
+  <defs>
+    <clippath id="diff-placeholder">
+      <rect x="0" y="0" width="67.0175439" height="11.9298746" rx="2"></rect>
+      <rect x="18.9473684" y="47.7194983" width="100.701754" height="11.9298746" rx="2"></rect>
+      <rect x="0" y="71.930126" width="37.8947368" height="11.9298746" rx="2"></rect>
+      <rect x="127.017544" y="48.0703769" width="53.3333333" height="11.9298746" rx="2"></rect>
+      <rect x="187.719298" y="48.0703769" width="72.9824561" height="11.9298746" rx="2"></rect>
+      <rect x="76.8421053" y="0" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="17.8947368" y="23.8597491" width="140.350877" height="11.9298746" rx="2"></rect>
+      <rect x="166.315789" y="23.8597491" width="173.684211" height="11.9298746" rx="2"></rect>
+    </clippath>
+
+    <linearGradient id="animated-diff-gradient" x1="0" x2="0" y1="0" y2="1" spreadMethod="reflect">
+      <stop offset="0" stop-color="#eee"></stop>
+      <stop offset="0.2" stop-color="#eee"></stop>
+      <stop offset="0.5" stop-color="#ddd"></stop>
+      <stop offset="0.8" stop-color="#eee"></stop>
+      <stop offset="1" stop-color="#eee"></stop>
+      <animateTransform attributeName="y1" values="0%; 100%; 0" dur="1s" repeatCount="3"></animateTransform>
+      <animateTransform attributeName="y2" values="100%; 200%; 0" dur="1s" repeatCount="3"></animateTransform>
+    </linearGradient>
+  </defs>
+</svg>
+
+
+
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container-lg site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="1.82594s from unicorn-2401095420-dhs5z">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/compat-91f98c37fc84eac24836eec2567e9912742094369a04c4eba6e3cd1fa18902d9.js"></script>
+    <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-3a24d5c861294564cb46aae8f7e3c74c7aad8e5b861816bfd96927300f203f51.js"></script>
+    
+    <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-aea01bc4b7fa366479732897bf3ded978aad81f1283b630de36f45cdf861c8a1.js"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
+

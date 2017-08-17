@@ -1,0 +1,527 @@
+{
+  "total_count": 130,
+  "incomplete_results": false,
+  "items": [
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/197",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/197/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/197/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/197/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/197",
+      "id": 232659920,
+      "number": 197,
+      "title": "Remove `link \"CHTTPParser\"`",
+      "user": {
+        "login": "youming-lin",
+        "id": 19825876,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/19825876?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/youming-lin",
+        "html_url": "https://github.com/youming-lin",
+        "followers_url": "https://api.github.com/users/youming-lin/followers",
+        "following_url": "https://api.github.com/users/youming-lin/following{/other_user}",
+        "gists_url": "https://api.github.com/users/youming-lin/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/youming-lin/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/youming-lin/subscriptions",
+        "organizations_url": "https://api.github.com/users/youming-lin/orgs",
+        "repos_url": "https://api.github.com/users/youming-lin/repos",
+        "events_url": "https://api.github.com/users/youming-lin/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/youming-lin/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 3,
+      "created_at": "2017-05-31T18:48:16Z",
+      "updated_at": "2017-06-01T19:38:59Z",
+      "closed_at": "2017-06-01T19:38:56Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/197",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/197",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/197.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/197.patch"
+      },
+      "body": "<!--- Provide a general summary of your changes in the Title above -->\r\nRemove link statement\r\n\r\n## Description\r\n<!--- Describe your changes in detail -->\r\nRemove link statement\r\n\r\n## Motivation and Context\r\n<!--- Why is this change required? What problem does it solve? -->\r\n<!--- If it fixes an open issue, please link to the issue here. -->\r\nIBM-Swift/Kitura#1109\r\n\r\n## How Has This Been Tested?\r\n<!--- Please describe in detail how you tested your changes. -->\r\n<!--- Include details of your testing environment, and the tests you ran to -->\r\n<!--- see how your change affects other areas of the code, etc. -->\r\nTravis CI\r\n\r\n## Checklist:\r\n<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->\r\n<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.0083059
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/198",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/198/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/198/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/198/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/198",
+      "id": 235048865,
+      "number": 198,
+      "title": "Add support for TLS Application Level Protocol Negotiation (ALPN)",
+      "user": {
+        "login": "shmuelk",
+        "id": 16103068,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/16103068?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/shmuelk",
+        "html_url": "https://github.com/shmuelk",
+        "followers_url": "https://api.github.com/users/shmuelk/followers",
+        "following_url": "https://api.github.com/users/shmuelk/following{/other_user}",
+        "gists_url": "https://api.github.com/users/shmuelk/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/shmuelk/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/shmuelk/subscriptions",
+        "organizations_url": "https://api.github.com/users/shmuelk/orgs",
+        "repos_url": "https://api.github.com/users/shmuelk/repos",
+        "events_url": "https://api.github.com/users/shmuelk/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/shmuelk/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 3,
+      "created_at": "2017-06-11T07:23:47Z",
+      "updated_at": "2017-06-11T15:42:26Z",
+      "closed_at": "2017-06-11T15:42:23Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/198",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/198",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/198.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/198.patch"
+      },
+      "body": "## Description\r\nThe TLS (i.e. SSL) connection setup provides a way to negotiate the protocol to be used after the connection is made. HTTP/2 when used over secure connections (i.e. over TLS) uses this capability to immediately communicate over HTTP/2 without an initial HTTP/1.1 upgrade request.\r\n\r\nThis PR adds to Kitura-net ALPN support. Included is the registration of a way to register factory classes for creating IncomingSocketProcessor classes to process the socket as it initialiy connects to  Kitura-net.\r\n\r\n## Motivation and Context\r\nSupport HTTP/2 over secure connections.\r\n\r\n## How Has This Been Tested?\r\nThe Kitura-net unit tests have been run on Linux and macOS.\r\n\r\n## Checklist:\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.1338904
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/199",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/199/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/199/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/199/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/199",
+      "id": 235341382,
+      "number": 199,
+      "title": "Swift 4 support",
+      "user": {
+        "login": "quanvo87",
+        "id": 10929577,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/10929577?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/quanvo87",
+        "html_url": "https://github.com/quanvo87",
+        "followers_url": "https://api.github.com/users/quanvo87/followers",
+        "following_url": "https://api.github.com/users/quanvo87/following{/other_user}",
+        "gists_url": "https://api.github.com/users/quanvo87/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/quanvo87/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/quanvo87/subscriptions",
+        "organizations_url": "https://api.github.com/users/quanvo87/orgs",
+        "repos_url": "https://api.github.com/users/quanvo87/repos",
+        "events_url": "https://api.github.com/users/quanvo87/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/quanvo87/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-06-12T19:31:52Z",
+      "updated_at": "2017-06-15T18:01:56Z",
+      "closed_at": "2017-06-15T18:01:52Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/199",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/199",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/199.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/199.patch"
+      },
+      "body": "<!--- Provide a general summary of your changes in the Title above -->\r\n\r\n## Description\r\n<!--- Describe your changes in detail -->\r\n\r\n## Motivation and Context\r\n<!--- Why is this change required? What problem does it solve? -->\r\n<!--- If it fixes an open issue, please link to the issue here. -->\r\n\r\n## How Has This Been Tested?\r\n<!--- Please describe in detail how you tested your changes. -->\r\n<!--- Include details of your testing environment, and the tests you ran to -->\r\n<!--- see how your change affects other areas of the code, etc. -->\r\n\r\n## Checklist:\r\n<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->\r\n<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.1686682
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/200",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/200/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/200/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/200/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/200",
+      "id": 235549344,
+      "number": 200,
+      "title": "HTTP/2 Support in ClientRequest",
+      "user": {
+        "login": "ymesika",
+        "id": 26809068,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/26809068?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ymesika",
+        "html_url": "https://github.com/ymesika",
+        "followers_url": "https://api.github.com/users/ymesika/followers",
+        "following_url": "https://api.github.com/users/ymesika/following{/other_user}",
+        "gists_url": "https://api.github.com/users/ymesika/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/ymesika/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/ymesika/subscriptions",
+        "organizations_url": "https://api.github.com/users/ymesika/orgs",
+        "repos_url": "https://api.github.com/users/ymesika/repos",
+        "events_url": "https://api.github.com/users/ymesika/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/ymesika/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 3,
+      "created_at": "2017-06-13T13:12:47Z",
+      "updated_at": "2017-06-13T17:43:45Z",
+      "closed_at": "2017-06-13T17:43:45Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/200",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/200",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/200.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/200.patch"
+      },
+      "body": "## Description\r\nUpdates to the ClientRequest so that it can make a connection using HTTP/2 protocol.\r\n\r\n## Motivation and Context\r\nIn preparation for HTTP/2 support in Kitura we've created a test case that uses the ClientRequest to communicate with a server that supports HTTP/2.\r\nBefore these changes the communication has been done over HTTP/1.1 and we had to update the ClientRequest to be able to request over HTTP/2 and parse an upgrade response correctly.\r\n\r\n## How Has This Been Tested?\r\nRan the Kitura-net tests to make sure nothing broke.\r\nA set of additional tests a coming Kitura-HTTP2  package are testing the new functionality.\r\n\r\n## Checklist:\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.1628493
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/203",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/203/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/203/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/203/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/203",
+      "id": 236955341,
+      "number": 203,
+      "title": "IBM-Swift/Kitura#1122 Use weak reference, not unowned in IncomingSock…",
+      "user": {
+        "login": "na-gupta",
+        "id": 12917107,
+        "avatar_url": "https://avatars2.githubusercontent.com/u/12917107?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/na-gupta",
+        "html_url": "https://github.com/na-gupta",
+        "followers_url": "https://api.github.com/users/na-gupta/followers",
+        "following_url": "https://api.github.com/users/na-gupta/following{/other_user}",
+        "gists_url": "https://api.github.com/users/na-gupta/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/na-gupta/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/na-gupta/subscriptions",
+        "organizations_url": "https://api.github.com/users/na-gupta/orgs",
+        "repos_url": "https://api.github.com/users/na-gupta/repos",
+        "events_url": "https://api.github.com/users/na-gupta/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/na-gupta/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-06-19T16:55:13Z",
+      "updated_at": "2017-06-19T20:02:01Z",
+      "closed_at": "2017-06-19T20:01:51Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/203",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/203",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/203.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/203.patch"
+      },
+      "body": "<!--- Provide a general summary of your changes in the Title above -->\r\n\r\n## Description\r\nUse weak reference, not unowned in IncomingSocketManager async block as server could be stopped and socketManager deallocated before it is run.\r\n\r\n## Motivation and Context\r\n<!--- Why is this change required? What problem does it solve? -->\r\n<!--- If it fixes an open issue, please link to the issue here. -->\r\n\r\n## How Has This Been Tested?\r\n<!--- Please describe in detail how you tested your changes. -->\r\n<!--- Include details of your testing environment, and the tests you ran to -->\r\n<!--- see how your change affects other areas of the code, etc. -->\r\n\r\n## Checklist:\r\n<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->\r\n<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.2490379
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/205",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/205/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/205/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/205/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/205",
+      "id": 240702766,
+      "number": 205,
+      "title": "Add Xcode9 and 6-29 snapshot to travis IBM-Swift/Kitura#1121",
+      "user": {
+        "login": "quanvo87",
+        "id": 10929577,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/10929577?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/quanvo87",
+        "html_url": "https://github.com/quanvo87",
+        "followers_url": "https://api.github.com/users/quanvo87/followers",
+        "following_url": "https://api.github.com/users/quanvo87/following{/other_user}",
+        "gists_url": "https://api.github.com/users/quanvo87/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/quanvo87/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/quanvo87/subscriptions",
+        "organizations_url": "https://api.github.com/users/quanvo87/orgs",
+        "repos_url": "https://api.github.com/users/quanvo87/repos",
+        "events_url": "https://api.github.com/users/quanvo87/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/quanvo87/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-07-05T16:14:08Z",
+      "updated_at": "2017-07-05T20:08:37Z",
+      "closed_at": "2017-07-05T20:08:10Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/205",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/205",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/205.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/205.patch"
+      },
+      "body": "<!--- Provide a general summary of your changes in the Title above -->\r\n\r\n## Description\r\n<!--- Describe your changes in detail -->\r\n\r\n## Motivation and Context\r\n<!--- Why is this change required? What problem does it solve? -->\r\n<!--- If it fixes an open issue, please link to the issue here. -->\r\n\r\n## How Has This Been Tested?\r\n<!--- Please describe in detail how you tested your changes. -->\r\n<!--- Include details of your testing environment, and the tests you ran to -->\r\n<!--- see how your change affects other areas of the code, etc. -->\r\n\r\n## Checklist:\r\n<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->\r\n<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.5094708
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/206",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/206/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/206/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/206/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/206",
+      "id": 240936690,
+      "number": 206,
+      "title": "Select which queue to use at initialization time in IncomingSocketHandler",
+      "user": {
+        "login": "shmuelk",
+        "id": 16103068,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/16103068?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/shmuelk",
+        "html_url": "https://github.com/shmuelk",
+        "followers_url": "https://api.github.com/users/shmuelk/followers",
+        "following_url": "https://api.github.com/users/shmuelk/following{/other_user}",
+        "gists_url": "https://api.github.com/users/shmuelk/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/shmuelk/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/shmuelk/subscriptions",
+        "organizations_url": "https://api.github.com/users/shmuelk/orgs",
+        "repos_url": "https://api.github.com/users/shmuelk/repos",
+        "events_url": "https://api.github.com/users/shmuelk/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/shmuelk/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-07-06T12:13:47Z",
+      "updated_at": "2017-07-06T15:17:21Z",
+      "closed_at": "2017-07-06T15:17:17Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/206",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/206",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/206.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/206.patch"
+      },
+      "body": "## Description\r\nIncomingSocketHandler chooses a queue to use for a variety of purposes based on the file descriptor of its underlying socket. Instead of computing which queue to use dynamically, compute it once when an instance of IncomingSocketHandler is instantiated.\r\n\r\n## Motivation and Context\r\nAs shown in issue IBM-Swift/Kitura#1034 occasionally a socket gets closed and the IncomingSocketHandler is trying to process something. If it tries to compute the queue to use in such a situation, the code crashes, due to indexing an array with a value of -1. This change prevents the crash as the queue to use is computed when the socket is still open.\r\n\r\n## How Has This Been Tested?\r\n@djones6 attempted to recreate the crash and has failed when this fix is applied.\r\n\r\n## Checklist:\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.5243793
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/208",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/208/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/208/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/208/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/208",
+      "id": 243639581,
+      "number": 208,
+      "title": "Fix the build breaks as of late.",
+      "user": {
+        "login": "shmuelk",
+        "id": 16103068,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/16103068?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/shmuelk",
+        "html_url": "https://github.com/shmuelk",
+        "followers_url": "https://api.github.com/users/shmuelk/followers",
+        "following_url": "https://api.github.com/users/shmuelk/following{/other_user}",
+        "gists_url": "https://api.github.com/users/shmuelk/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/shmuelk/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/shmuelk/subscriptions",
+        "organizations_url": "https://api.github.com/users/shmuelk/orgs",
+        "repos_url": "https://api.github.com/users/shmuelk/repos",
+        "events_url": "https://api.github.com/users/shmuelk/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/shmuelk/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-07-18T08:33:43Z",
+      "updated_at": "2017-07-18T18:51:00Z",
+      "closed_at": "2017-07-18T18:50:49Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/208",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/208",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/208.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/208.patch"
+      },
+      "body": "## Description\r\n\r\nInsure that the IncomingSocketProcessor used by an IncomingSocketHandler has the back link to the IncomingSocketHandler initialized before the ReaderSource is resumed.\r\n\r\nAlso removed an unneeded back link to the InncomingSocketManager.\r\n\r\n## Motivation and Context\r\nFixes broken builds, by eliminating a timing window.\r\n\r\n## How Has This Been Tested?\r\nRan Kitura-net unit tests\r\n\r\n## Checklist:\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.7615541
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/210",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/210/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/210/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/210/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/210",
+      "id": 245112399,
+      "number": 210,
+      "title": "Replace explicit unwrapping with conditional unwrapping",
+      "user": {
+        "login": "shmuelk",
+        "id": 16103068,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/16103068?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/shmuelk",
+        "html_url": "https://github.com/shmuelk",
+        "followers_url": "https://api.github.com/users/shmuelk/followers",
+        "following_url": "https://api.github.com/users/shmuelk/following{/other_user}",
+        "gists_url": "https://api.github.com/users/shmuelk/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/shmuelk/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/shmuelk/subscriptions",
+        "organizations_url": "https://api.github.com/users/shmuelk/orgs",
+        "repos_url": "https://api.github.com/users/shmuelk/repos",
+        "events_url": "https://api.github.com/users/shmuelk/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/shmuelk/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 2,
+      "created_at": "2017-07-24T15:10:34Z",
+      "updated_at": "2017-07-25T12:59:34Z",
+      "closed_at": "2017-07-25T12:59:34Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/210",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/210",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/210.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/210.patch"
+      },
+      "body": "## Description\r\nThere is code in IncomingSocketManager that tests if a field is NOT nil and then proceeds to explicitly unwrap it. This turns out to be problematic as the field could be modified in another thread at the same time.\r\n\r\nThe code was changed to conditionally unwrap the field in question.\r\n\r\n## Motivation and Context\r\nFixes issue IBM-Swift/Kitura-net#209 \r\n\r\n## How Has This Been Tested?\r\nThe Kitura-net unit tests have been run. Although admittedly this is an intermittent failure.\r\n\r\n## Checklist:\r\n\r\n- [ ] I have submitted a [CLA form](https://github.com/IBM-Swift/CLA)\r\n- [ ] If applicable, I have updated the documentation accordingly.\r\n- [ ] If applicable, I have added tests to cover my changes.\r\n",
+      "score": 1.9061121
+    },
+    {
+      "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/211",
+      "repository_url": "https://api.github.com/repos/IBM-Swift/Kitura-net",
+      "labels_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/211/labels{/name}",
+      "comments_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/211/comments",
+      "events_url": "https://api.github.com/repos/IBM-Swift/Kitura-net/issues/211/events",
+      "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/211",
+      "id": 245420708,
+      "number": 211,
+      "title": "Temporary workaround for IBM-Swift/Kitura#1034",
+      "user": {
+        "login": "djones6",
+        "id": 17850918,
+        "avatar_url": "https://avatars0.githubusercontent.com/u/17850918?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/djones6",
+        "html_url": "https://github.com/djones6",
+        "followers_url": "https://api.github.com/users/djones6/followers",
+        "following_url": "https://api.github.com/users/djones6/following{/other_user}",
+        "gists_url": "https://api.github.com/users/djones6/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/djones6/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/djones6/subscriptions",
+        "organizations_url": "https://api.github.com/users/djones6/orgs",
+        "repos_url": "https://api.github.com/users/djones6/repos",
+        "events_url": "https://api.github.com/users/djones6/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/djones6/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+
+      ],
+      "milestone": null,
+      "comments": 1,
+      "created_at": "2017-07-25T14:29:04Z",
+      "updated_at": "2017-07-25T15:16:12Z",
+      "closed_at": "2017-07-25T15:16:12Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/IBM-Swift/Kitura-net/pulls/211",
+        "html_url": "https://github.com/IBM-Swift/Kitura-net/pull/211",
+        "diff_url": "https://github.com/IBM-Swift/Kitura-net/pull/211.diff",
+        "patch_url": "https://github.com/IBM-Swift/Kitura-net/pull/211.patch"
+      },
+      "body": "<!--- Provide a general summary of your changes in the Title above -->\r\n\r\n## Description\r\nThis PR introduces an unused variable as the first field of IncomingSocketHandler.  It is a temporary workaround for a rare crash under load while we continue to investigate the issue.\r\n\r\n## Motivation and Context\r\nThis change appears to prevent the second crash detailed in IBM-Swift/Kitura#1034 from occurring.  I believe that the crash is caused by corruption of an IncomingSocketHandler instance, possibly as consequence of a concurrency problem.  Adding a 'sacrificial' field that is not an Object (and thus not retained / released) seems to be sufficient to avoid this crash and has not (in the testing I have done) introduced any further consequences.\r\n\r\n## How Has This Been Tested?\r\nI ran the 'HelloMiddleware' benchmark a number of times.  It crashes around 5/6ths of the time without this change.  With it, I have not yet seen a crash.",
+      "score": 1.9219482
+    }
+  ]
+}
+
