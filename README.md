@@ -21,14 +21,14 @@ Note that each PR was categorized by hand, and contrived to fit in only one cate
 
 The categories I found were:
 
-* _CodeOrganization/CodeOrdering_: Fix involved moving code around in the same file.
-* _Counting_: Fix involved off-by-one changes, `NSRange`, `Array` bounds, etc.
-* _Encapsulation_: Fix involved moving code or passing information from the caller into the method called, or vice-versa.
-* _Logic(App)_: Fix appeared to involve logic errors that were specific to the domain knowledge of the application space.
-* _Memory_: Fix involved `unowned` or `weak`, breaking reference cycles or otherwise attempting to fix memory leaks.
-* _Naming_: Fix involved renaming things or calling methods (or accessing types) with a different but similar name.
-* _Performance_: For this category, the bug description usually mentioned speed or performance.
-* _Threading/GCD_: Multi-threading fixes. Fixes tended to include `Dispatch`, `Semaphore`, `Lock`, etc.
-* _Typing/Casting_: Fixes involving casting things from one type to another (e.g. `as? NSString`) or changing Types.
-* _Unwrapping/Optionals_: Fixes tended to involve `if let`, trailing `?`/`!` and or `nil`.
-* _Unclear_: Catch-all bucket for things that couldn't be easily and quickly categorized (at least by me).
+* _[CodeOrganization/CodeOrdering](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/CodeOrganization)_: Fix involved moving code around in the same file.
+* _[Counting](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Counting)_: Fix involved off-by-one changes, `NSRange`, `Array` bounds, etc.
+* _[Encapsulation](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Encapsulation)_: Fix involved moving code or passing information from the caller into the method called, or vice-versa.
+* _[Logic(App)](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Logic)_: Fix appeared to involve logic errors that were specific to the domain knowledge of the application space.
+* _[Memory](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Memory)_: Fix involved `unowned` or `weak`, breaking reference cycles or otherwise attempting to fix memory leaks.
+* _[Naming](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Naming)_: Fix involved renaming things or calling methods (or accessing types) with a different but similar name.
+* _[Performance](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Performance)_: For this category, the bug description usually mentioned speed or performance.
+* _[Threading/GCD](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Threading)_: Multi-threading fixes. Fixes tended to include `Dispatch`, `Semaphore`, `Lock`, etc.
+* _[Typing/Casting](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Typing)_: Fixes involving casting things from one type to another (e.g. `as? NSString`) or changing Types.
+* _[Unwrapping/Optionals](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Unwrapping)_: Fixes tended to involve `if let`, trailing `?`/`!` and or `nil`.
+* _[Unclear](https://github.com/carlbrown/SwiftPRInsights/tree/master/Classified/Unclear)_: Catch-all bucket for things that couldn't be easily and quickly categorized (at least by me).
