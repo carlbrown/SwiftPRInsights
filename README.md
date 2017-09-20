@@ -1,6 +1,6 @@
 # SwiftPRInsights
 
-Supporting data for my 2017 try!Swift NYC talk
+Supporting data for my [2017 try!Swift NYC](https://www.tryswift.co/events/2017/nyc/) [talk](https://github.com/carlbrown/SwiftPRInsights/tree/master/Presentation)
 
 These are excerpts from HTML files for Pull Requests for the following Swift language repos:
 
