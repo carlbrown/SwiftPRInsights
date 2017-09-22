@@ -4,16 +4,16 @@ Supporting data for [my talk](https://github.com/carlbrown/SwiftPRInsights/tree/
 
 These are excerpts from HTML files for Pull Requests for the following Swift language repos:
 
-* https://api.github.com/repos/Alamofire/Alamofire
-* https://api.github.com/repos/IBM-Swift/Kitura
-* https://api.github.com/repos/IBM-Swift/Kitura-net
-* https://api.github.com/repos/PerfectlySoft/Perfect
-* https://api.github.com/repos/SwiftyJSON/SwiftyJSON
-* https://api.github.com/repos/apple/swift
-* https://api.github.com/repos/apple/swift-corelibs-foundation
-* https://api.github.com/repos/danielgindi/Charts
-* https://api.github.com/repos/vapor/engine
-* https://api.github.com/repos/vapor/vapor
+* https://github.com/Alamofire/Alamofire
+* https://github.com/IBM-Swift/Kitura
+* https://github.com/IBM-Swift/Kitura-net
+* https://github.com/PerfectlySoft/Perfect
+* https://github.com/SwiftyJSON/SwiftyJSON
+* https://github.com/apple/swift
+* https://github.com/apple/swift-corelibs-foundation
+* https://github.com/danielgindi/Charts
+* https://github.com/vapor/engine
+* https://github.com/vapor/vapor
 
 Each PR is organized into one of 10 categories (plus an 'unclear' category for things that weren't easily categorizable). Note that the category is determined by *the nature of the _fix_* and not the nature of the bug (unless the PR description clearly indicated a category, e.g. mentioned Performance).  
 
